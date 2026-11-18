@@ -1,0 +1,114 @@
+docs/ticket-flow.md
+  s_b39736406709c7::t_d22bb5a477999b 1-88
+docs/DESIGN.md
+  s_b39736406709c7::t_937b4c3dc2d8e6 1-50
+CONTRIBUTING.md
+  s_b39736406709c7::t_67096bd8779691 1-31
+.github/PULL_REQUEST_TEMPLATE.md
+  s_b39736406709c7::t_48c2b45e5925bf 1-14
+scripts/build_diagram.py
+  s_b39736406709c7::t_19fa270cb33a53 1-145
+skills/adit-workflow-verify-before-pr/SKILL.md
+  s_b39736406709c7::t_04d372c9ae4d68 1-73
+skills.json
+  s_b39736406709c7::t_112c65153b36de 1-72
+.gitignore
+  s_b39736406709c7::t_1dcc6ce6de6c30 1-7
+claude-md/codex.md
+  s_b39736406709c7::t_9614412ca41a6b 1-9
+install.py
+  s_b39736406709c7::t_fdca4e73a37be9 1-63,73-156,158-170,172-194,196-209,211-416
+  s_b39736406709c7::t_3f55137cbc3cdd 64-72,157,171,195,210
+README.md
+  s_b39736406709c7::t_bcf78dfa011b40 1-129
+CHANGELOG.md
+  s_b39736406709c7::t_59e8e8dc622cf2 1-16
+.github/ISSUE_TEMPLATE/bug_report.yml
+  s_b39736406709c7::t_1539727f3df729 1-28
+claude-md/ticket-flow.md
+  s_b39736406709c7::t_d37adc4cd85977 1-55
+docs/troubleshooting.md
+  s_b39736406709c7::t_bb64a4dcef88b7 1-22
+.github/workflows/ci.yml
+  s_b39736406709c7::t_b1ad289d34ba4b 1-49
+deps.json
+  s_b39736406709c7::t_e9fd7aae80a383 1-57
+INSTALL.md
+  s_b39736406709c7::t_5575b94d8c652d 1-59
+skills/adit-workflow-low-hanging-fruit/SKILL.md
+  s_b39736406709c7::t_04d372c9ae4d68 1-55
+assets/dependency-graph.svg
+  s_b39736406709c7::t_2c793c7184f678 1-175
+docs/compatibility.md
+  s_b39736406709c7::t_cb9cbb9ce46904 1-36
+AGENTS.md
+  s_b39736406709c7::t_5833cbfd03de91 1-10
+NOTICE.md
+  s_b39736406709c7::t_b8e1c87ee7747c 1-13
+.github/CODEOWNERS
+  s_b39736406709c7::t_2b7ee7a2ef2a55 1
+VERSION
+  s_b39736406709c7::t_127dcfe691c908 1
+tests/test_install.py
+  s_b39736406709c7::t_831820e14dfac1 1-110
+CLAUDE.md
+  s_b39736406709c7::t_d9741d14a5fd0f 1
+hooks/ticket-flow-gate.py
+  s_b39736406709c7::t_24ba021b47b03f 1-131
+hooks/ticket-slots.py
+  s_b39736406709c7::t_92fe45cf5384d1 1-220
+skills/adit-workflow-audit-review-code/SKILL.md
+  s_b39736406709c7::t_27b1dbfa4241de 1-31
+skills/adit-workflow-check-slot-bliblimobileios/SKILL.md
+  s_b39736406709c7::t_ccc0a74d219375 1-20
+skills/adit-workflow-check-slot-bliblimobileios/check_slot.py
+  s_b39736406709c7::t_0774e0189e2347 1-158
+skills/adit-workflow-check-slot-bliblimobileios/test_check_slot.py
+  s_b39736406709c7::t_a980cb760f8a16 1-25
+skills/adit-workflow-generate-plan-from-ticket/SKILL.md
+  s_b39736406709c7::t_858e062e4afa3b 1-175
+skills/adit-workflow-graphify/.graphify_version
+  s_b39736406709c7::t_88969d407958e6 1
+skills/adit-workflow-graphify/SKILL.md
+  s_b39736406709c7::t_eb42fcf5b2a4c9 1-798
+skills/adit-workflow-graphify/references/add-watch.md
+  s_b39736406709c7::t_a2a4f5ae413c78 1-56
+skills/adit-workflow-graphify/references/exports.md
+  s_b39736406709c7::t_091851c1416e2d 1-91
+skills/adit-workflow-graphify/references/extraction-spec.md
+  s_b39736406709c7::t_50e7341604e65d 1-86
+skills/adit-workflow-graphify/references/github-and-merge.md
+  s_b39736406709c7::t_e8a207466b8ae8 1-46
+skills/adit-workflow-graphify/references/hooks.md
+  s_b39736406709c7::t_569cd1f0063c64 1-48
+skills/adit-workflow-graphify/references/query.md
+  s_b39736406709c7::t_f976c33713022c 1-319
+skills/adit-workflow-graphify/references/transcribe.md
+  s_b39736406709c7::t_4c6fffbf5f370e 1-52
+skills/adit-workflow-graphify/references/update.md
+  s_b39736406709c7::t_c80ce34de5b0cf 1-231
+skills/adit-workflow-plan-enrich/SKILL.md
+  s_b39736406709c7::t_dc6971e6b9bac8 1-52
+skills/adit-workflow-pr-reply/SKILL.md
+  s_b39736406709c7::t_61973b2fd830aa 1-76
+skills/adit-workflow-pr-reply/pr-threads.sh
+  s_b39736406709c7::t_25ea6bf6b089eb 1-60
+skills/adit-workflow-review-pr-blibli-mobile-ios/SKILL.md
+  s_b39736406709c7::t_dbd5ae9cd6a967 1-145
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "f388305bb6b576fdcbe58aa7e263add6139c2172",
+  "prompts": {},
+  "sessions": {
+    "s_b39736406709c7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9dd919e1-8974-4769-9f7b-f6adcedeea40",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "aditya.h <aditya.h@gdn-commerce.com>"
+    }
+  }
+}
