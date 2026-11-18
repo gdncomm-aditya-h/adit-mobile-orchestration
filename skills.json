@@ -1,0 +1,72 @@
+{
+  "_comment": "One entry per skill. codex: ok = no Claude-only tooling, experimental = needs a plugin or tool Codex may lack, claude-only = needs plan mode, session tools or the hook gate. company: true = names Blibli repos, Jira or the iOS app.",
+  "skills": [
+    {
+      "name": "adit-workflow-plan-enrich",
+      "summary": "Adds DoD traceability, test cases and a reviewer pass to a draft plan, then saves it.",
+      "codex": "claude-only",
+      "company": true,
+      "calls": ["jira-plan", "jira-develop", "localization", "figma-mcp", "ecc:planner"]
+    },
+    {
+      "name": "adit-workflow-verify-before-pr",
+      "summary": "Gate before the PR: lint, build, tests, simulator click tests, design and copy checks.",
+      "codex": "claude-only",
+      "company": true,
+      "calls": ["adit-workflow-plan-enrich", "adit-workflow-audit-review-code", "mobileapps-ios:swift-codegen", "mobileapps-ios:swiftui-code-gen", "mobileapps-ios:swiftui-architect", "mobileapps-ios:swift-review", "create-pr"]
+    },
+    {
+      "name": "adit-workflow-audit-review-code",
+      "summary": "Runs an audit loop and a review loop over the current changes and fixes what they find.",
+      "codex": "experimental",
+      "company": false,
+      "calls": ["ponytail:ponytail-audit", "ponytail:ponytail-review"]
+    },
+    {
+      "name": "adit-workflow-generate-plan-from-ticket",
+      "summary": "Turns a ticket into a reviewed plan with risks and test cases. Never implements.",
+      "codex": "ok",
+      "company": true,
+      "calls": []
+    },
+    {
+      "name": "adit-workflow-pr-reply",
+      "summary": "Triages unresolved PR review threads, fixes the real ones and replies to the rest.",
+      "codex": "experimental",
+      "company": true,
+      "calls": ["superpowers:receiving-code-review", "mobileapps-ios:swift-codegen", "caveman:caveman"]
+    },
+    {
+      "name": "adit-workflow-review-pr-blibli-mobile-ios",
+      "summary": "Batch-reviews open PRs in the iOS repo and remembers what it already reviewed.",
+      "codex": "experimental",
+      "company": true,
+      "calls": ["ecc:swift-reviewer", "ecc:security-reviewer", "code-review"]
+    },
+    {
+      "name": "adit-workflow-check-slot-bliblimobileios",
+      "summary": "Read-only health table for the three worktree slots.",
+      "codex": "ok",
+      "company": true,
+      "calls": []
+    },
+    {
+      "name": "adit-workflow-low-hanging-fruit",
+      "summary": "Ranks your open IOS tickets from easiest to hardest.",
+      "codex": "ok",
+      "company": true,
+      "calls": []
+    },
+    {
+      "name": "adit-workflow-graphify",
+      "summary": "Builds a knowledge graph of a codebase and answers architecture questions from it.",
+      "codex": "ok",
+      "company": false,
+      "calls": []
+    }
+  ],
+  "hooks": [
+    { "file": "ticket-flow-gate.py", "summary": "Blocks commit, push and PR creation for a ticket until it is verified.", "codex": "claude-only" },
+    { "file": "ticket-slots.py", "summary": "Manages the pool of three worktrees with their own simulators.", "codex": "ok" }
+  ]
+}

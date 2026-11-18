@@ -1,0 +1,49 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+
+      - name: Installer tests
+        run: python3 -m unittest discover -s tests -v
+
+      - name: check-slot tests
+        run: python3 -m unittest discover -s skills/adit-workflow-check-slot-bliblimobileios -v
+
+      - name: Hooks compile
+        run: python3 -m py_compile hooks/*.py install.py scripts/*.py
+
+      - name: JSON files parse
+        run: |
+          python3 - <<'PY'
+          import json
+          for f in ("deps.json", "skills.json"):
+              json.load(open(f))
+          PY
+
+      - name: Diagram is up to date
+        run: |
+          python3 scripts/build_diagram.py
+          git diff --exit-code assets/dependency-graph.svg
+
+      - name: No secrets or personal IDs
+        run: |
+          if grep -rnE 'Skillrack|athies\.d|712020:|ghp_[A-Za-z0-9]{20,}|xox[bp]-[A-Za-z0-9-]{10,}|AKIA[0-9A-Z]{16}|BEGIN (RSA|OPENSSH|EC) PRIVATE KEY' . --exclude-dir=.git --exclude=ci.yml; then
+            echo "Found something that looks like a secret or a personal ID"; exit 1
+          fi
+
+      - name: Docs have no em dashes
+        run: |
+          if grep -n '—' README.md INSTALL.md AGENTS.md CONTRIBUTING.md CHANGELOG.md NOTICE.md docs/*.md; then
+            echo "Replace em dashes in the docs"; exit 1
+          fi

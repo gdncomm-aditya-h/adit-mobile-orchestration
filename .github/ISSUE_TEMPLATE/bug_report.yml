@@ -1,0 +1,28 @@
+name: Bug report
+description: Something in the install, a skill or a hook did not work
+labels: [bug]
+body:
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Agent
+      options: [Claude Code, Codex]
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The contents of the VERSION file, or the commit you installed
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you ran, what you expected and what you got
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Output of `python3 install.py doctor`
+      render: text
