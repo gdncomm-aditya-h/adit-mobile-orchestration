@@ -1,0 +1,37 @@
+skills/adit-workflow-check-slot-bliblimobileios/check_slot.py
+  s_f2bda154d4b915::t_3619bbb7c61a1d 12
+hooks/ticket-slots.py
+  s_f2bda154d4b915::t_3619bbb7c61a1d 2,27
+README.md
+  s_f2bda154d4b915::t_3619bbb7c61a1d 47,56
+claude-md/ticket-flow.md
+  s_f2bda154d4b915::t_3619bbb7c61a1d 18,23,54
+scripts/build_diagram.py
+  s_f2bda154d4b915::t_3619bbb7c61a1d 44
+docs/ticket-flow.md
+  s_f2bda154d4b915::t_3619bbb7c61a1d 43,45
+docs/troubleshooting.md
+  s_f2bda154d4b915::t_3619bbb7c61a1d 14
+skills/adit-workflow-check-slot-bliblimobileios/SKILL.md
+  s_f2bda154d4b915::t_3619bbb7c61a1d 3
+skills.json
+  s_f2bda154d4b915::t_3619bbb7c61a1d 48,70
+assets/dependency-graph.svg
+  s_f2bda154d4b915::t_3619bbb7c61a1d 169
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "cd36d5d01df197661ab8a8884ca5bcd85930d5e3",
+  "prompts": {},
+  "sessions": {
+    "s_f2bda154d4b915": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fcc1ece8-5cda-43d2-acc8-f581632c5ece",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "aditya.h <aditya.h@gdn-commerce.com>"
+    }
+  }
+}
