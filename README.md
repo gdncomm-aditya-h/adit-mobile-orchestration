@@ -44,7 +44,7 @@ The installer needs only Python 3.8 or newer. It writes a backup of every file i
 | [generate-plan-from-ticket](skills/adit-workflow-generate-plan-from-ticket/SKILL.md) | Turns a ticket into a reviewed plan with risks and test cases. It never implements anything. | Claude, Codex |
 | [pr-reply](skills/adit-workflow-pr-reply/SKILL.md) | Triages unresolved review threads, fixes the real issues, replies to the rest and resolves what it can. | Claude, Codex (experimental) |
 | [review-pr-blibli-mobile-ios](skills/adit-workflow-review-pr-blibli-mobile-ios/SKILL.md) | Reviews the open PRs in the iOS repo one by one and remembers which commits it already saw. | Claude, Codex (experimental) |
-| [check-slot-bliblimobileios](skills/adit-workflow-check-slot-bliblimobileios/SKILL.md) | Prints a read-only health table for the three worktree slots. | Claude, Codex |
+| [check-slot-bliblimobileios](skills/adit-workflow-check-slot-bliblimobileios/SKILL.md) | Prints a read-only health table for the four worktree slots. | Claude, Codex |
 | [low-hanging-fruit](skills/adit-workflow-low-hanging-fruit/SKILL.md) | Ranks your open IOS tickets from easiest to hardest. | Claude, Codex |
 | [graphify](skills/adit-workflow-graphify/SKILL.md) | Builds a knowledge graph of a codebase and answers architecture questions from it. | Claude, Codex |
 
@@ -53,7 +53,7 @@ Every skill name starts with `adit-workflow-`, so `plan-enrich` is invoked as `/
 The two hooks:
 
 - `ticket-flow-gate.py` blocks `git commit`, `git push` and PR creation for an active ticket until `verify-before-pr` has marked it verified. It also refuses `git stash`, `reset`, `rebase` and `merge` during a ticket run.
-- `ticket-slots.py` manages a pool of three long-lived worktrees. Each keeps its own DerivedData, Swift packages and simulator, so a new ticket builds incrementally.
+- `ticket-slots.py` manages a pool of four long-lived worktrees. Each keeps its own DerivedData, Swift packages and simulator, so a new ticket builds incrementally.
 
 ## How a ticket runs
 

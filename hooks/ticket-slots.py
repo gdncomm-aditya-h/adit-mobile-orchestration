@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ticket slot pool: a fixed set of long-lived worktrees (slot-a, slot-b, slot-c), each with its own
+"""Ticket slot pool: a fixed set of long-lived worktrees (slot-a through slot-d), each with its own
 in-tree DerivedData, Swift packages and simulator, so a new ticket gets an incremental build, not a cold one.
 
   ticket-slots.py acquire <KEY> --type <type> --base <branch> [--branch <name>]   (run in any checkout of the repo)
@@ -24,7 +24,7 @@ import sys
 import time
 from pathlib import Path
 
-SLOTS = os.environ.get("TICKET_SLOTS", "abc")  # pool size = number of letters
+SLOTS = os.environ.get("TICKET_SLOTS", "abcd")  # pool size = number of letters
 RUNTIME = "com.apple.CoreSimulator.SimRuntime.iOS-26-5"
 DEVICE = "com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro"
 APP = "BlibliMobile-iOS"

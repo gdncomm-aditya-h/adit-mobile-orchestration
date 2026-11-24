@@ -45,7 +45,7 @@
     },
     {
       "name": "adit-workflow-check-slot-bliblimobileios",
-      "summary": "Read-only health table for the three worktree slots.",
+      "summary": "Read-only health table for the four worktree slots.",
       "codex": "ok",
       "company": true,
       "calls": []
@@ -67,6 +67,6 @@
   ],
   "hooks": [
     { "file": "ticket-flow-gate.py", "summary": "Blocks commit, push and PR creation for a ticket until it is verified.", "codex": "claude-only" },
-    { "file": "ticket-slots.py", "summary": "Manages the pool of three worktrees with their own simulators.", "codex": "ok" }
+    { "file": "ticket-slots.py", "summary": "Manages the pool of four worktrees with their own simulators.", "codex": "ok" }
   ]
 }

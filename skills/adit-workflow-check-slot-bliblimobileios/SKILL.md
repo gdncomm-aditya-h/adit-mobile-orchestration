@@ -1,6 +1,6 @@
 ---
 name: adit-workflow-check-slot-bliblimobileios
-description: Read-only health table for the BlibliIOSApp worktree slots (slot-a, slot-b, slot-c). Use when asked to check slots, slot status, which slot is free, slot DerivedData, last built, or which ticket a slot held.
+description: Read-only health table for the BlibliIOSApp worktree slots (slot-a, slot-b, slot-c, slot-d). Use when asked to check slots, slot status, which slot is free, slot DerivedData, last built, or which ticket a slot held.
 ---
 
 # Check BlibliIOSApp slots

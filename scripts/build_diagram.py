@@ -41,7 +41,7 @@ PLATFORM = {
 }
 BOTTOM = [
     ("ticket-flow-gate.py", "PreToolUse hook. Blocks commit, push", "and PR creation until verified."),
-    ("ticket-slots.py", "Three long-lived worktrees,", "one simulator and DerivedData each."),
+    ("ticket-slots.py", "Four long-lived worktrees,", "one simulator and DerivedData each."),
     ("CLAUDE.md block", "Autonomous ticket-flow rules,", "written between marker comments."),
 ]
 

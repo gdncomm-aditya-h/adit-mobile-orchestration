@@ -9,7 +9,7 @@ import sys
 import time
 from pathlib import Path
 
-SLOTS = os.environ.get("TICKET_SLOTS", "abc")
+SLOTS = os.environ.get("TICKET_SLOTS", "abcd")
 APP = "BlibliMobile-iOS"
 STALE_HOURS = 24
 COLS = ["Slot", "Status", "Ticket", "Branch", "Last used", "Last built",

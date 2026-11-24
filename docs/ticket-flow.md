@@ -40,9 +40,9 @@ The plan approval is the one planned stop. After you approve, Claude moves the s
 
 ### 2. Slot and branch
 
-Claude takes one of three worktree slots with `ticket-slots.py acquire`. The helper creates the branch `<prefix>/<type>/<KEY>`, where the type comes from the Jira issue type (`bugfix`, `techdebt`, `chores`, `improvement`, `story` and so on). It also writes the DerivedData setting, downloads Swift packages only when the package list changed, and finds or creates the slot's simulator.
+Claude takes one of four worktree slots with `ticket-slots.py acquire`. The helper creates the branch `<prefix>/<type>/<KEY>`, where the type comes from the Jira issue type (`bugfix`, `techdebt`, `chores`, `improvement`, `story` and so on). It also writes the DerivedData setting, downloads Swift packages only when the package list changed, and finds or creates the slot's simulator.
 
-If all three slots are busy, Claude stops and shows you which tickets hold them.
+If all four slots are busy, Claude stops and shows you which tickets hold them.
 
 ### 3. Implement and review
 
