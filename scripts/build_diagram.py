@@ -9,30 +9,38 @@ from xml.sax.saxutils import escape
 OUT = Path(__file__).resolve().parent.parent / "assets" / "dependency-graph.svg"
 
 # (skill, summary, platform, plugin-skill lines, script/tool lines)
+P = "ios-orchestration-"
 ROWS = [
-    ("verify-before-pr", "Gate before the PR", "claude",
-     ["mobileapps-ios: swift-codegen, swiftui-code-gen,", "swiftui-architect, swift-review", "mobileapps-foundation: create-pr"],
-     ["ticket-flow-gate.py, ticket-slots.py", "xcodebuild, swiftlint", "iOS Simulator MCP"]),
-    ("plan-enrich", "DoD, test cases, reviewer pass", "claude",
-     ["team skills: jira-plan, jira-develop", "mobileapps-foundation: localization, figma-mcp", "ecc: planner"],
-     ["ticket-flow-gate.py", "Jira MCP, Figma MCP"]),
-    ("audit-review-code", "Audit loop, then review loop", "experimental",
-     ["ponytail: ponytail-audit, ponytail-review"],
+    (P + "ticket-to-pr", "Entry, owns the whole flow", "claude",
+     ["mobileapps-ios: swift-codegen, swiftui-code-gen,", "swiftui-architect, add-api, tdd", "mobileapps-foundation: create-pr, localization"],
+     ["ticket_gate.py, ticket_slots.py", "EnterPlanMode, Jira MCP, gh"]),
+    (P + "flow-config", "Repo, branch prefix, Jira project", "ok",
+     [], ["config.json, gh repo view"]),
+    (P + "flow-doctor", "Quick health check", "ok",
+     [], ["repo_profile.py", "gh auth, Jira MCP"]),
+    (P + "enrich-plan", "DoD, test cases, reviewer pass", "claude",
+     ["mobileapps-foundation: localization, figma-mcp,", "repo-index", "superpowers: brainstorming  ecc: planner"],
+     ["ticket_gate.py mark-active", "Jira MCP, Figma MCP"]),
+    (P + "audit-changes", "Audit loop, then review loop", "experimental",
+     ["ponytail: ponytail-audit, ponytail-review", "ecc: code-reviewer (fallback)"],
      ["git"]),
-    ("pr-reply", "Answer PR review threads", "experimental",
-     ["superpowers: receiving-code-review", "mobileapps-ios: swift-codegen", "caveman: caveman"],
+    (P + "verify-ticket", "Results only, gate before PR", "claude",
+     ["mobileapps-ios: run-tests"],
+     ["ticket_gate.py mark-verified", "xcodebuild, swiftlint", "iOS Simulator MCP (app client)"]),
+    (P + "sdk-inject-test", "Optional SDK test in the app", "ok",
+     [], ["ticket_slots.py (warm app slot)", "never pushed, report only"]),
+    (P + "ticket-status", "Slot and gate health, clear markers", "ok",
+     [], ["ticket_slots.py status", "ticket_gate.py"]),
+    (P + "reply-pr-comments", "Answer PR review threads", "experimental",
+     ["superpowers: receiving-code-review", "mobileapps-ios: swift-codegen"],
      ["pr-threads.sh", "gh api, Jira MCP"]),
-    ("review-pr-blibli-mobile-ios", "Batch PR review", "experimental",
+    (P + "review-open-prs", "Batch PR review, any repo", "experimental",
      ["ecc: swift-reviewer, security-reviewer", "code-review"],
      ["gh api, gh pr"]),
-    ("generate-plan-from-ticket", "Ticket to reviewed plan", "ok",
+    (P + "plan-from-ticket", "Ticket to reviewed plan", "ok",
      [], ["Jira MCP, gh pr"]),
-    ("check-slot-bliblimobileios", "Worktree slot health", "ok",
-     [], ["check_slot.py", "reads ticket-slots.py state"]),
-    ("low-hanging-fruit", "Rank your open IOS tickets", "ok",
+    (P + "rank-my-tickets", "Rank your open tickets", "ok",
      [], ["Jira MCP (JQL search)"]),
-    ("graphify", "Codebase knowledge graph", "ok",
-     [], ["graphify CLI", "subagents"]),
 ]
 PLATFORM = {
     "ok": ("teal", "Claude and Codex"),
@@ -40,9 +48,9 @@ PLATFORM = {
     "claude": ("gray", "Claude only"),
 }
 BOTTOM = [
-    ("ticket-flow-gate.py", "PreToolUse hook. Blocks commit, push", "and PR creation until verified."),
-    ("ticket-slots.py", "Four long-lived worktrees,", "one simulator and DerivedData each."),
-    ("CLAUDE.md block", "Autonomous ticket-flow rules,", "written between marker comments."),
+    ("ticket_gate.py", "PreToolUse hook. Blocks commit, push", "and PR creation until verified."),
+    ("ticket_slots.py", "Four warm slots for BlibliIOSApp,", "one simulator and DerivedData each."),
+    ("hooks.json", "Plugin hooks, passive until a", "ticket arms the gate."),
 ]
 
 CSS = """
@@ -80,18 +88,19 @@ def t(x, y, s, cls, extra=""):
 
 
 def build():
-    W, H = 1000, 1040
-    a_x, a_w, b_x, b_w, c_x, c_w = 64, 250, 364, 330, 722, 240
+    W = 1000
+    H = 136 + len(ROWS) * 82 + 28 + 128 + 24
+    a_x, a_w, b_x, b_w, c_x, c_w = 64, 300, 384, 322, 722, 240
     y0, pitch, h = 136, 82, 66
     o = ['<svg xmlns="http://www.w3.org/2000/svg" width="%d" height="%d" viewBox="0 0 %d %d" role="img">' % (W, H, W, H),
-         "<title>adit-mobile-orchestration dependency graph</title>",
-         "<desc>Nine adit-workflow skills, the plugin skills and tools each one calls, and the hooks and rules installed with them.</desc>",
+         "<title>ios-orchestration dependency graph (target design)</title>",
+         "<desc>Twelve ios-orchestration skills, the plugin skills and tools each one calls, and the hooks that ship with them. Target design.</desc>",
          "<style>%s</style>" % CSS,
          '<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#7f8790" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>'
          '<marker id="ph" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#7f77dd" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>',
          '<rect width="%d" height="%d" fill="var(--bg)" rx="12"/>' % (W, H),
-         t(40, 46, "adit-mobile-orchestration", "title"),
-         t(40, 68, "Nine skills, two hooks and one rules block that take a Jira ticket to a verified draft PR", "sub")]
+         t(40, 46, "ios-orchestration", "title"),
+         t(40, 68, "Twelve skills and plugin hooks that take a Jira ticket to a verified draft PR (target design, not yet released)", "sub")]
     # legend
     lx = 40
     for dot, label in (("var(--ok)", "Claude and Codex"), ("var(--ex)", "Codex experimental"), ("var(--co)", "Claude only")):
@@ -99,12 +108,12 @@ def build():
         o.append(t(lx + 16, 94, label, "p"))
         lx += 16 + len(label) * 6 + 22
     o.append('<line x1="%d" y1="90" x2="%d" y2="90" class="call" marker-end="url(#ph)"/>' % (lx, lx + 26))
-    o.append(t(lx + 34, 94, "calls another adit skill", "p"))
-    for x, label in ((a_x, "Skills (adit-workflow-*)"), (b_x, "Plugin skills they call"), (c_x, "Scripts and tools")):
+    o.append(t(lx + 34, 94, "calls another ios-orchestration skill", "p"))
+    for x, label in ((a_x, "Skills (ios-orchestration-*)"), (b_x, "Plugin skills they call"), (c_x, "Scripts and tools")):
         o.append(t(x, 122, label, "col"))
     yc = lambda i: y0 + i * pitch + h // 2
-    o.append('<path d="M%d %d H46 V%d H%d" class="call" marker-end="url(#ph)"/>' % (a_x, yc(0), yc(1), a_x - 2))
-    o.append('<path d="M%d %d H28 V%d H%d" class="call" marker-end="url(#ph)"/>' % (a_x, yc(0), yc(2), a_x - 2))
+    o.append('<path d="M%d %d H46 V%d H%d" class="call" marker-end="url(#ph)"/>' % (a_x, yc(0), yc(3), a_x - 2))
+    o.append('<path d="M%d %d H28 V%d H%d" class="call" marker-end="url(#ph)"/>' % (a_x, yc(0), yc(5), a_x - 2))
     for i, (name, summary, plat, plug, tools) in enumerate(ROWS):
         y = y0 + i * pitch
         color, label = PLATFORM[plat]
@@ -127,7 +136,7 @@ def build():
                 o.append(t(x + 14, y + h // 2 + 4, empty, "m"))
     by = y0 + len(ROWS) * pitch + 28
     o.append('<rect x="40" y="%d" width="%d" height="128" rx="10" class="card-n"/>' % (by, W - 80))
-    o.append(t(58, by + 24, "Installed alongside the skills", "col"))
+    o.append(t(58, by + 24, "Ships with the skills", "col"))
     bw = (W - 80 - 36 - 2 * 16) // 3
     for i, (title, l1, l2) in enumerate(BOTTOM):
         x = 58 + i * (bw + 16)

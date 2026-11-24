@@ -10,7 +10,17 @@ A set of Claude Code skills, two hooks and one rules block that take an iOS tick
 
 The repo also holds the install tooling, so you can hand this link to Claude or Codex and let it set everything up.
 
-![Dependency graph of the nine skills, the plugin skills they call, and the hooks installed with them](assets/dependency-graph.svg)
+## Target design
+
+The skills in this repo are being moved into the `mobileapps-ios` plugin of `gdncomm/agent-plugins` as `ios-orchestration-*` skills. The two images below show that target design. It is not yet released. **The skills in this repo keep their old names** (`adit-workflow-*`) and the text below still describes them.
+
+![Dependency graph of the twelve ios-orchestration skills, the plugin skills they call, and the hooks that ship with them. Target design, not yet released.](assets/dependency-graph.svg)
+
+*Dependency graph: target design, not yet released.*
+
+![Ticket to PR flow in the target design, from implement KEY to a draft PR, with the three gate states and the CLI versus app branch. Target design, not yet released.](assets/ticket-to-pr-workflow.png)
+
+*Ticket to PR flow: target design, not yet released. Regenerate with `python3 scripts/build_flow_diagram.py` and `python3 scripts/build_diagram.py`.*
 
 ## Install
 
@@ -115,7 +125,7 @@ skills.json       the skill list, with Codex support and what each skill calls
 skills/           the nine skills
 hooks/            ticket-flow-gate.py and ticket-slots.py
 claude-md/        the rules block written into CLAUDE.md and AGENTS.md
-assets/           the dependency graph, built by scripts/build_diagram.py
+assets/           target-design images, built by scripts/build_diagram.py and scripts/build_flow_diagram.py
 docs/             ticket flow, compatibility, troubleshooting, design notes
 tests/            installer tests
 ```
