@@ -1,0 +1,21 @@
+scripts/build_flow_diagram.py
+  s_e7d93bf4c7579c::t_d7cd86cd7ba870 94-97
+assets/ticket-to-pr-workflow.svg
+  s_e7d93bf4c7579c::t_2ee68ea564dcae 1,36,38-48,51-54,62-71,147-151,153-297
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "bb5b34029d13010ffb29ac82388bedeebd7a7dc1",
+  "prompts": {},
+  "sessions": {
+    "s_e7d93bf4c7579c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e787efbf-08c0-47ed-8421-96e40f6ee097",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "aditya.h <aditya.h@gdn-commerce.com>"
+    }
+  }
+}
