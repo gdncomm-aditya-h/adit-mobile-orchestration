@@ -16,7 +16,9 @@ sequenceDiagram
     participant GH as GitHub
 
     You->>Claude: /ios-orchestration-ticket-to-pr IOS-123
-    Claude->>Claude: preflight, repo, Jira key, repo profile
+    Claude->>You: which repo? which version?
+    You-->>Claude: confirm both
+    Claude->>Claude: preflight, Jira key, repo profile, base branch
     Claude->>Jira: read ticket (a Bug moves to Initial Review)
     Claude->>Claude: plan mode, brainstorm
     Claude->>Claude: plan-from-ticket drafts the plan, enrich-plan enriches it
@@ -32,6 +34,9 @@ sequenceDiagram
     Claude->>GH: commit, push, open draft PR
     Claude->>Jira: evidence comment
     Claude->>Slot: release
+    Claude->>GH: pr-watch polls in the background
+    GH-->>Claude: comments, CI failure, conflicts, merged
+    Claude->>Jira: wrap-up after merge
 ```
 
 ## Stages
@@ -40,7 +45,7 @@ sequenceDiagram
 
 Claude runs a quiet preflight first. It prints nothing when the machine is ready, and prints a blocker when a tool the skill needs is missing. Tool results are cached for 24 hours, so you never have to run `flow-doctor` first.
 
-It then settles three things. The repo is the one you pass with `--repo`, else the checkout you are in, else your saved default, and if that is not clear it asks once with `gdncomm/BlibliIOSApp` as the default. The Jira key is the first `[A-Z]+-\d+` in the argument, and if it is missing or ambiguous Claude asks for the ticket URL. The repo profile, app or package, is detected from the files and confirmed with you once if it is not recognised.
+The first thing it does, before anything else runs, is ask which repo you are working on. The recommended answer is the one you pass with `--repo`, else the checkout you are in, else your saved default, else `gdncomm/BlibliIOSApp`, and it asks even when you passed `--repo`. It then settles three more things. The Jira key is the first `[A-Z]+-\d+` in the argument, and if it is missing or ambiguous Claude asks for the ticket URL. The repo profile, app or package, is detected from the files and confirmed with you once if it is not recognised. The base branch comes from a second question, which version the ticket is for. Claude reads the ticket's Fix Version, maps `X.Y.Z` to `release/vX.Y.Z`, and recommends that branch when it exists on `origin`, else the `--base` you passed, else the repo's default branch. A branch that does not exist is refused.
 
 It also detects whether it runs in the desktop app or in the terminal. The terminal has no simulator tool, so click tests become a manual run there.
 
@@ -48,7 +53,7 @@ It also detects whether it runs in the desktop app or in the terminal. The termi
 
 Claude enters plan mode and does read-only work. It reads the ticket, compares two or three approaches and picks one. `plan-from-ticket` then explores the code with a subagent, asks only about gaps that block the plan, and writes the draft: decisions and assumptions, a helicopter view, before and after, steps, risks and leftovers. It never implements. `enrich-plan` then adds the rest: DoD traceability, test cases, click test cases for app repos, design and copy references, and a reviewer pass. The only write allowed here is the Jira move to Initial Review for a Bug.
 
-The plan approval is the one planned stop. After you approve, the desktop app switches the session to auto mode. In the terminal you press Shift+Tab.
+The planned stops are three one-click confirmations: the repo, the version and the plan approval. After you approve, the desktop app switches the session to auto mode. In the terminal you press Shift+Tab.
 
 ### 3. Ticket status
 
@@ -72,6 +77,8 @@ Claude implements from the one approved plan. Swift edits go through `swift-code
 
 - An app repo gets lint, build, the unit suites named in the plan, the UI tests named in the plan, click tests in the slot's simulator, a design comparison and a wording check against the copy sheet. The design comparison is advisory and cannot fail the gate alone.
 - A package repo gets a build and test on the package scheme, then lint.
+- The test target must compile. A target that does not compile is a failed check, never a skipped one. After two fix rounds the gate waits for your written override reason, and the PR carries the label `tests-unverified` and the reason.
+- Before any credential is typed, Claude reads the environment name from the app screen, says it, and keeps the screenshot. If it is not `uatb` it switches it. If it cannot switch or find the indicator, it asks you once.
 - If nothing can be built, it runs the checks that need no build and waits for your written override reason. The PR then carries the label `build-unverified`.
 
 When every check passes it marks the ticket verified. Two failed fix rounds on lint, build or tests count as a blocker.
@@ -82,7 +89,15 @@ For an SDK or library repo, Claude asks whether to test the change inside the la
 
 ### 8. Draft PR and release
 
-`create-pr` opens the PR as a draft. Claude then posts the PR link, the result table and the evidence as a Jira comment, clears the gate and releases the slot. It never marks the PR ready and never merges.
+`create-pr` opens the PR as a draft. Claude then posts the PR link, the result table and the evidence as a Jira comment, clears the gate and releases the slot. It never marks the PR ready and never merges. With `--doc` it first runs `publish-doc`, which shows a draft Confluence page (context, plan and test cases) and publishes it only after you say yes.
+
+### 9. Watching the PR
+
+After the release, `ticket-to-pr` starts `pr-watch` in the background. A shell script polls GitHub with `gh` and `jq` and spends no model tokens while it waits. It stops and wakes the session on the first of: merged, closed, merge conflicts, a failed check, unresolved review threads, or the PR marked ready. Comments go to `reply-pr-comments`. A failed check caused by the change is fixed, at most two rounds, and a flaky one is re-run once. Conflicts are synced with `origin/<base>`, and real conflicts stop and ask you. The watcher gives up after eight hours and can be started again with `/ios-orchestration-pr-watch <PR>`.
+
+### 10. After the merge
+
+`wrap-up` runs when the watcher reports a merge. It checks the PR is really merged, then moves the ticket to Code Review for a Bug or Dev Testing for any other type, clears the gate, releases the slot if it is still held, and archives the saved plan.
 
 ## What stops the run
 
@@ -110,6 +125,8 @@ While a ticket is armed the hook watches `Bash` and the GitHub PR tools.
 | `git commit` with files changed since verification | denied | denied |
 | PR create through the GitHub tool | denied | allowed as draft only |
 | PR merge | denied | denied |
+| `gh pr create` without `--draft`, or with `--draft=false` | denied | denied |
+| `gh pr ready`, or the GraphQL `markPullRequestReadyForReview`, except `gh pr ready --undo` | denied | denied |
 | `git stash`, `reset`, `cherry-pick` | denied | denied |
 | `git merge` or `rebase` of `origin/...`, or `--continue` and `--abort` | allowed | allowed |
 | any other `git merge` or `rebase` | denied | denied |
@@ -121,7 +138,7 @@ The hook only acts on a branch whose name contains an armed ticket key, and an a
 
 The first real run was ticket IOS-44407, which ended in [BlibliIOSApp#3512](https://github.com/gdncomm/BlibliIOSApp/pull/3512). It produced the right branch, title, labels and a Jira comment, and it showed these gaps.
 
-- The gate allows `gh pr ready` once verified, and `gh pr create` does not require `--draft`. "Never mark ready" is only skill text. The PR was marked ready 35 minutes after it was created, and it is not known whether a person or the agent did it.
-- The unit tests could not run because the test target does not compile on `develop`. The flow carried on instead of asking for an override reason.
-- The `uatb` environment was not confirmed before the click tests, and no screenshots or recording were attached to the Jira comment although two click tests ran.
+- The gate allowed `gh pr ready` once verified, and `gh pr create` did not require `--draft`. The PR was marked ready 35 minutes after it was created, and it is not known whether a person or the agent did it. Fixed in the review: the gate now requires `--draft`, denies `--draft=false` and denies marking ready, including through GraphQL.
+- The unit tests could not run because the test target does not compile on `develop`. The flow carried on instead of asking for an override reason. Fixed in the review: a test target that does not compile now needs an override reason and the `tests-unverified` label.
+- The `uatb` environment was not confirmed before the click tests. Fixed in the review: the environment is read from the screen and confirmed first. No screenshots or recording were attached to the Jira comment although two click tests ran, and that one is still open.
 - The PR says the simulator build was unsigned and was ad-hoc signed afterwards. The skill says to use normal signing.

@@ -10,14 +10,14 @@ Ticket-to-PR automation for the Blibli iOS team. A person gives it a Jira ticket
 
 There are two versions of it, and this repo describes both.
 
-- The team version is a set of twelve `ios-orchestration-*` skills and a gate hook inside the `mobileapps-ios` plugin of `gdncomm/agent-plugins`. It is in review as [agent-plugins#595](https://github.com/gdncomm/agent-plugins/pull/595) and is not released yet.
+- The team version is a set of fifteen `ios-orchestration-*` skills and a gate hook inside the `mobileapps-ios` plugin of `gdncomm/agent-plugins`. It is in review as [agent-plugins#595](https://github.com/gdncomm/agent-plugins/pull/595) and is not released yet.
 - The original version is what this repo ships today: nine `adit-workflow-*` skills, two hooks, a rules block and an installer. It still installs, but its ticket flow can no longer run end to end. See [Status](#status).
 
 The rest of this page describes the team version first, then the original install.
 
 ## The flow in two pictures
 
-![Dependency graph of the twelve ios-orchestration skills, the plugin skills they call, and the hooks that ship with them. In review as agent-plugins#595.](assets/dependency-graph.svg)
+![Dependency graph of the fifteen ios-orchestration skills, the plugin skills they call, and the hooks that ship with them. In review as agent-plugins#595.](assets/dependency-graph.svg)
 
 *Dependency graph of the team version. In review, not released yet.*
 
@@ -27,11 +27,11 @@ The rest of this page describes the team version first, then the original instal
 
 ## What you get in the team version
 
-Start it with `/ios-orchestration-ticket-to-pr IOS-123`. Add `--repo owner/repo` for another repo and `--base branch` for another base branch. Every skill is named `ios-orchestration-` plus the short name below.
+Start it with `/ios-orchestration-ticket-to-pr IOS-123`. It always asks which repo first and then which version, and the base branch is the ticket's `release/v<Fix Version>` when that branch exists, else the repo's default branch. `--repo owner/repo` and `--base branch` only preselect the recommended answer. Add `--doc` to also publish a Confluence page. Every skill is named `ios-orchestration-` plus the short name below.
 
 | Skill | What it does |
 |---|---|
-| `ticket-to-pr` | The whole flow: repo and key, plan mode with one approval, worktree, implement with the codegen skills, audit, verify, optional SDK test, draft PR, Jira evidence comment, release. |
+| `ticket-to-pr` | The whole flow: repo and version questions, plan mode with one approval, worktree, implement with the codegen skills, audit, verify, optional SDK test, draft PR, Jira evidence comment, release, then the PR watcher. |
 | `enrich-plan` | Adds DoD traceability, test cases, click tests, design and wording references and a reviewer pass to a draft plan, then saves it and arms the gate. |
 | `verify-ticket` | App repos get lint, build, unit and UI tests, simulator click tests, design and wording checks. Package repos get build and test on the package scheme. It arms the verified marker. |
 | `audit-changes` | Runs an audit loop and then a review loop over the current changes and fixes the must-fix and should-fix findings. |
@@ -41,12 +41,15 @@ Start it with `/ios-orchestration-ticket-to-pr IOS-123`. Add `--repo owner/repo`
 | `reply-pr-comments` | Triages unresolved review threads on a PR, fixes the real issues, replies and resolves. |
 | `rank-my-tickets` | Ranks your open tickets from easiest to hardest. Read-only. |
 | `ticket-status` | Shows the armed gates and the worktree slot table. Read-only. |
+| `pr-watch` | Babysits the draft PR with a background script (`gh` and `jq`, no model cost while it polls). It wakes the session on merged, closed, conflicts, CI failure, unresolved comments or marked ready, and routes each one. `ticket-to-pr` starts it. |
+| `wrap-up` | After the merge: moves the Jira ticket (Bug to Code Review, other types to Dev Testing), releases the slot, clears the gate and archives the plan. |
+| `publish-doc` | Puts the ticket context, the plan and the test cases into one Confluence page for QA and links it on the ticket. It asks before publishing, and `ticket-to-pr --doc` runs it. |
 | `flow-config` | Shows or changes the saved repo, branch prefix, Jira project, slot counts and repo profile. |
 | `flow-doctor` | Full check of tools, `gh` login, Xcode, simulator runtime, settings and which optional tools this client has. The other skills run a quiet cached version of it first. |
 
 The team version works on any iOS repo the team uses. The default is `gdncomm/BlibliIOSApp`, and any `owner/repo` is accepted and checked with `gh repo view`. It runs in Claude Code, in the terminal and in the desktop app. Click tests need the desktop app, because the simulator tool is not available in the terminal. In the terminal they are recorded as needing a manual run.
 
-The gate hook is `ticket_gate.py`. It does nothing until a ticket is armed, and then it blocks `git commit`, `git push` and PR creation until `verify-ticket` passes.
+The gate hook is `ticket_gate.py`. It does nothing until a ticket is armed, and then it blocks `git commit`, `git push` and PR creation until `verify-ticket` passes. It also requires `--draft` on `gh pr create` (`--draft=false` is denied) and denies marking a PR ready, by `gh pr ready` or by the GraphQL mutation.
 
 ### How the names changed
 
@@ -63,13 +66,14 @@ The gate hook is `ticket_gate.py`. It does nothing until a ticket is armed, and 
 | `adit-workflow-low-hanging-fruit` | `ios-orchestration-rank-my-tickets` |
 | `adit-workflow-graphify` | not moved |
 | `jira-implement`, `jira-plan`, `jira-develop` | no longer in the marketplace (`jira-implement` was removed in October), so `ticket-to-pr` now does those steps itself |
-| new | `flow-config`, `flow-doctor`, `sdk-inject-test` |
+| new | `flow-config`, `flow-doctor`, `sdk-inject-test`, `pr-watch`, `wrap-up`, `publish-doc` |
 
 ## How a ticket runs
 
 ```mermaid
 flowchart TD
-    A["/ios-orchestration-ticket-to-pr IOS-123"] --> P["Preflight, repo and Jira key, repo profile"]
+    A["/ios-orchestration-ticket-to-pr IOS-123"] --> Q["Ask which repo, then which version"]
+    Q --> P["Preflight, Jira key, repo profile, base branch"]
     P --> B["Plan mode: read ticket, brainstorm"]
     B --> B2["Draft the plan with plan-from-ticket"]
     B2 --> B3["Enrich it with enrich-plan"]
@@ -83,6 +87,8 @@ flowchart TD
     I --> J{"Every check passes?"}
     J -- yes --> K["Optional: test the SDK inside BlibliIOSApp develop"]
     K --> L["Draft PR and Jira evidence comment, slot released"]
+    L --> W["pr-watch in the background: comments, CI, conflicts"]
+    W --> X["Merged: wrap-up moves the ticket and clears up"]
     J -- "no, after 2 rounds" --> M["Stop and ask you"]
 ```
 
@@ -172,7 +178,7 @@ The skills call skills from other plugins. `install.py` adds these through the `
 | mobileapps-ios | gdncomm/agent-plugins (private) | 1.9.0 | jira-implement, swift-codegen, swiftui-code-gen, swift-review |
 | mobileapps-foundation | gdncomm/agent-plugins (private) | 1.12.0 | create-pr, localization, figma-mcp |
 
-You also need `gh` signed in, and for the ticket flow, Xcode and `swiftlint`. `deps.json` is the machine-readable version of this table. The team version needs `mobileapps-ios` 1.11.0 or newer and `mobileapps-foundation`, and treats superpowers, ponytail and ecc as optional.
+You also need `gh` signed in, and for the ticket flow, Xcode and `swiftlint`. `deps.json` is the machine-readable version of this table. The team version needs `mobileapps-ios` 1.11.0 or newer and `mobileapps-foundation`, and treats superpowers, ponytail and ecc as optional. The PR watcher also needs `jq`.
 
 ### Configure
 
@@ -208,7 +214,7 @@ tests/            installer tests
 
 This repo is version 0.1.0 and it is for the Blibli iOS team.
 
-The team version is in review as agent-plugins#595. It has been smoke-tested in the Claude Code desktop app, where an armed branch denied a commit. It has had one real run, ticket IOS-44407, which ended in [BlibliIOSApp#3512](https://github.com/gdncomm/BlibliIOSApp/pull/3512). It has not been tried in the terminal. The first run showed gaps, which are listed in [docs/ticket-flow.md](docs/ticket-flow.md).
+The team version is in review as agent-plugins#595. It has been smoke-tested in the Claude Code desktop app, where an armed branch denied a commit. It has had one real run, ticket IOS-44407, which ended in [BlibliIOSApp#3512](https://github.com/gdncomm/BlibliIOSApp/pull/3512). It has not been tried in the terminal. The first run showed gaps. The review has since closed three of them (draft PRs enforced, a test target that does not compile needs an override reason, the `uatb` environment is confirmed before login), and [docs/ticket-flow.md](docs/ticket-flow.md) lists what is left. The PR watcher, wrap-up and Confluence publish have unit tests or no tests only, and have not run on a real ticket.
 
 The original version still installs, but its ticket flow calls `jira-implement`, `jira-plan` and `jira-develop`. `jira-implement` was removed from `mobileapps-ios` in agent-plugins#493, and the other two are no longer in the marketplace either. Its other skills still work. It gets no new features.
 

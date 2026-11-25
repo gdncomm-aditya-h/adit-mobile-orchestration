@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Docs and diagrams follow agent-plugins#595 as it stands now: fifteen skills, the repo and version questions, release branches as the base, draft-only PRs enforced by the gate, the tests-must-compile override, `uatb` confirmed before login, and the new `pr-watch`, `wrap-up` and `publish-doc` skills.
 - The worktree slot pool grew from three to four slots.
 - Added the target-design diagram of the team version, `scripts/build_flow_diagram.py`, and rebuilt the dependency graph.
 - README and docs now describe the team version first: the twelve `ios-orchestration-*` skills in the `mobileapps-ios` plugin (agent-plugins#595, in review), the flow, repo profiles, settings, and the first real run with its gaps.

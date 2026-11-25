@@ -78,8 +78,19 @@ The installer version only worked for one person's machine layout, and its flow 
 - The branch prefix is a setting asked on first run, and defaults to the engineer's `gh` login instead of the author's prefix.
 - The design check in `verify-ticket` is advisory, because it is a visual comparison and not a pixel diff.
 
+### Added after the first run and the team meeting
+
+- The flow always asks which repo first, before anything else runs, and then which version. The team works on release branches, so the base is the ticket's `release/v<Fix Version>` when it exists, not always `develop`. This adds two one-click stops, and the recommended answers keep each to a click.
+- The gate closes the draft gaps: `--draft` is required, `--draft=false` and the GraphQL ready mutation are denied.
+- A test target that does not compile is a failed check with its own override (`tests-unverified`), and the `uatb` environment is confirmed from the screen before login.
+- `pr-watch` babysits the draft PR with a background shell script, because polling with `gh` costs no model tokens. It was written from the documented behaviour of the jira-implement-v2 watcher, not copied.
+- `wrap-up` handles the post-merge Jira move and cleanup. `publish-doc` puts context, plan and test cases into Confluence, and runs only with `--doc` so the flow gets no extra question.
+- The context file for new sessions is not built yet. It stays on the machine under `~/.claude/ios-ticket-flow/`, and the Confluence page is the copy teammates can read.
+- The jira-implement-v2 prompt hook can fire next to this flow, so it should be off for engineers who use this one.
+
 ### Open items
 
 - The team version has not been run in the terminal, and its gate has not been smoke-tested there.
-- The first real run found four gaps, listed in [ticket-flow.md](ticket-flow.md). None is fixed yet.
+- Of the first run's gaps, the unsigned simulator build and the missing screenshots in the Jira comment are still open.
+- `pr-watch`, `wrap-up` and `publish-doc` have not run on a real ticket. The watcher has unit tests against a fake `gh`.
 - This repo keeps the original skills and installer unchanged. Decide whether to archive them once the plugin is released.

@@ -41,6 +41,12 @@ ROWS = [
      ["mobileapps-foundation: repo-index"], ["Explore subagent", "Jira MCP, gh"]),
     (P + "rank-my-tickets", "Rank your open tickets", "claude",
      [], ["Jira MCP (JQL search)"]),
+    (P + "pr-watch", "Background PR babysitter", "claude",
+     [], ["pr_watch.sh (gh, jq), no model cost", "calls reply-pr-comments, wrap-up"]),
+    (P + "wrap-up", "After merge: Jira move, cleanup", "claude",
+     [], ["ticket_slots.py release, ticket_gate.py clear", "Jira MCP, gh"]),
+    (P + "publish-doc", "Confluence page: context, plan, tests", "claude",
+     ["mobileapps-foundation: jira-doc-generator"], ["Atlassian MCP (asks before publishing)"]),
 ]
 PLATFORM = {
     "claude": ("gray", "Claude Code only"),
@@ -92,7 +98,7 @@ def build():
     y0, pitch, h = 136, 82, 66
     o = ['<svg xmlns="http://www.w3.org/2000/svg" width="%d" height="%d" viewBox="0 0 %d %d" role="img">' % (W, H, W, H),
          "<title>ios-orchestration dependency graph (in review)</title>",
-         "<desc>Twelve ios-orchestration skills, the plugin skills and tools each one calls, and the hooks that ship with them. In review as agent-plugins#595, not released.</desc>",
+         "<desc>Fifteen ios-orchestration skills, the plugin skills and tools each one calls, and the hooks that ship with them. In review as agent-plugins#595, not released.</desc>",
          "<style>%s</style>" % CSS,
          '<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#7f8790" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>'
          '<marker id="ph" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#7f77dd" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>',
