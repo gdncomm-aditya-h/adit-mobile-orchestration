@@ -1,0 +1,38 @@
+scripts/build_diagram.py
+  s_e7d93bf4c7579c::t_f411e47f3859fe 46
+  s_e7d93bf4c7579c::t_c2cbec7b22c474 15,17,19,22,24,30,32,34,37-38,40-42
+  s_e7d93bf4c7579c::t_0b0fca2d4ae9a1 94-95,101,104,113-116
+scripts/build_flow_diagram.py
+  s_e7d93bf4c7579c::t_c2cbec7b22c474 85-90,93-95
+assets/dependency-graph.svg
+  s_e7d93bf4c7579c::t_0b0fca2d4ae9a1 2-3,35-39,43-47
+  s_e7d93bf4c7579c::t_f411e47f3859fe 52,67,78,90,103,115,128,140,152,165,177,189
+  s_e7d93bf4c7579c::t_c2cbec7b22c474 56-59,66,77,94-95,102,127,139,151,164,169-170,175-176,180-181,183-184,188
+assets/ticket-to-pr-workflow.svg
+  s_e7d93bf4c7579c::t_c2cbec7b22c474 1,36,38-54,60-72,127-131,134-307
+README.md
+  s_e7d93bf4c7579c::t_504a88b2594747 148
+  s_e7d93bf4c7579c::t_a5ebbf2fa34656 39,59,73-76
+CHANGELOG.md
+  s_e7d93bf4c7579c::t_b0294737fcb290 10
+docs/DESIGN.md
+  s_e7d93bf4c7579c::t_1c2e0b29043635 60
+docs/ticket-flow.md
+  s_e7d93bf4c7579c::t_627a77f344b453 21-22,49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "bb2456ad7a533992554ec00a6383d9fbbf75549e",
+  "prompts": {},
+  "sessions": {
+    "s_e7d93bf4c7579c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e787efbf-08c0-47ed-8421-96e40f6ee097",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "aditya.h <aditya.h@gdn-commerce.com>"
+    }
+  }
+}
