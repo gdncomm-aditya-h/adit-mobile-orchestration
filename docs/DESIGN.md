@@ -57,7 +57,7 @@ The installer version only worked for one person's machine layout, and its flow 
 
 - The trigger is an entry skill, `ios-orchestration-ticket-to-pr`, plus plugin hooks. A plugin cannot ship `CLAUDE.md` text, so the rules moved into the skill and the gate hook moved into the plugin's `hooks.json`. Nothing is written into a global file any more.
 - Every skill is named `ios-orchestration-<name>`. Skills call each other by that full name, so the plugin can move without edits.
-- The entry skill now owns the steps `jira-implement`, `jira-plan` and `jira-develop` used to do.
+- The entry skill now owns the steps `jira-implement`, `jira-plan` and `jira-develop` used to do. The drafting step that `jira-plan` provided is now `plan-from-ticket`, reworked so it explores the code, writes only the first part of the plan in the flow and never implements, and `enrich-plan` adds the rest.
 - Settings live in `~/.claude/ios-ticket-flow/config.json`, which is the source of truth. It is named for the feature, not for the plugin, so a later move does not break it.
 
 ### Decisions

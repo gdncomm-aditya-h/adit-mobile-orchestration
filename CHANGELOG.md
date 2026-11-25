@@ -7,6 +7,7 @@
 - README and docs now describe the team version first: the twelve `ios-orchestration-*` skills in the `mobileapps-ios` plugin (agent-plugins#595, in review), the flow, repo profiles, settings, and the first real run with its gaps.
 - The original version is marked as such. Its ticket flow can no longer run end to end, because `jira-implement`, `jira-plan` and `jira-develop` were removed from `mobileapps-ios`.
 - Design notes record the move from the installer to the plugin and the calls made on the way.
+- Diagrams show `plan-from-ticket` as the drafting step of the flow, `ticket-to-pr` calling its five steps, and every skill as Claude Code only.
 
 ## 0.1.0
 

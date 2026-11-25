@@ -12,40 +12,38 @@ OUT = Path(__file__).resolve().parent.parent / "assets" / "dependency-graph.svg"
 P = "ios-orchestration-"
 ROWS = [
     (P + "ticket-to-pr", "Entry, owns the whole flow", "claude",
-     ["mobileapps-ios: swift-codegen, swiftui-code-gen,", "swiftui-architect, add-api, tdd", "mobileapps-foundation: create-pr, localization"],
+     ["mobileapps-ios: swift-codegen, swiftui-code-gen,", "swiftui-architect, add-api, tdd", "mobileapps-foundation: create-pr, localization", "superpowers: brainstorming"],
      ["ticket_gate.py, ticket_slots.py", "EnterPlanMode, Jira MCP, gh"]),
-    (P + "flow-config", "Repo, branch prefix, Jira project", "ok",
+    (P + "flow-config", "Repo, branch prefix, Jira project", "claude",
      [], ["config.json, gh repo view"]),
-    (P + "flow-doctor", "Quick health check", "ok",
+    (P + "flow-doctor", "Quick health check", "claude",
      [], ["repo_profile.py", "gh auth, Jira MCP"]),
     (P + "enrich-plan", "DoD, test cases, reviewer pass", "claude",
-     ["mobileapps-foundation: localization, figma-mcp,", "repo-index", "superpowers: brainstorming  ecc: planner"],
+     ["mobileapps-foundation: localization, figma-mcp", "ecc: planner (reviewer pass)"],
      ["ticket_gate.py mark-active", "Jira MCP, Figma MCP"]),
-    (P + "audit-changes", "Audit loop, then review loop", "experimental",
+    (P + "audit-changes", "Audit loop, then review loop", "claude",
      ["ponytail: ponytail-audit, ponytail-review", "ecc: code-reviewer (fallback)"],
      ["git"]),
     (P + "verify-ticket", "Results only, gate before PR", "claude",
      ["mobileapps-ios: run-tests"],
      ["ticket_gate.py mark-verified", "xcodebuild, swiftlint", "iOS Simulator MCP (app client)"]),
-    (P + "sdk-inject-test", "Optional SDK test in the app", "ok",
+    (P + "sdk-inject-test", "Optional SDK test in the app", "claude",
      [], ["ticket_slots.py (warm app slot)", "never pushed, report only"]),
-    (P + "ticket-status", "Slot and gate health, clear markers", "ok",
+    (P + "ticket-status", "Slot and gate health, clear markers", "claude",
      [], ["ticket_slots.py status", "ticket_gate.py"]),
-    (P + "reply-pr-comments", "Answer PR review threads", "experimental",
+    (P + "reply-pr-comments", "Answer PR review threads", "claude",
      ["superpowers: receiving-code-review", "mobileapps-ios: swift-codegen"],
      ["pr-threads.sh", "gh api, Jira MCP"]),
-    (P + "review-open-prs", "Batch PR review, any repo", "experimental",
-     ["ecc: swift-reviewer, security-reviewer", "code-review"],
+    (P + "review-open-prs", "Batch PR review, any repo", "claude",
+     ["mobileapps-ios: swift-review (local checkout)", "ecc: swift-reviewer, security-reviewer"],
      ["gh api, gh pr"]),
-    (P + "plan-from-ticket", "Ticket to reviewed plan", "ok",
-     [], ["Jira MCP, gh pr"]),
-    (P + "rank-my-tickets", "Rank your open tickets", "ok",
+    (P + "plan-from-ticket", "Draft step: explore and plan", "claude",
+     ["mobileapps-foundation: repo-index"], ["Explore subagent", "Jira MCP, gh"]),
+    (P + "rank-my-tickets", "Rank your open tickets", "claude",
      [], ["Jira MCP (JQL search)"]),
 ]
 PLATFORM = {
-    "ok": ("teal", "Claude and Codex"),
-    "experimental": ("amber", "Claude, Codex experimental"),
-    "claude": ("gray", "Claude only"),
+    "claude": ("gray", "Claude Code only"),
 }
 BOTTOM = [
     ("ticket_gate.py", "PreToolUse hook. Blocks commit, push", "and PR creation until verified."),
@@ -93,17 +91,17 @@ def build():
     a_x, a_w, b_x, b_w, c_x, c_w = 64, 300, 384, 322, 722, 240
     y0, pitch, h = 136, 82, 66
     o = ['<svg xmlns="http://www.w3.org/2000/svg" width="%d" height="%d" viewBox="0 0 %d %d" role="img">' % (W, H, W, H),
-         "<title>ios-orchestration dependency graph (target design)</title>",
-         "<desc>Twelve ios-orchestration skills, the plugin skills and tools each one calls, and the hooks that ship with them. Target design.</desc>",
+         "<title>ios-orchestration dependency graph (in review)</title>",
+         "<desc>Twelve ios-orchestration skills, the plugin skills and tools each one calls, and the hooks that ship with them. In review as agent-plugins#595, not released.</desc>",
          "<style>%s</style>" % CSS,
          '<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#7f8790" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>'
          '<marker id="ph" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#7f77dd" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>',
          '<rect width="%d" height="%d" fill="var(--bg)" rx="12"/>' % (W, H),
          t(40, 46, "ios-orchestration", "title"),
-         t(40, 68, "Twelve skills and plugin hooks that take a Jira ticket to a verified draft PR (target design, not yet released)", "sub")]
+         t(40, 68, "Twelve skills and plugin hooks that take a Jira ticket to a verified draft PR (in review as agent-plugins#595, not released)", "sub")]
     # legend
     lx = 40
-    for dot, label in (("var(--ok)", "Claude and Codex"), ("var(--ex)", "Codex experimental"), ("var(--co)", "Claude only")):
+    for dot, label in (("var(--co)", "Claude Code only"),):
         o.append('<circle cx="%d" cy="90" r="4.5" fill="%s"/>' % (lx + 5, dot))
         o.append(t(lx + 16, 94, label, "p"))
         lx += 16 + len(label) * 6 + 22
@@ -112,8 +110,10 @@ def build():
     for x, label in ((a_x, "Skills (ios-orchestration-*)"), (b_x, "Plugin skills they call"), (c_x, "Scripts and tools")):
         o.append(t(x, 122, label, "col"))
     yc = lambda i: y0 + i * pitch + h // 2
-    o.append('<path d="M%d %d H46 V%d H%d" class="call" marker-end="url(#ph)"/>' % (a_x, yc(0), yc(3), a_x - 2))
-    o.append('<path d="M%d %d H28 V%d H%d" class="call" marker-end="url(#ph)"/>' % (a_x, yc(0), yc(5), a_x - 2))
+    # ticket-to-pr (row 0) calls these steps; the farthest target gets the leftmost line so the lines never cross
+    steps = [i for i, row in enumerate(ROWS) if row[0].endswith(("plan-from-ticket", "enrich-plan", "audit-changes", "verify-ticket", "sdk-inject-test"))]
+    for k, i in enumerate(sorted(steps, reverse=True)):
+        o.append('<path d="M%d %d H%d V%d H%d" class="call" marker-end="url(#ph)"/>' % (a_x, yc(0), 14 + 9 * k, yc(i), a_x - 2))
     for i, (name, summary, plat, plug, tools) in enumerate(ROWS):
         y = y0 + i * pitch
         color, label = PLATFORM[plat]

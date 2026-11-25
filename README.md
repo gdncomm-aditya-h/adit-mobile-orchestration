@@ -36,7 +36,7 @@ Start it with `/ios-orchestration-ticket-to-pr IOS-123`. Add `--repo owner/repo`
 | `verify-ticket` | App repos get lint, build, unit and UI tests, simulator click tests, design and wording checks. Package repos get build and test on the package scheme. It arms the verified marker. |
 | `audit-changes` | Runs an audit loop and then a review loop over the current changes and fixes the must-fix and should-fix findings. |
 | `sdk-inject-test` | Optional. Tests an SDK change inside the latest `develop` of `BlibliIOSApp`, either by injecting it and building with a warm slot or by printing the steps. It reports compile errors only. |
-| `plan-from-ticket` | Turns a ticket into a reviewed plan with risks and test cases. It never implements. |
+| `plan-from-ticket` | Explores the code with a subagent and drafts a reviewed plan from a ticket: helicopter view, before and after, steps and risks. `ticket-to-pr` uses it as the drafting step in plan mode. It also runs on its own, and it never implements. |
 | `review-open-prs` | Reviews the open PRs of a repo one by one. It comments only, unless you pass `--approve`, and it skips your own PRs. |
 | `reply-pr-comments` | Triages unresolved review threads on a PR, fixes the real issues, replies and resolves. |
 | `rank-my-tickets` | Ranks your open tickets from easiest to hardest. Read-only. |
@@ -56,7 +56,7 @@ The gate hook is `ticket_gate.py`. It does nothing until a ticket is armed, and 
 | `adit-workflow-plan-enrich` | `ios-orchestration-enrich-plan` |
 | `adit-workflow-verify-before-pr` | `ios-orchestration-verify-ticket`, which no longer opens the PR or posts to Jira |
 | `adit-workflow-audit-review-code` | `ios-orchestration-audit-changes` |
-| `adit-workflow-generate-plan-from-ticket` | `ios-orchestration-plan-from-ticket` |
+| `adit-workflow-generate-plan-from-ticket` | `ios-orchestration-plan-from-ticket`, now the draft step of the flow, without its old implementation step |
 | `adit-workflow-pr-reply` | `ios-orchestration-reply-pr-comments` |
 | `adit-workflow-review-pr-blibli-mobile-ios` | `ios-orchestration-review-open-prs`, for any repo |
 | `adit-workflow-check-slot-bliblimobileios` | `ios-orchestration-ticket-status` |
@@ -70,8 +70,10 @@ The gate hook is `ticket_gate.py`. It does nothing until a ticket is armed, and 
 ```mermaid
 flowchart TD
     A["/ios-orchestration-ticket-to-pr IOS-123"] --> P["Preflight, repo and Jira key, repo profile"]
-    P --> B["Plan mode: read ticket, brainstorm, draft plan with enrich-plan"]
-    B --> C{"You approve the plan"}
+    P --> B["Plan mode: read ticket, brainstorm"]
+    B --> B2["Draft the plan with plan-from-ticket"]
+    B2 --> B3["Enrich it with enrich-plan"]
+    B3 --> C{"You approve the plan"}
     C --> D["Move ticket to In Development, or In Progress for a Bug"]
     D --> E["Take a worktree slot for an app repo, or a plain worktree for a package repo"]
     E --> F["enrich-plan saves the plan, gate hook turns on"]
@@ -143,7 +145,7 @@ The installer needs only Python 3.8 or newer. It writes a backup of every file i
 | [plan-enrich](skills/adit-workflow-plan-enrich/SKILL.md) | Adds DoD traceability, test cases, design and copy references, and a reviewer pass to a draft plan, then saves it. | Claude |
 | [verify-before-pr](skills/adit-workflow-verify-before-pr/SKILL.md) | Runs lint, build, unit and UI tests, drives click tests in the simulator, checks design and copy, then opens the draft PR. | Claude |
 | [audit-review-code](skills/adit-workflow-audit-review-code/SKILL.md) | Runs an audit loop and then a review loop over your current changes and fixes what they find. | Claude, Codex (experimental) |
-| [generate-plan-from-ticket](skills/adit-workflow-generate-plan-from-ticket/SKILL.md) | Turns a ticket into a reviewed plan with risks and test cases. It never implements anything. | Claude, Codex |
+| [generate-plan-from-ticket](skills/adit-workflow-generate-plan-from-ticket/SKILL.md) | Turns a ticket into a reviewed plan with risks and test cases, then implements only after you approve. | Claude, Codex |
 | [pr-reply](skills/adit-workflow-pr-reply/SKILL.md) | Triages unresolved review threads, fixes the real issues, replies to the rest and resolves what it can. | Claude, Codex (experimental) |
 | [review-pr-blibli-mobile-ios](skills/adit-workflow-review-pr-blibli-mobile-ios/SKILL.md) | Reviews the open PRs in the iOS repo one by one and remembers which commits it already saw. | Claude, Codex (experimental) |
 | [check-slot-bliblimobileios](skills/adit-workflow-check-slot-bliblimobileios/SKILL.md) | Prints a read-only health table for the four worktree slots. | Claude, Codex |

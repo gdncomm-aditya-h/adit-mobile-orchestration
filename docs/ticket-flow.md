@@ -18,7 +18,8 @@ sequenceDiagram
     You->>Claude: /ios-orchestration-ticket-to-pr IOS-123
     Claude->>Claude: preflight, repo, Jira key, repo profile
     Claude->>Jira: read ticket (a Bug moves to Initial Review)
-    Claude->>Claude: plan mode, brainstorm, draft plan with enrich-plan
+    Claude->>Claude: plan mode, brainstorm
+    Claude->>Claude: plan-from-ticket drafts the plan, enrich-plan enriches it
     Claude->>You: plan approval
     You-->>Claude: approve
     Claude->>Jira: move to In Development, or In Progress for a Bug
@@ -45,7 +46,7 @@ It also detects whether it runs in the desktop app or in the terminal. The termi
 
 ### 2. Plan mode
 
-Claude enters plan mode and does read-only work. It reads the ticket, compares two or three approaches, picks one, and drafts a plan with the sections from `enrich-plan`: DoD traceability, test cases, click test cases for app repos, design and copy references, and a reviewer pass. The only write allowed here is the Jira move to Initial Review for a Bug.
+Claude enters plan mode and does read-only work. It reads the ticket, compares two or three approaches and picks one. `plan-from-ticket` then explores the code with a subagent, asks only about gaps that block the plan, and writes the draft: decisions and assumptions, a helicopter view, before and after, steps, risks and leftovers. It never implements. `enrich-plan` then adds the rest: DoD traceability, test cases, click test cases for app repos, design and copy references, and a reviewer pass. The only write allowed here is the Jira move to Initial Review for a Bug.
 
 The plan approval is the one planned stop. After you approve, the desktop app switches the session to auto mode. In the terminal you press Shift+Tab.
 
