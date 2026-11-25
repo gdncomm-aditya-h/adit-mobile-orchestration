@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- The worktree slot pool grew from three to four slots.
+- Added the target-design diagram of the team version, `scripts/build_flow_diagram.py`, and rebuilt the dependency graph.
+- README and docs now describe the team version first: the twelve `ios-orchestration-*` skills in the `mobileapps-ios` plugin (agent-plugins#595, in review), the flow, repo profiles, settings, and the first real run with its gaps.
+- The original version is marked as such. Its ticket flow can no longer run end to end, because `jira-implement`, `jira-plan` and `jira-develop` were removed from `mobileapps-ios`.
+- Design notes record the move from the installer to the plugin and the calls made on the way.
+
 ## 0.1.0
 
 First release.

@@ -1,6 +1,6 @@
 # Design notes
 
-These notes record why the repo looks the way it does, so the next person can change it without guessing.
+These notes record why the repo looks the way it does, so the next person can change it without guessing. The first part covers the original installer version. The last part covers the move to the `mobileapps-ios` plugin, which supersedes some of those decisions.
 
 ## Why this exists
 
@@ -17,7 +17,7 @@ Aditya's ticket workflow was spread across nine skills in `~/.claude/skills`, tw
 ## Non-goals
 
 - A full Codex port of the plan-mode and hook-gate parts.
-- Packaging as a Claude Code plugin. Plugin skills get a namespace prefix, which would break the bare names the skills use to call each other, and a plugin cannot edit the global `CLAUDE.md`.
+- Packaging as a Claude Code plugin. This was a non-goal for the installer version, because a plugin cannot edit the global `CLAUDE.md` and plugin skills get a namespace prefix. The team version later solved both, see "Moving to the plugin" below.
 - Vendoring the plugins this repo depends on.
 
 ## Approaches considered
@@ -46,5 +46,40 @@ Aditya's ticket workflow was spread across nine skills in `~/.claude/skills`, tw
 
 - The repo lives under a personal account. Teammates need to be added as collaborators, or the repo should move into the organization.
 - No licence yet. `graphify` is a renamed copy of an upstream skill and its licence has not been checked. See [NOTICE.md](../NOTICE.md).
-- Several skills name `gdncomm/BlibliIOSApp` and the IOS Jira project. Widening means pulling those into settings.
+- Several original skills name `gdncomm/BlibliIOSApp` and the IOS Jira project. The team version pulls those into settings, the original skills keep them.
 - Codex support has never been run end to end.
+
+## Moving to the plugin
+
+The installer version only worked for one person's machine layout, and its flow started from prose in `CLAUDE.md`. In October `jira-implement` was removed from `mobileapps-ios` in agent-plugins#493, and `jira-plan` and `jira-develop` are no longer in the marketplace either, so the original ticket flow stopped running end to end. The team asked for the harness to become a plugin, and the work is in review as agent-plugins#595.
+
+### What changed from the installer design
+
+- The trigger is an entry skill, `ios-orchestration-ticket-to-pr`, plus plugin hooks. A plugin cannot ship `CLAUDE.md` text, so the rules moved into the skill and the gate hook moved into the plugin's `hooks.json`. Nothing is written into a global file any more.
+- Every skill is named `ios-orchestration-<name>`. Skills call each other by that full name, so the plugin can move without edits.
+- The entry skill now owns the steps `jira-implement`, `jira-plan` and `jira-develop` used to do.
+- Settings live in `~/.claude/ios-ticket-flow/config.json`, which is the source of truth. It is named for the feature, not for the plugin, so a later move does not break it.
+
+### Decisions
+
+- The flow targets the iOS team only, and any iOS repo they use. The default is `gdncomm/BlibliIOSApp`, and any `owner/repo` is accepted and checked.
+- Slots are per repo and only for app repos. A package repo gets one plain worktree per ticket.
+- If nothing can be built, the gate waits for a written override reason, and the PR is labeled `build-unverified`.
+- An SDK change can optionally be tested inside the latest `develop` of `BlibliIOSApp`. The tool only reports compile errors and never fixes app code.
+- The terminal is the baseline and the desktop app is the enhancement. The flow detects which one it is in and records a manual run where a tool is missing.
+- The plugin lives inside `mobileapps-ios`. The team asked for a plugin and did not say which one, so a later move to its own plugin is meant to be mechanical.
+
+### Calls made without asking
+
+- `review-open-prs` comments only by default and needs `--approve` to approve, because a bot approval can count as a human review.
+- `reply-pr-comments` writes plain English. The terse caveman style made the replies hard for teammates to read.
+- `audit-changes` fixes only must-fix and should-fix findings, so the diff does not grow.
+- `graphify` was not moved, because it is a renamed upstream skill unrelated to the iOS flow.
+- The branch prefix is a setting asked on first run, and defaults to the engineer's `gh` login instead of the author's prefix.
+- The design check in `verify-ticket` is advisory, because it is a visual comparison and not a pixel diff.
+
+### Open items
+
+- The team version has not been run in the terminal, and its gate has not been smoke-tested there.
+- The first real run found four gaps, listed in [ticket-flow.md](ticket-flow.md). None is fixed yet.
+- This repo keeps the original skills and installer unchanged. Decide whether to archive them once the plugin is released.

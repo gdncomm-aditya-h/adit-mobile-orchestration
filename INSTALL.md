@@ -2,6 +2,8 @@
 
 This file is written for Claude Code or Codex. A person who wants to install by hand should follow the README instead.
 
+This guide installs the original version in this repo. The team version is a plugin and is not installed by `install.py`. It is part of `mobileapps-ios` 1.11.0 or newer from `gdncomm/agent-plugins`, which is in review as agent-plugins#595 and not released yet. The original ticket flow also calls skills that were removed from `mobileapps-ios`, so tell the user that before you install it. If the user wants the ticket flow, stop here and point them to the README section "Try the team version before it is released".
+
 You are installing a set of skills, two hooks and a rules block. The installer does the work. Your job is to run it with the right options, show the user what it will change, and report the result honestly.
 
 ## Before you start
