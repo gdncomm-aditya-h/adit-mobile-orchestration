@@ -1,4 +1,4 @@
-<svg viewBox="0 0 940 3217" width="940" height="3217" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="Target design of the ticket to PR flow: repo and key resolution, health check, client capability branch, plan mode with approval, slot or worktree by repo profile, implement, audit, verify, optional SDK test, draft PR, Jira evidence and release, with the three gate states">
+<svg viewBox="0 0 940 3307" width="940" height="3307" role="img" xmlns="http://www.w3.org/2000/svg" aria-label="Target design of the ticket to PR flow: repo and key resolution, health check, client capability branch, plan mode with approval, slot or worktree by repo profile, implement, audit, verify, optional SDK test, draft PR, Jira evidence and release, with the three gate states">
 <style>
 :root{--bg:#f3f5f8;--surface:#fff;--line:#c4ccd6;--fg:#18202a;--muted:#5a6878;--team:#2457c5;--own:#0b7a6b;--sp:#6b46c1;--pt:#b0397f;--ag:#6d6f12;--warn:#b86e00;--bad:#c0392b;--ok:#1f8a4c;--tool:#4b5968;--sans:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
 @media (prefers-color-scheme:dark){:root{--bg:#0e1319;--surface:#161c24;--line:#2d3743;--fg:#e3e9f0;--muted:#92a0b0;--team:#7fa6ff;--own:#4fd1bd;--sp:#b79cff;--pt:#ff9ad0;--ag:#c9cd5b;--warn:#f0b04a;--bad:#ff8a7a;--ok:#5fd38d;--tool:#a9b6c4}}
@@ -33,46 +33,46 @@ svg text{font-family:var(--sans)}
 .ttl{font-size:20px;font-weight:600;fill:var(--fg)}
 .lg{font-size:11px;fill:var(--muted)}
 </style>
-<rect width="940" height="3217" fill="var(--surface)"/>
+<rect width="940" height="3307" fill="var(--surface)"/>
 <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1 L10 5 L0 9 z" class="arh"/></marker></defs>
-<rect x="18" y="24" width="22" height="1512" rx="3" class="band-off"/>
-<text x="33" y="780.0" transform="rotate(-90 33 780.0)" text-anchor="middle" class="bandt">not armed yet</text>
-<rect x="18" y="1536" width="22" height="620" rx="3" class="band-bad"/>
-<text x="33" y="1846.0" transform="rotate(-90 33 1846.0)" text-anchor="middle" class="bandt">HOOK · denies commit, push, PR create</text>
-<line x1="40" y1="1536" x2="486" y2="1536" class="hair"/><circle cx="29" cy="1536" r="4" class="pin"/>
-<rect x="18" y="2156" width="22" height="372" rx="3" class="band-ok"/>
-<text x="33" y="2342.0" transform="rotate(-90 33 2342.0)" text-anchor="middle" class="bandt">UNLOCKED</text>
-<line x1="40" y1="2156" x2="486" y2="2156" class="hair"/><circle cx="29" cy="2156" r="4" class="pin"/>
-<rect x="18" y="2528" width="22" height="617" rx="3" class="band-off"/>
-<text x="33" y="2836.5" transform="rotate(-90 33 2836.5)" text-anchor="middle" class="bandt">cleared</text>
-<line x1="40" y1="2528" x2="486" y2="2528" class="hair"/><circle cx="29" cy="2528" r="4" class="pin"/>
-<line x1="62" y1="26" x2="62" y2="1175" class="br"/>
-<text x="80" y="600.5" transform="rotate(-90 80 600.5)" text-anchor="middle" class="ph">PLAN MODE · read-only</text>
-<line x1="62" y1="1179" x2="62" y2="1926" class="br"/>
-<text x="80" y="1552.5" transform="rotate(-90 80 1552.5)" text-anchor="middle" class="ph">BUILD · auto mode</text>
-<line x1="62" y1="1930" x2="62" y2="3143" class="br"/>
-<text x="80" y="2536.5" transform="rotate(-90 80 2536.5)" text-anchor="middle" class="ph">VERIFY AND SHIP</text>
+<rect x="18" y="24" width="22" height="1559" rx="3" class="band-off"/>
+<text x="33" y="803.5" transform="rotate(-90 33 803.5)" text-anchor="middle" class="bandt">not armed yet</text>
+<rect x="18" y="1583" width="22" height="663" rx="3" class="band-bad"/>
+<text x="33" y="1914.5" transform="rotate(-90 33 1914.5)" text-anchor="middle" class="bandt">HOOK · denies commit, push, PR create</text>
+<line x1="40" y1="1583" x2="486" y2="1583" class="hair"/><circle cx="29" cy="1583" r="4" class="pin"/>
+<rect x="18" y="2246" width="22" height="372" rx="3" class="band-ok"/>
+<text x="33" y="2432.0" transform="rotate(-90 33 2432.0)" text-anchor="middle" class="bandt">UNLOCKED</text>
+<line x1="40" y1="2246" x2="486" y2="2246" class="hair"/><circle cx="29" cy="2246" r="4" class="pin"/>
+<rect x="18" y="2618" width="22" height="617" rx="3" class="band-off"/>
+<text x="33" y="2926.5" transform="rotate(-90 33 2926.5)" text-anchor="middle" class="bandt">cleared</text>
+<line x1="40" y1="2618" x2="486" y2="2618" class="hair"/><circle cx="29" cy="2618" r="4" class="pin"/>
+<line x1="62" y1="26" x2="62" y2="1222" class="br"/>
+<text x="80" y="624.0" transform="rotate(-90 80 624.0)" text-anchor="middle" class="ph">PLAN MODE · read-only</text>
+<line x1="62" y1="1226" x2="62" y2="1973" class="br"/>
+<text x="80" y="1599.5" transform="rotate(-90 80 1599.5)" text-anchor="middle" class="ph">BUILD · auto mode</text>
+<line x1="62" y1="1977" x2="62" y2="3233" class="br"/>
+<text x="80" y="2605.0" transform="rotate(-90 80 2605.0)" text-anchor="middle" class="ph">VERIFY AND SHIP</text>
 <line x1="275" y1="145" x2="275" y2="185" class="ln" marker-end="url(#ar)"/>
 <line x1="275" y1="290" x2="275" y2="330" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="407" x2="275" y2="447" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="628" x2="275" y2="654" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="731" x2="275" y2="771" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="862" x2="275" y2="902" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="1040" x2="275" y2="1080" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="1157" x2="275" y2="1197" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="1288" x2="275" y2="1328" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="1523" x2="275" y2="1549" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="1626" x2="275" y2="1666" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="1786" x2="275" y2="1826" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="1908" x2="275" y2="1948" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="2143" x2="275" y2="2169" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="2260" x2="275" y2="2300" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="2391" x2="275" y2="2431" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="2508" x2="275" y2="2548" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="2639" x2="275" y2="2679" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="2756" x2="275" y2="2796" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="2887" x2="275" y2="2927" class="ln" marker-end="url(#ar)"/>
-<line x1="275" y1="3018" x2="275" y2="3058" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="454" x2="275" y2="494" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="675" x2="275" y2="701" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="778" x2="275" y2="818" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="909" x2="275" y2="949" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="1087" x2="275" y2="1127" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="1204" x2="275" y2="1244" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="1335" x2="275" y2="1375" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="1570" x2="275" y2="1596" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="1673" x2="275" y2="1713" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="1833" x2="275" y2="1873" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="1955" x2="275" y2="1995" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="2233" x2="275" y2="2259" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="2350" x2="275" y2="2390" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="2481" x2="275" y2="2521" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="2598" x2="275" y2="2638" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="2729" x2="275" y2="2769" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="2846" x2="275" y2="2886" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="2977" x2="275" y2="3017" class="ln" marker-end="url(#ar)"/>
+<line x1="275" y1="3108" x2="275" y2="3148" class="ln" marker-end="url(#ar)"/>
 <rect x="110" y="70" width="330" height="73" rx="5" class="node"/>
 <text x="125" y="90" class="nt">Entry: implement &lt;KEY&gt;</text>
 <text x="125" y="106" class="ns">Skill ios-orchestration-ticket-to-pr owns the whole</text>
@@ -92,259 +92,270 @@ svg text{font-family:var(--sans)}
 <g class="chip tool"><rect x="714" y="191" width="102" height="22" rx="11"/><text x="765.0" y="206" text-anchor="middle">gh repo view</text></g>
 <text x="490" y="229" class="note">Default gdncomm/BlibliIOSApp. Config in ~/.claude/ios-ticket-</text>
 <text x="490" y="243" class="note">flow/config.json.</text>
-<rect x="110" y="332" width="330" height="73" rx="5" class="node"/>
+<rect x="110" y="332" width="330" height="120" rx="5" class="node"/>
 <text x="125" y="352" class="nt">Quick health check</text>
 <text x="125" y="368" class="ns">Tools, auth, plugins and repo profile (app or</text>
-<text x="125" y="382" class="ns">package) are present.</text>
+<text x="125" y="382" class="ns">package) are present. A missing required plugin</text>
+<text x="125" y="396" class="ns">points to setup.</text>
 <line x1="442" y1="354" x2="486" y2="354" class="dash"/>
 <g class="chip own"><rect x="490" y="336" width="216" height="22" rx="11"/><text x="598.0" y="351" text-anchor="middle">ios-orchestration-flow-doctor</text></g>
-<g class="chip tool"><rect x="714" y="336" width="122" height="22" rx="11"/><text x="775.0" y="351" text-anchor="middle">repo_profile.py</text></g>
-<g class="chip tool"><rect x="490" y="364" width="135" height="22" rx="11"/><text x="557.5" y="379" text-anchor="middle">gh auth, Jira MCP</text></g>
-<rect x="110" y="449" width="330" height="59" rx="5" class="node"/>
-<text x="125" y="469" class="nt">Client capability</text>
-<text x="125" y="485" class="ns">Detected once per run.</text>
-<path d="M418 469 l9 9 l-9 9 l-9 -9 z" class="ga"/>
-<line x1="275" y1="508" x2="275" y2="522" class="ln"/>
-<line x1="275" y1="522" x2="721" y2="522" class="ln"/>
-<line x1="308" y1="522" x2="308" y2="534" class="ln" marker-end="url(#ar)"/>
-<rect x="110" y="536" width="397" height="76" rx="6" class="opt"/>
-<text x="122" y="554" class="nt">App client</text>
-<text x="122" y="570" class="ns">Switch permission mode.</text>
-<text x="122" y="584" class="ns">Simulator control for click tests,</text>
-<text x="122" y="598" class="ns">design and wording checks.</text>
-<line x1="308" y1="612" x2="308" y2="626" class="ln"/>
-<line x1="721" y1="522" x2="721" y2="534" class="ln" marker-end="url(#ar)"/>
-<rect x="523" y="536" width="397" height="76" rx="6" class="opt"/>
-<text x="535" y="554" class="nt">CLI client</text>
-<text x="535" y="570" class="ns">Tell the dev to press Shift+Tab.</text>
-<text x="535" y="584" class="ns">Click, design and wording checks</text>
-<text x="535" y="598" class="ns">become needs manual run.</text>
-<line x1="721" y1="612" x2="721" y2="626" class="ln"/>
-<line x1="275" y1="626" x2="721" y2="626" class="ln"/>
-<rect x="110" y="656" width="330" height="73" rx="5" class="node"/>
-<text x="125" y="676" class="nt">Plan mode, read ticket</text>
-<text x="125" y="692" class="ns">EnterPlanMode, read-only. Bug moves to Initial</text>
-<text x="125" y="706" class="ns">Review. Brainstorm, pick one approach.</text>
-<line x1="442" y1="678" x2="486" y2="678" class="dash"/>
-<g class="chip tool"><rect x="490" y="660" width="109" height="22" rx="11"/><text x="544.5" y="675" text-anchor="middle">EnterPlanMode</text></g>
-<g class="chip tool"><rect x="607" y="660" width="75" height="22" rx="11"/><text x="644.5" y="675" text-anchor="middle">Jira MCP</text></g>
-<g class="chip sp"><rect x="690" y="660" width="189" height="22" rx="11"/><text x="784.5" y="675" text-anchor="middle">superpowers:brainstorming</text></g>
-<rect x="110" y="773" width="330" height="87" rx="5" class="node"/>
-<text x="125" y="793" class="nt">Draft the plan with plan-from-ticket</text>
-<text x="125" y="809" class="ns">Explores the code with a subagent, asks only</text>
-<text x="125" y="823" class="ns">blocking questions, writes the draft: steps, risks,</text>
-<text x="125" y="837" class="ns">before and after.</text>
-<circle cx="110" cy="773" r="8" class="bl"/><text x="110" y="777" text-anchor="middle" class="blt">!</text>
-<line x1="442" y1="795" x2="486" y2="795" class="dash"/>
-<g class="chip own"><rect x="490" y="777" width="249" height="22" rx="11"/><text x="614.5" y="792" text-anchor="middle">ios-orchestration-plan-from-ticket</text></g>
-<g class="chip ag"><rect x="747" y="777" width="129" height="22" rx="11"/><text x="811.5" y="792" text-anchor="middle">Explore subagent</text></g>
-<g class="chip team"><rect x="490" y="805" width="236" height="22" rx="11"/><text x="608.0" y="820" text-anchor="middle">mobileapps-foundation:repo-index</text></g>
-<text x="490" y="843" class="note">Never implements. Non-blocking gaps become assumptions in the plan.</text>
-<rect x="110" y="904" width="330" height="134" rx="5" class="node"/>
-<text x="125" y="924" class="nt">Enrich the plan with enrich-plan</text>
-<text x="125" y="940" class="ns">DoD traceability, test cases, design and copy</text>
-<text x="125" y="954" class="ns">references, reviewer pass. Saved as one plan.</text>
-<circle cx="110" cy="904" r="8" class="bl"/><text x="110" y="908" text-anchor="middle" class="blt">!</text>
-<line x1="442" y1="926" x2="486" y2="926" class="dash"/>
-<g class="chip own"><rect x="490" y="908" width="216" height="22" rx="11"/><text x="598.0" y="923" text-anchor="middle">ios-orchestration-enrich-plan</text></g>
-<g class="chip team"><rect x="490" y="936" width="229" height="22" rx="11"/><text x="604.5" y="951" text-anchor="middle">mobileapps-foundation:figma-mcp</text></g>
-<g class="chip team"><rect x="490" y="964" width="249" height="22" rx="11"/><text x="614.5" y="979" text-anchor="middle">mobileapps-foundation:localization</text></g>
-<g class="chip ag"><rect x="747" y="964" width="95" height="22" rx="11"/><text x="794.5" y="979" text-anchor="middle">ecc:planner</text></g>
-<g class="chip ag"><rect x="490" y="992" width="122" height="22" rx="11"/><text x="551.0" y="1007" text-anchor="middle">general-purpose</text></g>
-<text x="490" y="1030" class="note">Blockers (missing DoD, design or copy) are asked once, in one batch.</text>
-<rect x="110" y="1082" width="330" height="73" rx="5" class="node"/>
-<text x="125" y="1102" class="nt">Plan approval</text>
-<text x="125" y="1118" class="ns">ExitPlanMode. The third planned stop, after repo and</text>
-<text x="125" y="1132" class="ns">version. Everything after it runs without questions.</text>
-<path d="M418 1109 l9 9 l-9 9 l-9 -9 z" class="gu"/>
-<line x1="442" y1="1104" x2="486" y2="1104" class="dash"/>
-<g class="chip tool"><rect x="490" y="1086" width="102" height="22" rx="11"/><text x="541.0" y="1101" text-anchor="middle">ExitPlanMode</text></g>
-<rect x="110" y="1199" width="330" height="87" rx="5" class="node"/>
-<text x="125" y="1219" class="nt">Move ticket to its in-work status</text>
-<text x="125" y="1235" class="ns">First step after approval. Story, Task: In</text>
-<text x="125" y="1249" class="ns">Development. Bug: In Progress. Read from the</text>
-<text x="125" y="1263" class="ns">workflow.</text>
-<line x1="442" y1="1221" x2="486" y2="1221" class="dash"/>
-<g class="chip tool"><rect x="490" y="1203" width="216" height="22" rx="11"/><text x="598.0" y="1218" text-anchor="middle">Jira listJiraIssueTransitions</text></g>
-<g class="chip tool"><rect x="714" y="1203" width="182" height="22" rx="11"/><text x="805.0" y="1218" text-anchor="middle">Jira transitionJiraIssue</text></g>
-<text x="490" y="1241" class="note">Prints one line: moved, or not moved and why. A failed move is</text>
-<text x="490" y="1255" class="note">reported, not a stop. App client then switches to auto mode.</text>
-<rect x="110" y="1330" width="330" height="59" rx="5" class="node"/>
-<text x="125" y="1350" class="nt">Slot or worktree by repo profile</text>
-<text x="125" y="1366" class="ns">Branch &lt;prefix&gt;/&lt;type&gt;/&lt;KEY&gt;.</text>
-<path d="M418 1350 l9 9 l-9 9 l-9 -9 z" class="ga"/>
-<line x1="275" y1="1389" x2="275" y2="1403" class="ln"/>
-<line x1="275" y1="1403" x2="721" y2="1403" class="ln"/>
-<line x1="308" y1="1403" x2="308" y2="1415" class="ln" marker-end="url(#ar)"/>
-<rect x="110" y="1417" width="397" height="90" rx="6" class="opt"/>
-<text x="122" y="1435" class="nt">App repo: slot pool</text>
-<text x="122" y="1451" class="ns">Free slot of a to d (4 for BlibliIOSApp).</text>
-<text x="122" y="1465" class="ns">Warm start: own DerivedData, packages</text>
-<text x="122" y="1479" class="ns">and simulator, so the build is incremental.</text>
-<text x="122" y="1493" class="ns">Released at draft PR, state stays warm.</text>
-<line x1="308" y1="1507" x2="308" y2="1521" class="ln"/>
-<line x1="721" y1="1403" x2="721" y2="1415" class="ln" marker-end="url(#ar)"/>
-<rect x="523" y="1417" width="397" height="90" rx="6" class="opt"/>
-<text x="535" y="1435" class="nt">Package repo: worktree</text>
-<text x="535" y="1451" class="ns">One plain worktree per ticket.</text>
-<text x="535" y="1465" class="ns">No simulator, no login, no click tests.</text>
-<text x="535" y="1479" class="ns">Removed on release.</text>
-<line x1="721" y1="1507" x2="721" y2="1521" class="ln"/>
-<line x1="275" y1="1521" x2="721" y2="1521" class="ln"/>
-<rect x="110" y="1551" width="330" height="73" rx="5" class="node"/>
-<text x="125" y="1571" class="nt">Save plan, arm the gate</text>
-<text x="125" y="1587" class="ns">mark-active. From here commit, push and PR create</text>
-<text x="125" y="1601" class="ns">are denied until verified.</text>
-<line x1="442" y1="1573" x2="486" y2="1573" class="dash"/>
-<g class="chip own"><rect x="490" y="1555" width="290" height="22" rx="11"/><text x="635.0" y="1570" text-anchor="middle">ios-orchestration-enrich-plan (Finalize)</text></g>
-<g class="chip hook"><rect x="490" y="1583" width="196" height="22" rx="11"/><text x="588.0" y="1598" text-anchor="middle">ticket_gate.py mark-active</text></g>
-<g class="chip tool"><rect x="694" y="1583" width="176" height="22" rx="11"/><text x="782.0" y="1598" text-anchor="middle">ticket_slots.py acquire</text></g>
-<rect x="110" y="1668" width="330" height="116" rx="5" class="node"/>
-<text x="125" y="1688" class="nt">Implement from the approved plan</text>
-<text x="125" y="1704" class="ns">Codegen skills write the change. The approved plan</text>
-<text x="125" y="1718" class="ns">wins over any draft.</text>
-<line x1="442" y1="1690" x2="486" y2="1690" class="dash"/>
-<g class="chip team"><rect x="490" y="1672" width="209" height="22" rx="11"/><text x="594.5" y="1687" text-anchor="middle">mobileapps-ios:swift-codegen</text></g>
-<g class="chip team"><rect x="490" y="1700" width="229" height="22" rx="11"/><text x="604.5" y="1715" text-anchor="middle">mobileapps-ios:swiftui-code-gen</text></g>
-<g class="chip team"><rect x="490" y="1728" width="236" height="22" rx="11"/><text x="608.0" y="1743" text-anchor="middle">mobileapps-ios:swiftui-architect</text></g>
-<g class="chip team"><rect x="734" y="1728" width="169" height="22" rx="11"/><text x="818.5" y="1743" text-anchor="middle">mobileapps-ios:add-api</text></g>
-<g class="chip team"><rect x="490" y="1756" width="142" height="22" rx="11"/><text x="561.0" y="1771" text-anchor="middle">mobileapps-ios:tdd</text></g>
-<g class="chip team"><rect x="640" y="1756" width="249" height="22" rx="11"/><text x="764.5" y="1771" text-anchor="middle">mobileapps-foundation:localization</text></g>
-<rect x="110" y="1828" width="330" height="78" rx="5" class="node"/>
-<text x="125" y="1848" class="nt">Audit the changes</text>
-<text x="125" y="1864" class="ns">Audit loop, then review loop. Fixes must-fix and</text>
-<text x="125" y="1878" class="ns">should-fix, at most 2 rounds.</text>
-<circle cx="110" cy="1828" r="8" class="bl"/><text x="110" y="1832" text-anchor="middle" class="blt">!</text>
-<line x1="442" y1="1850" x2="486" y2="1850" class="dash"/>
-<g class="chip own"><rect x="490" y="1832" width="229" height="22" rx="11"/><text x="604.5" y="1847" text-anchor="middle">ios-orchestration-audit-changes</text></g>
-<g class="chip pt"><rect x="727" y="1832" width="176" height="22" rx="11"/><text x="815.0" y="1847" text-anchor="middle">ponytail:ponytail-audit</text></g>
-<g class="chip pt"><rect x="490" y="1860" width="182" height="22" rx="11"/><text x="581.0" y="1875" text-anchor="middle">ponytail:ponytail-review</text></g>
-<g class="chip ag"><rect x="680" y="1860" width="209" height="22" rx="11"/><text x="784.5" y="1875" text-anchor="middle">ecc:code-reviewer (fallback)</text></g>
-<text x="490" y="1898" class="note">Blocker or major findings after round 2 stop and ask.</text>
-<rect x="110" y="1950" width="330" height="73" rx="5" class="node"/>
-<text x="125" y="1970" class="nt">Verify the ticket</text>
-<text x="125" y="1986" class="ns">Results only. Never marks a check passed that did</text>
-<text x="125" y="2000" class="ns">not run. Stops after 2 failed fix rounds.</text>
-<path d="M418 1977 l9 9 l-9 9 l-9 -9 z" class="ga"/>
-<circle cx="110" cy="1950" r="8" class="bl"/><text x="110" y="1954" text-anchor="middle" class="blt">!</text>
-<line x1="442" y1="1972" x2="486" y2="1972" class="dash"/>
-<g class="chip own"><rect x="490" y="1954" width="229" height="22" rx="11"/><text x="604.5" y="1969" text-anchor="middle">ios-orchestration-verify-ticket</text></g>
-<g class="chip team"><rect x="727" y="1954" width="182" height="22" rx="11"/><text x="818.0" y="1969" text-anchor="middle">mobileapps-ios:run-tests</text></g>
-<g class="chip tool"><rect x="490" y="1982" width="162" height="22" rx="11"/><text x="571.0" y="1997" text-anchor="middle">xcodebuild, swiftlint</text></g>
-<g class="chip hookok"><rect x="660" y="1982" width="209" height="22" rx="11"/><text x="764.5" y="1997" text-anchor="middle">ticket_gate.py mark-verified</text></g>
-<line x1="275" y1="2023" x2="275" y2="2037" class="ln"/>
-<line x1="205" y1="2037" x2="823" y2="2037" class="ln"/>
-<line x1="205" y1="2037" x2="205" y2="2049" class="ln" marker-end="url(#ar)"/>
-<rect x="110" y="2051" width="190" height="76" rx="6" class="opt"/>
-<text x="122" y="2069" class="nt">App repo</text>
-<text x="122" y="2085" class="ns">lint, build-for-testing, unit tests,</text>
-<text x="122" y="2099" class="ns">UI tests named in the plan,</text>
-<text x="122" y="2113" class="ns">click, design, wording (app client).</text>
-<line x1="205" y1="2127" x2="205" y2="2141" class="ln"/>
-<line x1="411" y1="2037" x2="411" y2="2049" class="ln" marker-end="url(#ar)"/>
-<rect x="316" y="2051" width="190" height="76" rx="6" class="opt"/>
-<text x="328" y="2069" class="nt">Package repo</text>
-<text x="328" y="2085" class="ns">xcodebuild build and test,</text>
-<text x="328" y="2099" class="ns">then lint, then audit.</text>
-<text x="328" y="2113" class="ns">No login, no click tests.</text>
-<line x1="411" y1="2127" x2="411" y2="2141" class="ln"/>
-<line x1="617" y1="2037" x2="617" y2="2049" class="ln" marker-end="url(#ar)"/>
-<rect x="522" y="2051" width="190" height="76" rx="6" class="optb"/>
-<text x="534" y="2069" class="nt">Nothing buildable</text>
-<text x="534" y="2085" class="ns">Lint, parse, API diff,</text>
-<text x="534" y="2099" class="ns">grep consumers. Gate waits</text>
-<text x="534" y="2113" class="ns">for an override reason.</text>
-<line x1="617" y1="2127" x2="617" y2="2141" class="ln"/>
-<line x1="823" y1="2037" x2="823" y2="2049" class="ln" marker-end="url(#ar)"/>
-<rect x="728" y="2051" width="190" height="76" rx="6" class="optb"/>
-<text x="740" y="2069" class="nt">Tests do not compile</text>
-<text x="740" y="2085" class="ns">A failed check, never</text>
-<text x="740" y="2099" class="ns">skipped. Gate waits for an</text>
-<text x="740" y="2113" class="ns">override: tests-unverified.</text>
-<line x1="823" y1="2127" x2="823" y2="2141" class="ln"/>
-<line x1="205" y1="2141" x2="823" y2="2141" class="ln"/>
-<rect x="110" y="2171" width="330" height="87" rx="5" class="node"/>
-<text x="125" y="2191" class="nt">Optional: test the SDK inside the app</text>
-<text x="125" y="2207" class="ns">SDK repos only. Compile errors are reported, never</text>
-<text x="125" y="2221" class="ns">fixed app-side. Branch inject/&lt;SDK&gt;-&lt;KEY&gt; is never</text>
-<text x="125" y="2235" class="ns">pushed.</text>
-<path d="M418 2205 l9 9 l-9 9 l-9 -9 z" class="gu"/>
-<line x1="442" y1="2193" x2="486" y2="2193" class="dash"/>
-<g class="chip own"><rect x="490" y="2175" width="243" height="22" rx="11"/><text x="611.5" y="2190" text-anchor="middle">ios-orchestration-sdk-inject-test</text></g>
-<text x="490" y="2213" class="note">(a) warm BlibliIOSApp slot on develop, or (b) the dev tests with</text>
-<text x="490" y="2227" class="note">printed steps.</text>
-<rect x="110" y="2302" width="330" height="87" rx="5" class="node"/>
-<text x="125" y="2322" class="nt">Open the draft PR</text>
-<text x="125" y="2338" class="ns">Draft only, enforced by the gate. Bug fixes need the</text>
-<text x="125" y="2352" class="ns">root cause section. build-unverified or tests-</text>
-<text x="125" y="2366" class="ns">unverified label if overridden.</text>
-<line x1="442" y1="2324" x2="486" y2="2324" class="dash"/>
-<g class="chip team"><rect x="490" y="2306" width="229" height="22" rx="11"/><text x="604.5" y="2321" text-anchor="middle">mobileapps-foundation:create-pr</text></g>
-<g class="chip tool"><rect x="727" y="2306" width="35" height="22" rx="11"/><text x="744.5" y="2321" text-anchor="middle">gh</text></g>
-<text x="490" y="2344" class="note">Edit after verify denies the gate again.</text>
-<rect x="110" y="2433" width="330" height="73" rx="5" class="node"/>
-<text x="125" y="2453" class="nt">Jira evidence comment</text>
-<text x="125" y="2469" class="ns">PR URL, screenshots, screen recording or needs</text>
-<text x="125" y="2483" class="ns">manual run list.</text>
-<line x1="442" y1="2455" x2="486" y2="2455" class="dash"/>
-<g class="chip tool"><rect x="490" y="2437" width="249" height="22" rx="11"/><text x="614.5" y="2452" text-anchor="middle">Jira MCP addOrEditJiraIssueComment</text></g>
-<rect x="110" y="2550" width="330" height="87" rx="5" class="node"/>
-<text x="125" y="2570" class="nt">Optional: Confluence page (--doc)</text>
-<text x="125" y="2586" class="ns">Context, plan and test cases for QA. Shows the full</text>
-<text x="125" y="2600" class="ns">draft, publishes only after a yes, then links it on</text>
-<text x="125" y="2614" class="ns">the ticket.</text>
-<path d="M418 2584 l9 9 l-9 9 l-9 -9 z" class="gu"/>
-<line x1="442" y1="2572" x2="486" y2="2572" class="dash"/>
-<g class="chip own"><rect x="490" y="2554" width="216" height="22" rx="11"/><text x="598.0" y="2569" text-anchor="middle">ios-orchestration-publish-doc</text></g>
-<g class="chip team"><rect x="490" y="2582" width="290" height="22" rx="11"/><text x="635.0" y="2597" text-anchor="middle">mobileapps-foundation:jira-doc-generator</text></g>
-<g class="chip tool"><rect x="788" y="2582" width="109" height="22" rx="11"/><text x="842.5" y="2597" text-anchor="middle">Atlassian MCP</text></g>
-<rect x="110" y="2681" width="330" height="73" rx="5" class="node"/>
-<text x="125" y="2701" class="nt">Release and clear</text>
-<text x="125" y="2717" class="ns">Slot or worktree released, gate cleared. Never mark</text>
-<text x="125" y="2731" class="ns">ready, never merge.</text>
-<line x1="442" y1="2703" x2="486" y2="2703" class="dash"/>
-<g class="chip hook0"><rect x="490" y="2685" width="156" height="22" rx="11"/><text x="568.0" y="2700" text-anchor="middle">ticket_gate.py clear</text></g>
-<g class="chip tool"><rect x="654" y="2685" width="176" height="22" rx="11"/><text x="742.0" y="2700" text-anchor="middle">ticket_slots.py release</text></g>
-<rect x="110" y="2798" width="330" height="87" rx="5" class="node"/>
-<text x="125" y="2818" class="nt">Watch the PR in the background</text>
-<text x="125" y="2834" class="ns">Shell script polls gh and jq at no model cost. Wakes</text>
-<text x="125" y="2848" class="ns">on comments, CI failure, conflicts, ready, merged or</text>
-<text x="125" y="2862" class="ns">closed.</text>
-<line x1="442" y1="2820" x2="486" y2="2820" class="dash"/>
-<g class="chip own"><rect x="490" y="2802" width="196" height="22" rx="11"/><text x="588.0" y="2817" text-anchor="middle">ios-orchestration-pr-watch</text></g>
-<g class="chip tool"><rect x="694" y="2802" width="95" height="22" rx="11"/><text x="741.5" y="2817" text-anchor="middle">pr_watch.sh</text></g>
-<g class="chip own"><rect x="490" y="2830" width="256" height="22" rx="11"/><text x="618.0" y="2845" text-anchor="middle">ios-orchestration-reply-pr-comments</text></g>
-<text x="490" y="2868" class="note">Never merges, never marks ready. Gives up after 8 hours.</text>
-<rect x="110" y="2929" width="330" height="87" rx="5" class="node"/>
-<text x="125" y="2949" class="nt">After the merge: wrap-up</text>
-<text x="125" y="2965" class="ns">Bug to Code Review, other types to Dev Testing.</text>
-<text x="125" y="2979" class="ns">Clears the gate, releases the slot, archives the</text>
-<text x="125" y="2993" class="ns">plan.</text>
-<line x1="442" y1="2951" x2="486" y2="2951" class="dash"/>
-<g class="chip own"><rect x="490" y="2933" width="189" height="22" rx="11"/><text x="584.5" y="2948" text-anchor="middle">ios-orchestration-wrap-up</text></g>
-<g class="chip tool"><rect x="687" y="2933" width="182" height="22" rx="11"/><text x="778.0" y="2948" text-anchor="middle">Jira transitionJiraIssue</text></g>
-<rect x="110" y="3060" width="330" height="73" rx="5" class="node"/>
-<text x="125" y="3080" class="nt">Done: final report</text>
-<text x="125" y="3096" class="ns">PR URL, result table, needs manual run items,</text>
-<text x="125" y="3110" class="ns">assumptions.</text>
-<g class="chip own"><rect x="110" y="3173" width="22" height="12" rx="6"/></g>
-<text x="138" y="3183" class="lg">ios-orchestration skill</text>
-<g class="chip sp"><rect x="280" y="3173" width="22" height="12" rx="6"/></g>
-<text x="308" y="3183" class="lg">superpowers</text>
-<g class="chip pt"><rect x="383" y="3173" width="22" height="12" rx="6"/></g>
-<text x="411" y="3183" class="lg">ponytail</text>
-<g class="chip team"><rect x="469" y="3173" width="22" height="12" rx="6"/></g>
-<text x="497" y="3183" class="lg">team skill</text>
-<g class="chip ag"><rect x="567" y="3173" width="22" height="12" rx="6"/></g>
-<text x="595" y="3183" class="lg">subagent</text>
-<g class="chip tool"><rect x="653" y="3173" width="22" height="12" rx="6"/></g>
-<text x="681" y="3183" class="lg">tool or command</text>
-<g class="chip hook"><rect x="779" y="3173" width="22" height="12" rx="6"/></g>
-<text x="807" y="3183" class="lg">hook event</text>
-<path d="M118 3193 l6 6 l-6 6 l-6 -6 z" class="gu"/>
-<text x="130" y="3203" class="lg">gate, you decide</text>
-<path d="M242 3193 l6 6 l-6 6 l-6 -6 z" class="ga"/>
-<text x="254" y="3203" class="lg">gate, auto</text>
-<circle cx="336" cy="3199" r="6" class="bl"/><text x="336" y="3202" text-anchor="middle" class="blt" style="font-size:9px">!</text>
-<text x="348" y="3203" class="lg">can stop and ask</text>
+<g class="chip own"><rect x="714" y="336" width="176" height="22" rx="11"/><text x="802.0" y="351" text-anchor="middle">ios-orchestration-setup</text></g>
+<g class="chip tool"><rect x="490" y="364" width="162" height="22" rx="11"/><text x="571.0" y="379" text-anchor="middle">doctor.py --preflight</text></g>
+<g class="chip tool"><rect x="660" y="364" width="122" height="22" rx="11"/><text x="721.0" y="379" text-anchor="middle">repo_profile.py</text></g>
+<g class="chip tool"><rect x="490" y="392" width="135" height="22" rx="11"/><text x="557.5" y="407" text-anchor="middle">gh auth, Jira MCP</text></g>
+<text x="490" y="430" class="note">setup installs missing plugins only after a yes, never during a ticket</text>
+<text x="490" y="444" class="note">run.</text>
+<rect x="110" y="496" width="330" height="59" rx="5" class="node"/>
+<text x="125" y="516" class="nt">Client capability</text>
+<text x="125" y="532" class="ns">Detected once per run.</text>
+<path d="M418 516 l9 9 l-9 9 l-9 -9 z" class="ga"/>
+<line x1="275" y1="555" x2="275" y2="569" class="ln"/>
+<line x1="275" y1="569" x2="721" y2="569" class="ln"/>
+<line x1="308" y1="569" x2="308" y2="581" class="ln" marker-end="url(#ar)"/>
+<rect x="110" y="583" width="397" height="76" rx="6" class="opt"/>
+<text x="122" y="601" class="nt">App client</text>
+<text x="122" y="617" class="ns">Switch permission mode.</text>
+<text x="122" y="631" class="ns">Simulator control for click tests,</text>
+<text x="122" y="645" class="ns">design and wording checks.</text>
+<line x1="308" y1="659" x2="308" y2="673" class="ln"/>
+<line x1="721" y1="569" x2="721" y2="581" class="ln" marker-end="url(#ar)"/>
+<rect x="523" y="583" width="397" height="76" rx="6" class="opt"/>
+<text x="535" y="601" class="nt">CLI client</text>
+<text x="535" y="617" class="ns">Tell the dev to press Shift+Tab.</text>
+<text x="535" y="631" class="ns">Click, design and wording checks</text>
+<text x="535" y="645" class="ns">become needs manual run.</text>
+<line x1="721" y1="659" x2="721" y2="673" class="ln"/>
+<line x1="275" y1="673" x2="721" y2="673" class="ln"/>
+<rect x="110" y="703" width="330" height="73" rx="5" class="node"/>
+<text x="125" y="723" class="nt">Plan mode, read ticket</text>
+<text x="125" y="739" class="ns">EnterPlanMode, read-only. Bug moves to Initial</text>
+<text x="125" y="753" class="ns">Review. Brainstorm, pick one approach.</text>
+<line x1="442" y1="725" x2="486" y2="725" class="dash"/>
+<g class="chip tool"><rect x="490" y="707" width="109" height="22" rx="11"/><text x="544.5" y="722" text-anchor="middle">EnterPlanMode</text></g>
+<g class="chip tool"><rect x="607" y="707" width="75" height="22" rx="11"/><text x="644.5" y="722" text-anchor="middle">Jira MCP</text></g>
+<g class="chip sp"><rect x="690" y="707" width="189" height="22" rx="11"/><text x="784.5" y="722" text-anchor="middle">superpowers:brainstorming</text></g>
+<rect x="110" y="820" width="330" height="87" rx="5" class="node"/>
+<text x="125" y="840" class="nt">Draft the plan with plan-from-ticket</text>
+<text x="125" y="856" class="ns">Explores the code with a subagent, asks only</text>
+<text x="125" y="870" class="ns">blocking questions, writes the draft: steps, risks,</text>
+<text x="125" y="884" class="ns">before and after.</text>
+<circle cx="110" cy="820" r="8" class="bl"/><text x="110" y="824" text-anchor="middle" class="blt">!</text>
+<line x1="442" y1="842" x2="486" y2="842" class="dash"/>
+<g class="chip own"><rect x="490" y="824" width="249" height="22" rx="11"/><text x="614.5" y="839" text-anchor="middle">ios-orchestration-plan-from-ticket</text></g>
+<g class="chip ag"><rect x="747" y="824" width="129" height="22" rx="11"/><text x="811.5" y="839" text-anchor="middle">Explore subagent</text></g>
+<g class="chip team"><rect x="490" y="852" width="236" height="22" rx="11"/><text x="608.0" y="867" text-anchor="middle">mobileapps-foundation:repo-index</text></g>
+<text x="490" y="890" class="note">Never implements. Non-blocking gaps become assumptions in the plan.</text>
+<rect x="110" y="951" width="330" height="134" rx="5" class="node"/>
+<text x="125" y="971" class="nt">Enrich the plan with enrich-plan</text>
+<text x="125" y="987" class="ns">DoD traceability, test cases, design and copy</text>
+<text x="125" y="1001" class="ns">references, reviewer pass. Saved as one plan.</text>
+<circle cx="110" cy="951" r="8" class="bl"/><text x="110" y="955" text-anchor="middle" class="blt">!</text>
+<line x1="442" y1="973" x2="486" y2="973" class="dash"/>
+<g class="chip own"><rect x="490" y="955" width="216" height="22" rx="11"/><text x="598.0" y="970" text-anchor="middle">ios-orchestration-enrich-plan</text></g>
+<g class="chip team"><rect x="490" y="983" width="229" height="22" rx="11"/><text x="604.5" y="998" text-anchor="middle">mobileapps-foundation:figma-mcp</text></g>
+<g class="chip team"><rect x="490" y="1011" width="249" height="22" rx="11"/><text x="614.5" y="1026" text-anchor="middle">mobileapps-foundation:localization</text></g>
+<g class="chip ag"><rect x="747" y="1011" width="95" height="22" rx="11"/><text x="794.5" y="1026" text-anchor="middle">ecc:planner</text></g>
+<g class="chip ag"><rect x="490" y="1039" width="122" height="22" rx="11"/><text x="551.0" y="1054" text-anchor="middle">general-purpose</text></g>
+<text x="490" y="1077" class="note">Blockers (missing DoD, design or copy) are asked once, in one batch.</text>
+<rect x="110" y="1129" width="330" height="73" rx="5" class="node"/>
+<text x="125" y="1149" class="nt">Plan approval</text>
+<text x="125" y="1165" class="ns">ExitPlanMode. The third planned stop, after repo and</text>
+<text x="125" y="1179" class="ns">version. Everything after it runs without questions.</text>
+<path d="M418 1156 l9 9 l-9 9 l-9 -9 z" class="gu"/>
+<line x1="442" y1="1151" x2="486" y2="1151" class="dash"/>
+<g class="chip tool"><rect x="490" y="1133" width="102" height="22" rx="11"/><text x="541.0" y="1148" text-anchor="middle">ExitPlanMode</text></g>
+<rect x="110" y="1246" width="330" height="87" rx="5" class="node"/>
+<text x="125" y="1266" class="nt">Move ticket to its in-work status</text>
+<text x="125" y="1282" class="ns">First step after approval. Story, Task: In</text>
+<text x="125" y="1296" class="ns">Development. Bug: In Progress. Read from the</text>
+<text x="125" y="1310" class="ns">workflow.</text>
+<line x1="442" y1="1268" x2="486" y2="1268" class="dash"/>
+<g class="chip tool"><rect x="490" y="1250" width="216" height="22" rx="11"/><text x="598.0" y="1265" text-anchor="middle">Jira listJiraIssueTransitions</text></g>
+<g class="chip tool"><rect x="714" y="1250" width="182" height="22" rx="11"/><text x="805.0" y="1265" text-anchor="middle">Jira transitionJiraIssue</text></g>
+<text x="490" y="1288" class="note">Prints one line: moved, or not moved and why. A failed move is</text>
+<text x="490" y="1302" class="note">reported, not a stop. App client then switches to auto mode.</text>
+<rect x="110" y="1377" width="330" height="59" rx="5" class="node"/>
+<text x="125" y="1397" class="nt">Slot or worktree by repo profile</text>
+<text x="125" y="1413" class="ns">Branch &lt;prefix&gt;/&lt;type&gt;/&lt;KEY&gt;.</text>
+<path d="M418 1397 l9 9 l-9 9 l-9 -9 z" class="ga"/>
+<line x1="275" y1="1436" x2="275" y2="1450" class="ln"/>
+<line x1="275" y1="1450" x2="721" y2="1450" class="ln"/>
+<line x1="308" y1="1450" x2="308" y2="1462" class="ln" marker-end="url(#ar)"/>
+<rect x="110" y="1464" width="397" height="90" rx="6" class="opt"/>
+<text x="122" y="1482" class="nt">App repo: slot pool</text>
+<text x="122" y="1498" class="ns">Free slot of a to d (4 for BlibliIOSApp).</text>
+<text x="122" y="1512" class="ns">Own DerivedData, simulator and packages:</text>
+<text x="122" y="1526" class="ns">warm, so the build is incremental.</text>
+<text x="122" y="1540" class="ns">Packages download when changed, retried once, never asked.</text>
+<line x1="308" y1="1554" x2="308" y2="1568" class="ln"/>
+<line x1="721" y1="1450" x2="721" y2="1462" class="ln" marker-end="url(#ar)"/>
+<rect x="523" y="1464" width="397" height="90" rx="6" class="opt"/>
+<text x="535" y="1482" class="nt">Package repo: worktree</text>
+<text x="535" y="1498" class="ns">One plain worktree per ticket.</text>
+<text x="535" y="1512" class="ns">No simulator, no login, no click tests.</text>
+<text x="535" y="1526" class="ns">Removed on release.</text>
+<line x1="721" y1="1554" x2="721" y2="1568" class="ln"/>
+<line x1="275" y1="1568" x2="721" y2="1568" class="ln"/>
+<rect x="110" y="1598" width="330" height="73" rx="5" class="node"/>
+<text x="125" y="1618" class="nt">Save plan, arm the gate</text>
+<text x="125" y="1634" class="ns">mark-active. From here commit, push and PR create</text>
+<text x="125" y="1648" class="ns">are denied until verified.</text>
+<line x1="442" y1="1620" x2="486" y2="1620" class="dash"/>
+<g class="chip own"><rect x="490" y="1602" width="290" height="22" rx="11"/><text x="635.0" y="1617" text-anchor="middle">ios-orchestration-enrich-plan (Finalize)</text></g>
+<g class="chip hook"><rect x="490" y="1630" width="196" height="22" rx="11"/><text x="588.0" y="1645" text-anchor="middle">ticket_gate.py mark-active</text></g>
+<g class="chip tool"><rect x="694" y="1630" width="176" height="22" rx="11"/><text x="782.0" y="1645" text-anchor="middle">ticket_slots.py acquire</text></g>
+<rect x="110" y="1715" width="330" height="116" rx="5" class="node"/>
+<text x="125" y="1735" class="nt">Implement in a sub-agent</text>
+<text x="125" y="1751" class="ns">One sub-agent writes the change from the saved plan</text>
+<text x="125" y="1765" class="ns">and returns a short report. It never commits, pushes</text>
+<text x="125" y="1779" class="ns">or asks. The approved plan wins over any draft.</text>
+<line x1="442" y1="1737" x2="486" y2="1737" class="dash"/>
+<g class="chip ag"><rect x="490" y="1719" width="196" height="22" rx="11"/><text x="588.0" y="1734" text-anchor="middle">sub-agent: general-purpose</text></g>
+<g class="chip team"><rect x="694" y="1719" width="209" height="22" rx="11"/><text x="798.5" y="1734" text-anchor="middle">mobileapps-ios:swift-codegen</text></g>
+<g class="chip team"><rect x="490" y="1747" width="229" height="22" rx="11"/><text x="604.5" y="1762" text-anchor="middle">mobileapps-ios:swiftui-code-gen</text></g>
+<g class="chip team"><rect x="490" y="1775" width="236" height="22" rx="11"/><text x="608.0" y="1790" text-anchor="middle">mobileapps-ios:swiftui-architect</text></g>
+<g class="chip team"><rect x="734" y="1775" width="169" height="22" rx="11"/><text x="818.5" y="1790" text-anchor="middle">mobileapps-ios:add-api</text></g>
+<g class="chip team"><rect x="490" y="1803" width="142" height="22" rx="11"/><text x="561.0" y="1818" text-anchor="middle">mobileapps-ios:tdd</text></g>
+<g class="chip team"><rect x="640" y="1803" width="249" height="22" rx="11"/><text x="764.5" y="1818" text-anchor="middle">mobileapps-foundation:localization</text></g>
+<rect x="110" y="1875" width="330" height="78" rx="5" class="node"/>
+<text x="125" y="1895" class="nt">Audit the changes</text>
+<text x="125" y="1911" class="ns">Audit loop, then review loop. Fixes must-fix and</text>
+<text x="125" y="1925" class="ns">should-fix, at most 2 rounds.</text>
+<circle cx="110" cy="1875" r="8" class="bl"/><text x="110" y="1879" text-anchor="middle" class="blt">!</text>
+<line x1="442" y1="1897" x2="486" y2="1897" class="dash"/>
+<g class="chip own"><rect x="490" y="1879" width="229" height="22" rx="11"/><text x="604.5" y="1894" text-anchor="middle">ios-orchestration-audit-changes</text></g>
+<g class="chip pt"><rect x="727" y="1879" width="176" height="22" rx="11"/><text x="815.0" y="1894" text-anchor="middle">ponytail:ponytail-audit</text></g>
+<g class="chip pt"><rect x="490" y="1907" width="182" height="22" rx="11"/><text x="581.0" y="1922" text-anchor="middle">ponytail:ponytail-review</text></g>
+<g class="chip ag"><rect x="680" y="1907" width="209" height="22" rx="11"/><text x="784.5" y="1922" text-anchor="middle">ecc:code-reviewer (fallback)</text></g>
+<text x="490" y="1945" class="note">Blocker or major findings after round 2 stop and ask.</text>
+<rect x="110" y="1997" width="330" height="116" rx="5" class="node"/>
+<text x="125" y="2017" class="nt">Verify the ticket in a sub-agent</text>
+<text x="125" y="2033" class="ns">A sub-agent runs it and returns the result table.</text>
+<text x="125" y="2047" class="ns">Packages are re-checked first. Never marks a check</text>
+<text x="125" y="2061" class="ns">passed that did not run. Stops after 2 failed fix</text>
+<text x="125" y="2075" class="ns">rounds.</text>
+<path d="M418 2046 l9 9 l-9 9 l-9 -9 z" class="ga"/>
+<circle cx="110" cy="1997" r="8" class="bl"/><text x="110" y="2001" text-anchor="middle" class="blt">!</text>
+<line x1="442" y1="2019" x2="486" y2="2019" class="dash"/>
+<g class="chip own"><rect x="490" y="2001" width="229" height="22" rx="11"/><text x="604.5" y="2016" text-anchor="middle">ios-orchestration-verify-ticket</text></g>
+<g class="chip ag"><rect x="490" y="2029" width="196" height="22" rx="11"/><text x="588.0" y="2044" text-anchor="middle">sub-agent: general-purpose</text></g>
+<g class="chip team"><rect x="694" y="2029" width="182" height="22" rx="11"/><text x="785.0" y="2044" text-anchor="middle">mobileapps-ios:run-tests</text></g>
+<g class="chip tool"><rect x="490" y="2057" width="182" height="22" rx="11"/><text x="581.0" y="2072" text-anchor="middle">ticket_slots.py packages</text></g>
+<g class="chip tool"><rect x="680" y="2057" width="162" height="22" rx="11"/><text x="761.0" y="2072" text-anchor="middle">xcodebuild, swiftlint</text></g>
+<g class="chip hookok"><rect x="490" y="2085" width="209" height="22" rx="11"/><text x="594.5" y="2100" text-anchor="middle">ticket_gate.py mark-verified</text></g>
+<line x1="275" y1="2113" x2="275" y2="2127" class="ln"/>
+<line x1="205" y1="2127" x2="823" y2="2127" class="ln"/>
+<line x1="205" y1="2127" x2="205" y2="2139" class="ln" marker-end="url(#ar)"/>
+<rect x="110" y="2141" width="190" height="76" rx="6" class="opt"/>
+<text x="122" y="2159" class="nt">App repo</text>
+<text x="122" y="2175" class="ns">lint, build-for-testing, unit tests,</text>
+<text x="122" y="2189" class="ns">UI tests named in the plan,</text>
+<text x="122" y="2203" class="ns">click, design, wording (app client).</text>
+<line x1="205" y1="2217" x2="205" y2="2231" class="ln"/>
+<line x1="411" y1="2127" x2="411" y2="2139" class="ln" marker-end="url(#ar)"/>
+<rect x="316" y="2141" width="190" height="76" rx="6" class="opt"/>
+<text x="328" y="2159" class="nt">Package repo</text>
+<text x="328" y="2175" class="ns">xcodebuild build and test,</text>
+<text x="328" y="2189" class="ns">then lint, then audit.</text>
+<text x="328" y="2203" class="ns">No login, no click tests.</text>
+<line x1="411" y1="2217" x2="411" y2="2231" class="ln"/>
+<line x1="617" y1="2127" x2="617" y2="2139" class="ln" marker-end="url(#ar)"/>
+<rect x="522" y="2141" width="190" height="76" rx="6" class="optb"/>
+<text x="534" y="2159" class="nt">Nothing buildable</text>
+<text x="534" y="2175" class="ns">Lint, parse, API diff,</text>
+<text x="534" y="2189" class="ns">grep consumers. Gate waits</text>
+<text x="534" y="2203" class="ns">for an override reason.</text>
+<line x1="617" y1="2217" x2="617" y2="2231" class="ln"/>
+<line x1="823" y1="2127" x2="823" y2="2139" class="ln" marker-end="url(#ar)"/>
+<rect x="728" y="2141" width="190" height="76" rx="6" class="optb"/>
+<text x="740" y="2159" class="nt">Tests do not compile</text>
+<text x="740" y="2175" class="ns">A failed check, never</text>
+<text x="740" y="2189" class="ns">skipped. Gate waits for an</text>
+<text x="740" y="2203" class="ns">override: tests-unverified.</text>
+<line x1="823" y1="2217" x2="823" y2="2231" class="ln"/>
+<line x1="205" y1="2231" x2="823" y2="2231" class="ln"/>
+<rect x="110" y="2261" width="330" height="87" rx="5" class="node"/>
+<text x="125" y="2281" class="nt">Optional: test the SDK inside the app</text>
+<text x="125" y="2297" class="ns">SDK repos only. Compile errors are reported, never</text>
+<text x="125" y="2311" class="ns">fixed app-side. Branch inject/&lt;SDK&gt;-&lt;KEY&gt; is never</text>
+<text x="125" y="2325" class="ns">pushed.</text>
+<path d="M418 2295 l9 9 l-9 9 l-9 -9 z" class="gu"/>
+<line x1="442" y1="2283" x2="486" y2="2283" class="dash"/>
+<g class="chip own"><rect x="490" y="2265" width="243" height="22" rx="11"/><text x="611.5" y="2280" text-anchor="middle">ios-orchestration-sdk-inject-test</text></g>
+<text x="490" y="2303" class="note">(a) warm BlibliIOSApp slot on develop, or (b) the dev tests with</text>
+<text x="490" y="2317" class="note">printed steps.</text>
+<rect x="110" y="2392" width="330" height="87" rx="5" class="node"/>
+<text x="125" y="2412" class="nt">Open the draft PR</text>
+<text x="125" y="2428" class="ns">Draft only, enforced by the gate. Bug fixes need the</text>
+<text x="125" y="2442" class="ns">root cause section. build-unverified or tests-</text>
+<text x="125" y="2456" class="ns">unverified label if overridden.</text>
+<line x1="442" y1="2414" x2="486" y2="2414" class="dash"/>
+<g class="chip team"><rect x="490" y="2396" width="229" height="22" rx="11"/><text x="604.5" y="2411" text-anchor="middle">mobileapps-foundation:create-pr</text></g>
+<g class="chip tool"><rect x="727" y="2396" width="35" height="22" rx="11"/><text x="744.5" y="2411" text-anchor="middle">gh</text></g>
+<text x="490" y="2434" class="note">Edit after verify denies the gate again.</text>
+<rect x="110" y="2523" width="330" height="73" rx="5" class="node"/>
+<text x="125" y="2543" class="nt">Jira evidence comment</text>
+<text x="125" y="2559" class="ns">PR URL, screenshots, screen recording or needs</text>
+<text x="125" y="2573" class="ns">manual run list.</text>
+<line x1="442" y1="2545" x2="486" y2="2545" class="dash"/>
+<g class="chip tool"><rect x="490" y="2527" width="249" height="22" rx="11"/><text x="614.5" y="2542" text-anchor="middle">Jira MCP addOrEditJiraIssueComment</text></g>
+<rect x="110" y="2640" width="330" height="87" rx="5" class="node"/>
+<text x="125" y="2660" class="nt">Optional: Confluence page (--doc)</text>
+<text x="125" y="2676" class="ns">Context, plan and test cases for QA. Shows the full</text>
+<text x="125" y="2690" class="ns">draft, publishes only after a yes, then links it on</text>
+<text x="125" y="2704" class="ns">the ticket.</text>
+<path d="M418 2674 l9 9 l-9 9 l-9 -9 z" class="gu"/>
+<line x1="442" y1="2662" x2="486" y2="2662" class="dash"/>
+<g class="chip own"><rect x="490" y="2644" width="216" height="22" rx="11"/><text x="598.0" y="2659" text-anchor="middle">ios-orchestration-publish-doc</text></g>
+<g class="chip team"><rect x="490" y="2672" width="290" height="22" rx="11"/><text x="635.0" y="2687" text-anchor="middle">mobileapps-foundation:jira-doc-generator</text></g>
+<g class="chip tool"><rect x="788" y="2672" width="109" height="22" rx="11"/><text x="842.5" y="2687" text-anchor="middle">Atlassian MCP</text></g>
+<rect x="110" y="2771" width="330" height="73" rx="5" class="node"/>
+<text x="125" y="2791" class="nt">Release and clear</text>
+<text x="125" y="2807" class="ns">Slot or worktree released, gate cleared. Never mark</text>
+<text x="125" y="2821" class="ns">ready, never merge.</text>
+<line x1="442" y1="2793" x2="486" y2="2793" class="dash"/>
+<g class="chip hook0"><rect x="490" y="2775" width="156" height="22" rx="11"/><text x="568.0" y="2790" text-anchor="middle">ticket_gate.py clear</text></g>
+<g class="chip tool"><rect x="654" y="2775" width="176" height="22" rx="11"/><text x="742.0" y="2790" text-anchor="middle">ticket_slots.py release</text></g>
+<rect x="110" y="2888" width="330" height="87" rx="5" class="node"/>
+<text x="125" y="2908" class="nt">Watch the PR in the background</text>
+<text x="125" y="2924" class="ns">Shell script polls gh and jq at no model cost. Wakes</text>
+<text x="125" y="2938" class="ns">on comments, CI failure, conflicts, ready, merged or</text>
+<text x="125" y="2952" class="ns">closed.</text>
+<line x1="442" y1="2910" x2="486" y2="2910" class="dash"/>
+<g class="chip own"><rect x="490" y="2892" width="196" height="22" rx="11"/><text x="588.0" y="2907" text-anchor="middle">ios-orchestration-pr-watch</text></g>
+<g class="chip tool"><rect x="694" y="2892" width="95" height="22" rx="11"/><text x="741.5" y="2907" text-anchor="middle">pr_watch.sh</text></g>
+<g class="chip own"><rect x="490" y="2920" width="256" height="22" rx="11"/><text x="618.0" y="2935" text-anchor="middle">ios-orchestration-reply-pr-comments</text></g>
+<text x="490" y="2958" class="note">Never merges, never marks ready. Gives up after 8 hours.</text>
+<rect x="110" y="3019" width="330" height="87" rx="5" class="node"/>
+<text x="125" y="3039" class="nt">After the merge: wrap-up</text>
+<text x="125" y="3055" class="ns">Bug to Code Review, other types to Dev Testing.</text>
+<text x="125" y="3069" class="ns">Clears the gate, releases the slot, archives the</text>
+<text x="125" y="3083" class="ns">plan.</text>
+<line x1="442" y1="3041" x2="486" y2="3041" class="dash"/>
+<g class="chip own"><rect x="490" y="3023" width="189" height="22" rx="11"/><text x="584.5" y="3038" text-anchor="middle">ios-orchestration-wrap-up</text></g>
+<g class="chip tool"><rect x="687" y="3023" width="182" height="22" rx="11"/><text x="778.0" y="3038" text-anchor="middle">Jira transitionJiraIssue</text></g>
+<rect x="110" y="3150" width="330" height="73" rx="5" class="node"/>
+<text x="125" y="3170" class="nt">Done: final report</text>
+<text x="125" y="3186" class="ns">PR URL, result table, needs manual run items,</text>
+<text x="125" y="3200" class="ns">assumptions.</text>
+<g class="chip own"><rect x="110" y="3263" width="22" height="12" rx="6"/></g>
+<text x="138" y="3273" class="lg">ios-orchestration skill</text>
+<g class="chip sp"><rect x="280" y="3263" width="22" height="12" rx="6"/></g>
+<text x="308" y="3273" class="lg">superpowers</text>
+<g class="chip pt"><rect x="383" y="3263" width="22" height="12" rx="6"/></g>
+<text x="411" y="3273" class="lg">ponytail</text>
+<g class="chip team"><rect x="469" y="3263" width="22" height="12" rx="6"/></g>
+<text x="497" y="3273" class="lg">team skill</text>
+<g class="chip ag"><rect x="567" y="3263" width="22" height="12" rx="6"/></g>
+<text x="595" y="3273" class="lg">subagent</text>
+<g class="chip tool"><rect x="653" y="3263" width="22" height="12" rx="6"/></g>
+<text x="681" y="3273" class="lg">tool or command</text>
+<g class="chip hook"><rect x="779" y="3263" width="22" height="12" rx="6"/></g>
+<text x="807" y="3273" class="lg">hook event</text>
+<path d="M118 3283 l6 6 l-6 6 l-6 -6 z" class="gu"/>
+<text x="130" y="3293" class="lg">gate, you decide</text>
+<path d="M242 3283 l6 6 l-6 6 l-6 -6 z" class="ga"/>
+<text x="254" y="3293" class="lg">gate, auto</text>
+<circle cx="336" cy="3289" r="6" class="bl"/><text x="336" y="3292" text-anchor="middle" class="blt" style="font-size:9px">!</text>
+<text x="348" y="3293" class="lg">can stop and ask</text>
 </svg>

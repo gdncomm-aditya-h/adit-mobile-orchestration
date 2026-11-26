@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Swift packages need no manual step. `ticket-slots.py` retries a failed download once and has a new `packages <KEY>` command that re-checks the slot. A download that still fails is a blocker.
+- The ticket flow rules and `verify-before-pr` run implementation and verification in sub-agents that return short reports and never ask the user.
+- New `adit-workflow-setup` skill and `install.py deps --only <names>`: check the plugins the flow needs, ask per missing plugin, install the approved ones. The install manifest now records the repo path.
+- Docs and diagrams follow agent-plugins#595: sixteen skills, the new `ios-orchestration-setup` skill, sub-agents for implement and verify, and automatic Swift packages.
 - Docs and diagrams follow agent-plugins#595 as it stands now: fifteen skills, the repo and version questions, release branches as the base, draft-only PRs enforced by the gate, the tests-must-compile override, `uatb` confirmed before login, and the new `pr-watch`, `wrap-up` and `publish-doc` skills.
 - The worktree slot pool grew from three to four slots.
 - Added the target-design diagram of the team version, `scripts/build_flow_diagram.py`, and rebuilt the dependency graph.

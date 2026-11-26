@@ -105,6 +105,20 @@ class InstallTest(unittest.TestCase):
         self.assertEqual(by_item["ticket-flow gate registered"], "ok")
         self.assertEqual(by_item["CLAUDE.md block"], "ok")
 
+    def test_deps_installs_only_the_named_plugins(self):
+        r = run(self.home, "deps", "--only", "ponytail", "--dry-run")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("ponytail", r.stdout)
+        self.assertNotIn("superpowers", r.stdout)
+        self.assertNotIn("caveman", r.stdout)
+        self.assertNotEqual(run(self.home, "deps").returncode, 0)  # --only is required
+        self.assertNotEqual(run(self.home, "deps", "--only", "not-a-plugin").returncode, 0)
+
+    def test_manifest_records_the_repo_path_for_the_setup_skill(self):
+        self.install()
+        manifest = json.loads((self.home / ".claude/adit-workflow/install-manifest.json").read_text())
+        self.assertEqual(manifest["repo"], str(REPO))
+
 
 if __name__ == "__main__":
     unittest.main()

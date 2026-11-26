@@ -4,6 +4,7 @@ in-tree DerivedData, Swift packages and simulator, so a new ticket gets an incre
 
   ticket-slots.py acquire <KEY> --type <type> --base <branch> [--branch <name>]   (run in any checkout of the repo)
   ticket-slots.py release <KEY|slot-letter>
+  ticket-slots.py packages <KEY>   re-check the Swift packages of the ticket's slot (download only when they changed)
   ticket-slots.py status
 
 acquire prints one JSON object on stdout: slot, worktree, branch, simulator (name, udid), packages, reused.
@@ -113,7 +114,10 @@ def packages(wt, st, slot):
     mark = st / f"{slot}.pkg"
     if mark.exists() and mark.read_text() == h and (proj / "SwiftPackages").exists():
         return "unchanged"
-    r = subprocess.run(["sh", "SwiftPackages.sh", "download"], cwd=proj, capture_output=True, text=True)
+    for _ in range(2):  # one automatic retry: a flaky download should not need a human
+        r = subprocess.run(["sh", "SwiftPackages.sh", "download"], cwd=proj, capture_output=True, text=True)
+        if not r.returncode:
+            break
     if r.returncode:
         return "failed: " + " ".join(r.stdout.splitlines()[-3:] + r.stderr.splitlines()[-3:])
     mark.write_text(h)
@@ -192,6 +196,19 @@ def release(args):
     print(f"released slot-{slot}")
 
 
+def recheck_packages(args):
+    """Prints unchanged, downloaded or failed: ... for the slot that holds the ticket. Exit 4 on failure.
+    Used after a sync with the base branch and before the first build."""
+    _, pool, st = pool_dirs()
+    slot = holder(st, args.key)
+    if not slot:
+        raise Fail(f"no slot holds {args.key}")
+    result = packages(pool / f"slot-{slot}", st, slot)
+    print(result)
+    if result.startswith("failed"):
+        sys.exit(4)
+
+
 def main():
     p = argparse.ArgumentParser()
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -202,6 +219,8 @@ def main():
     a.add_argument("--branch")
     r = sub.add_parser("release")
     r.add_argument("target")
+    k = sub.add_parser("packages")
+    k.add_argument("key")
     sub.add_parser("status")
     args = p.parse_args()
     try:
@@ -209,6 +228,8 @@ def main():
             acquire(args)
         elif args.cmd == "release":
             release(args)
+        elif args.cmd == "packages":
+            recheck_packages(args)
         else:
             print(status_text(pool_dirs()[2]))
     except Fail as e:

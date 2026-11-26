@@ -13,11 +13,14 @@ P = "ios-orchestration-"
 ROWS = [
     (P + "ticket-to-pr", "Entry, owns the whole flow", "claude",
      ["mobileapps-ios: swift-codegen, swiftui-code-gen,", "swiftui-architect, add-api, tdd", "mobileapps-foundation: create-pr, localization", "superpowers: brainstorming"],
-     ["ticket_gate.py, ticket_slots.py", "EnterPlanMode, Jira MCP, gh"]),
+     ["ticket_gate.py, ticket_slots.py", "sub-agents: implement, verify", "EnterPlanMode, Jira MCP, gh"]),
     (P + "flow-config", "Repo, branch prefix, Jira project", "claude",
      [], ["config.json, gh repo view"]),
     (P + "flow-doctor", "Quick health check", "claude",
-     [], ["repo_profile.py", "gh auth, Jira MCP"]),
+     [], ["repo_profile.py, doctor.py", "gh auth, Jira MCP, plugin list"]),
+    (P + "setup", "Check and install plugins", "claude",
+     ["mobileapps-foundation (required)", "superpowers, ponytail, ecc (optional)"],
+     ["doctor.py --plugins", "claude plugin install, after a yes"]),
     (P + "enrich-plan", "DoD, test cases, reviewer pass", "claude",
      ["mobileapps-foundation: localization, figma-mcp", "ecc: planner (reviewer pass)"],
      ["ticket_gate.py mark-active", "Jira MCP, Figma MCP"]),
@@ -26,7 +29,7 @@ ROWS = [
      ["git"]),
     (P + "verify-ticket", "Results only, gate before PR", "claude",
      ["mobileapps-ios: run-tests"],
-     ["ticket_gate.py mark-verified", "xcodebuild, swiftlint", "iOS Simulator MCP (app client)"]),
+     ["ticket_gate.py mark-verified", "ticket_slots.py packages (auto)", "xcodebuild, swiftlint, iOS Simulator MCP"]),
     (P + "sdk-inject-test", "Optional SDK test in the app", "claude",
      [], ["ticket_slots.py (warm app slot)", "never pushed, report only"]),
     (P + "ticket-status", "Slot and gate health, clear markers", "claude",
@@ -53,7 +56,7 @@ PLATFORM = {
 }
 BOTTOM = [
     ("ticket_gate.py", "PreToolUse hook. Blocks commit, push", "and PR creation until verified."),
-    ("ticket_slots.py", "Four warm slots for BlibliIOSApp,", "one simulator and DerivedData each."),
+    ("ticket_slots.py", "Four warm slots for BlibliIOSApp, packages", "auto-downloaded when changed, retried once."),
     ("hooks.json", "Plugin hooks, passive until a", "ticket arms the gate."),
 ]
 
@@ -98,13 +101,13 @@ def build():
     y0, pitch, h = 136, 82, 66
     o = ['<svg xmlns="http://www.w3.org/2000/svg" width="%d" height="%d" viewBox="0 0 %d %d" role="img">' % (W, H, W, H),
          "<title>ios-orchestration dependency graph (in review)</title>",
-         "<desc>Fifteen ios-orchestration skills, the plugin skills and tools each one calls, and the hooks that ship with them. In review as agent-plugins#595, not released.</desc>",
+         "<desc>Sixteen ios-orchestration skills, the plugin skills and tools each one calls, and the hooks that ship with them. In review as agent-plugins#595, not released.</desc>",
          "<style>%s</style>" % CSS,
          '<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#7f8790" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>'
          '<marker id="ph" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#7f77dd" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>',
          '<rect width="%d" height="%d" fill="var(--bg)" rx="12"/>' % (W, H),
          t(40, 46, "ios-orchestration", "title"),
-         t(40, 68, "Twelve skills and plugin hooks that take a Jira ticket to a verified draft PR (in review as agent-plugins#595, not released)", "sub")]
+         t(40, 68, "Sixteen skills and plugin hooks that take a Jira ticket to a verified draft PR (in review as agent-plugins#595, not released)", "sub")]
     # legend
     lx = 40
     for dot, label in (("var(--co)", "Claude Code only"),):

@@ -27,9 +27,10 @@ sequenceDiagram
     Claude->>Jira: move to In Development, or In Progress for a Bug
     Claude->>Slot: acquire slot or worktree, branch prefix/type/KEY
     Claude->>Gate: mark-active
-    Claude->>Slot: implement from the approved plan
+    Claude->>Slot: implementation sub-agent writes the change from the approved plan
     Claude->>Claude: audit-changes, up to 2 fix rounds
-    Claude->>Claude: verify-ticket
+    Claude->>Slot: packages re-checked after any sync with base
+    Claude->>Claude: verify-ticket in a sub-agent
     Claude->>Gate: mark-verified
     Claude->>GH: commit, push, open draft PR
     Claude->>Jira: evidence comment
@@ -43,7 +44,7 @@ sequenceDiagram
 
 ### 1. Preflight, repo and ticket
 
-Claude runs a quiet preflight first. It prints nothing when the machine is ready, and prints a blocker when a tool the skill needs is missing. Tool results are cached for 24 hours, so you never have to run `flow-doctor` first.
+Claude runs a quiet preflight first. It prints nothing when the machine is ready, and prints a blocker when a tool the skill needs is missing. Tool results are cached for 24 hours, so you never have to run `flow-doctor` first. A missing required plugin (`mobileapps-foundation`) points to `setup`, which installs it after a yes. The flow itself never installs anything.
 
 The first thing it does, before anything else runs, is ask which repo you are working on. The recommended answer is the one you pass with `--repo`, else the checkout you are in, else your saved default, else `gdncomm/BlibliIOSApp`, and it asks even when you passed `--repo`. It then settles three more things. The Jira key is the first `[A-Z]+-\d+` in the argument, and if it is missing or ambiguous Claude asks for the ticket URL. The repo profile, app or package, is detected from the files and confirmed with you once if it is not recognised. The base branch comes from a second question, which version the ticket is for. Claude reads the ticket's Fix Version, maps `X.Y.Z` to `release/vX.Y.Z`, and recommends that branch when it exists on `origin`, else the `--base` you passed, else the repo's default branch. A branch that does not exist is refused.
 
@@ -63,7 +64,7 @@ The first thing after approval is moving the ticket to its in-work status. The s
 
 For an app repo Claude takes a slot with `ticket_slots.py acquire`. `BlibliIOSApp` has four slots and other app repos have one. The helper creates the branch `<prefix>/<type>/<KEY>`, where the type comes from the Jira issue type (`bugfix`, `techdebt`, `chores`, `improvement`, `story` and so on) and the prefix is your saved branch prefix. It also writes the DerivedData setting, downloads Swift packages only when the package list changed, and finds or creates the slot's simulator.
 
-The slots are named `slot-a` to `slot-d` and live on after release, with their DerivedData, packages and simulator, so the next ticket starts warm and builds incrementally. The README section [Slots, warm start and incremental builds](../README.md#slots-warm-start-and-incremental-builds) has the full lifecycle.
+The slots are named `slot-a` to `slot-d` and live on after release, with their DerivedData, packages and simulator, so the next ticket starts warm and builds incrementally. The README section [Slots, warm start and incremental builds](../README.md#slots-warm-start-and-incremental-builds) has the full lifecycle. The Swift packages are downloaded for you when they changed, retried once, and never asked about. See [Swift packages, sub-agents and plugin prerequisites](../README.md#swift-packages-sub-agents-and-plugin-prerequisites).
 
 A package repo gets one plain worktree per ticket, with no simulator. If every slot is busy, Claude stops and shows you which tickets hold them.
 
@@ -71,11 +72,11 @@ A package repo gets one plain worktree per ticket, with no simulator. If every s
 
 ### 5. Implement and audit
 
-Claude implements from the one approved plan. Swift edits go through `swift-codegen`, SwiftUI through `swiftui-code-gen`, new API calls through `add-api`, and tests through `tdd`. `audit-changes` then runs an audit loop and a review loop, fixes the must-fix and should-fix findings, and lists the nice-to-haves it left alone.
+A sub-agent implements from the one approved plan, so the edits stay out of the main session's context. It never commits, pushes or asks, and the main session checks its report with `git status` and `git diff --stat`. Swift edits go through `swift-codegen`, SwiftUI through `swiftui-code-gen`, new API calls through `add-api`, and tests through `tdd`. `audit-changes` then runs an audit loop and a review loop, fixes the must-fix and should-fix findings, and lists the nice-to-haves it left alone.
 
 ### 6. Verify
 
-`verify-ticket` runs the checks that fit the repo profile.
+`verify-ticket` runs in a sub-agent that returns only the result table and the evidence paths. It re-checks the Swift packages before the first build and runs the checks that fit the repo profile. Where it would ask you something, it returns a `BLOCKER:` line and the main session asks.
 
 - An app repo gets lint, build, the unit suites named in the plan, the UI tests named in the plan, click tests in the slot's simulator, a design comparison and a wording check against the copy sheet. The design comparison is advisory and cannot fail the gate alone.
 - A package repo gets a build and test on the package scheme, then lint.
@@ -108,6 +109,7 @@ Claude stops and asks you when any of these happen:
 - the pool of slots is full, or a slot has uncommitted changes
 - the simulator login fails, or the app crashes twice in a row
 - lint, build or tests still fail after two fix rounds, or no build is possible and there is no override reason yet
+- the Swift packages still fail to download after the automatic retry
 - the ticket has no usable DoD, or the design or copy sheet it depends on is missing
 - the ticket and the code disagree in a way that changes scope
 - a required root-cause note for a bug fix is missing

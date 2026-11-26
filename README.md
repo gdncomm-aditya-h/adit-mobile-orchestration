@@ -10,14 +10,14 @@ Ticket-to-PR automation for the Blibli iOS team. A person gives it a Jira ticket
 
 There are two versions of it, and this repo describes both.
 
-- The team version is a set of fifteen `ios-orchestration-*` skills and a gate hook inside the `mobileapps-ios` plugin of `gdncomm/agent-plugins`. It is in review as [agent-plugins#595](https://github.com/gdncomm/agent-plugins/pull/595) and is not released yet.
-- The original version is what this repo ships today: nine `adit-workflow-*` skills, two hooks, a rules block and an installer. It still installs, but its ticket flow can no longer run end to end. See [Status](#status).
+- The team version is a set of sixteen `ios-orchestration-*` skills and a gate hook inside the `mobileapps-ios` plugin of `gdncomm/agent-plugins`. It is in review as [agent-plugins#595](https://github.com/gdncomm/agent-plugins/pull/595) and is not released yet.
+- The original version is what this repo ships today: ten `adit-workflow-*` skills, two hooks, a rules block and an installer. It still installs, but its ticket flow can no longer run end to end. See [Status](#status).
 
 The rest of this page describes the team version first, then the original install.
 
 ## The flow in two pictures
 
-![Dependency graph of the fifteen ios-orchestration skills, the plugin skills they call, and the hooks that ship with them. In review as agent-plugins#595.](assets/dependency-graph.svg)
+![Dependency graph of the sixteen ios-orchestration skills, the plugin skills they call, and the hooks that ship with them. In review as agent-plugins#595.](assets/dependency-graph.svg)
 
 *Dependency graph of the team version. In review, not released yet.*
 
@@ -31,7 +31,7 @@ Start it with `/ios-orchestration-ticket-to-pr IOS-123`. It always asks which re
 
 | Skill | What it does |
 |---|---|
-| `ticket-to-pr` | The whole flow: repo and version questions, plan mode with one approval, worktree, implement with the codegen skills, audit, verify, optional SDK test, draft PR, Jira evidence comment, release, then the PR watcher. |
+| `ticket-to-pr` | The whole flow: repo and version questions, plan mode with one approval, worktree, implement in a sub-agent with the codegen skills, audit, verify in a sub-agent, optional SDK test, draft PR, Jira evidence comment, release, then the PR watcher. |
 | `enrich-plan` | Adds DoD traceability, test cases, click tests, design and wording references and a reviewer pass to a draft plan, then saves it and arms the gate. |
 | `verify-ticket` | App repos get lint, build, unit and UI tests, simulator click tests, design and wording checks. Package repos get build and test on the package scheme. It arms the verified marker. |
 | `audit-changes` | Runs an audit loop and then a review loop over the current changes and fixes the must-fix and should-fix findings. |
@@ -45,7 +45,8 @@ Start it with `/ios-orchestration-ticket-to-pr IOS-123`. It always asks which re
 | `wrap-up` | After the merge: moves the Jira ticket (Bug to Code Review, other types to Dev Testing), releases the slot, clears the gate and archives the plan. |
 | `publish-doc` | Puts the ticket context, the plan and the test cases into one Confluence page for QA and links it on the ticket. It asks before publishing, and `ticket-to-pr --doc` runs it. |
 | `flow-config` | Shows or changes the saved repo, branch prefix, Jira project, slot counts and repo profile. |
-| `flow-doctor` | Full check of tools, `gh` login, Xcode, simulator runtime, settings and which optional tools this client has. The other skills run a quiet cached version of it first. |
+| `flow-doctor` | Full check of tools, `gh` login, Xcode, simulator runtime, settings and which optional tools this client has. The other skills run a quiet cached version of it first. It also lists the plugins the flow calls, read-only. |
+| `setup` | One-time setup. Checks the plugins the flow needs, asks per missing plugin, installs the ones you approve with the `claude` CLI and tells you to restart. It never runs during a ticket flow. |
 
 The team version works on any iOS repo the team uses. The default is `gdncomm/BlibliIOSApp`, and any `owner/repo` is accepted and checked with `gh repo view`. It runs in Claude Code, in the terminal and in the desktop app. Click tests need the desktop app, because the simulator tool is not available in the terminal. In the terminal they are recorded as needing a manual run.
 
@@ -66,7 +67,7 @@ The gate hook is `ticket_gate.py`. It does nothing until a ticket is armed, and 
 | `adit-workflow-low-hanging-fruit` | `ios-orchestration-rank-my-tickets` |
 | `adit-workflow-graphify` | not moved |
 | `jira-implement`, `jira-plan`, `jira-develop` | no longer in the marketplace (`jira-implement` was removed in October), so `ticket-to-pr` now does those steps itself |
-| new | `flow-config`, `flow-doctor`, `sdk-inject-test`, `pr-watch`, `wrap-up`, `publish-doc` |
+| new | `flow-config`, `flow-doctor`, `setup`, `sdk-inject-test`, `pr-watch`, `wrap-up`, `publish-doc` |
 
 ## How a ticket runs
 
@@ -81,9 +82,9 @@ flowchart TD
     C --> D["Move ticket to In Development, or In Progress for a Bug"]
     D --> E["App repo: take a free warm slot (slot-a to slot-d), incremental build. Package repo: plain worktree"]
     E --> F["enrich-plan saves the plan, gate hook turns on"]
-    F --> G["Implement from the approved plan with the codegen skills"]
+    F --> G["Implement in a sub-agent from the approved plan with the codegen skills"]
     G --> H["audit-changes, up to 2 rounds"]
-    H --> I["verify-ticket: build and tests, plus click tests, design and wording for app repos"]
+    H --> I["verify-ticket in a sub-agent: packages re-checked, build and tests, plus click tests, design and wording for app repos"]
     I --> J{"Every check passes?"}
     J -- yes --> K["Optional: test the SDK inside BlibliIOSApp develop"]
     K --> L["Draft PR and Jira evidence comment, slot released"]
@@ -143,9 +144,17 @@ What to know:
 - Starting the same ticket again goes back to the slot that holds it, so a resumed ticket keeps its branch and edits.
 - The helper never runs `git clean`, `git reset` or `git stash`. Do not run `git clean -fdx` in a slot yourself, because it deletes the warm build and the next ticket starts cold.
 - A slot with uncommitted changes is skipped, never reset. If every slot is busy or dirty the flow stops and shows the table. `/ios-orchestration-ticket-status` shows the same table at any time.
-- A warm slot is not always a fast one. If the base branch moved a lot, or `SwiftPackageList.txt`, `Podfile.lock` or `Package.resolved` changed, the packages are downloaded again and more of the app recompiles.
+- A warm slot is not always a fast one. If the base branch moved a lot, or `SwiftPackageList.txt`, `Podfile.lock` or `Package.resolved` changed, the packages are downloaded again and more of the app recompiles. You never run the download yourself, see [Swift packages, sub-agents and plugin prerequisites](#swift-packages-sub-agents-and-plugin-prerequisites).
 - `sdk-inject-test` uses a warm slot too. It puts an SDK worktree into the latest `develop` on a throwaway `inject/*` branch that is always cut fresh from the base, and that branch is never pushed.
 - Package repos have no slots: one plain worktree per ticket, no simulator, removed on release when it is clean.
+
+## Swift packages, sub-agents and plugin prerequisites
+
+Swift packages need no manual step. `ticket_slots.py acquire` runs `SwiftPackages.sh download` for the slot when `SwiftPackageList.txt`, `Podfile.lock` or `Package.resolved` changed since the last download, or when `SwiftPackages/` is missing, and it retries once on failure. The check runs after the ticket branch is checked out, so a branch change is covered. It runs again through `ticket_slots.py packages <KEY>` after a sync with `origin/<base>` and before the first build in `verify-ticket`, and it downloads only when those files changed. You are never asked. Only a download that still fails after the retry stops the flow, and it shows the last lines of the output.
+
+`ticket-to-pr` keeps the main session small by using two sub-agents. One writes the code from the saved plan. It never commits, pushes or asks you anything, and it returns the files changed, the tests added, the differences from the plan, or a `BLOCKER:` line. The other runs `verify-ticket` and returns the result table and the evidence paths. The main session keeps the questions, plan mode, Jira, the draft PR and the gate, and it checks each result with `git status` and `ticket_gate.py list` instead of trusting the report. If the `Agent` tool is missing or a sub-agent cannot reach the worktree or the simulator tool, that step runs in the main session and the final report says so. Two things have not been checked in a real run yet: that the gate hook fires for a sub-agent's tool calls (the sub-agent never commits or pushes, so the flow does not depend on it), and that a sub-agent can drive the simulator tool.
+
+`ticket-to-pr` blocks only when `mobileapps-foundation` is missing, because `create-pr`, `localization`, `figma-mcp` and `jira-doc-generator` come from it. `superpowers`, `ponytail` and `ecc` are optional with fallbacks. If both `ponytail` and `ecc` are missing, `audit-changes` has no reviewer. `/ios-orchestration-setup` lists what is missing, asks per plugin, and runs `claude plugin marketplace add` and `claude plugin install` only after a yes. Plugins load at session start, so restart Claude Code afterwards.
 
 ## Settings
 
@@ -202,6 +211,7 @@ The installer needs only Python 3.8 or newer. It writes a backup of every file i
 | [pr-reply](skills/adit-workflow-pr-reply/SKILL.md) | Triages unresolved review threads, fixes the real issues, replies to the rest and resolves what it can. | Claude, Codex (experimental) |
 | [review-pr-blibli-mobile-ios](skills/adit-workflow-review-pr-blibli-mobile-ios/SKILL.md) | Reviews the open PRs in the iOS repo one by one and remembers which commits it already saw. | Claude, Codex (experimental) |
 | [check-slot-bliblimobileios](skills/adit-workflow-check-slot-bliblimobileios/SKILL.md) | Prints a read-only health table for the four worktree slots. | Claude, Codex |
+| [setup](skills/adit-workflow-setup/SKILL.md) | Checks the plugins listed in `deps.json`, asks per missing plugin and installs the ones you approve with `install.py deps`. | Claude |
 | [low-hanging-fruit](skills/adit-workflow-low-hanging-fruit/SKILL.md) | Ranks your open IOS tickets from easiest to hardest. | Claude, Codex |
 | [graphify](skills/adit-workflow-graphify/SKILL.md) | Builds a knowledge graph of a codebase and answers architecture questions from it. | Claude, Codex |
 
@@ -249,7 +259,7 @@ Uninstall leaves plugins, your test-account file and your backups alone.
 install.py        install, uninstall and doctor for the original version
 deps.json         plugin sources and tested versions for the original version
 skills.json       the original skill list, with Codex support and what each skill calls
-skills/           the nine original skills
+skills/           the ten original skills
 hooks/            ticket-flow-gate.py and ticket-slots.py of the original version
 claude-md/        the rules block written into CLAUDE.md and AGENTS.md by the installer
 assets/           diagrams of the team version, built by scripts/build_diagram.py and scripts/build_flow_diagram.py

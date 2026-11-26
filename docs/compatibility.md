@@ -34,6 +34,7 @@ The installer keeps one real copy of every skill in `~/.agents/skills` and links
 | pr-reply | yes | experimental | Calls superpowers, caveman and mobileapps-ios skills |
 | review-pr-blibli-mobile-ios | yes | experimental | Calls ecc agents and the code-review skill |
 | check-slot-bliblimobileios | yes | yes | Runs one bundled script |
+| setup | yes | no | Runs the `claude` CLI to install plugins |
 | low-hanging-fruit | yes | yes | Needs a Jira connector, nothing else |
 | graphify | yes | yes | Uses its own CLI. It uses subagents when the host has them |
 

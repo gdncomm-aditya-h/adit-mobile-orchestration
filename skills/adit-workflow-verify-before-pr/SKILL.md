@@ -8,7 +8,7 @@ argument-hint: <TICKET-KEY>
 
 Input: `$ARGUMENTS` (ticket key). Run in the ticket's checkout (the worktree, with changes uncommitted). Needs the saved plan `~/.claude/plans/<KEY>-*.md` (from `adit-workflow-plan-enrich`). If it is missing, run `adit-workflow-plan-enrich` first.
 
-Rules: report real results only. Never mark something passed that did not run. Show the shortest decisive error line for failures. Enter no credential except the uatb test account in "Login (uatb)". **Autonomous**: follow "Autonomous by default" in `~/.claude/CLAUDE.md`. Ask only for a blocker (login needed, environment switch failed, crash after one relaunch, checks failing after 2 fix rounds, auth or network failure), in one message with the failure, the error line, and the recommended fix.
+Rules: report real results only. Never mark something passed that did not run. Show the shortest decisive error line for failures. Enter no credential except the uatb test account in "Login (uatb)". **Autonomous**: follow "Autonomous by default" in `~/.claude/CLAUDE.md`. Ask only for a blocker (login needed, environment switch failed, crash after one relaunch, checks failing after 2 fix rounds, auth or network failure), in one message with the failure, the error line, and the recommended fix. When this skill runs in a sub-agent (as the ticket flow in `CLAUDE.md` does), it cannot ask: return `BLOCKER: <failure>, <error line>, <recommended fix>` (or the question with the recommended answer) and stop; the caller asks and sends the answer back.
 
 ## 1. Setup
 1. Confirm cwd's branch contains `<KEY>` and `git status` shows the changes.
@@ -17,7 +17,8 @@ Rules: report real results only. Never mark something passed that did not run. S
    - scheme: the one in `BlibliMobile-iOS.xcodeproj/xcshareddata/xcschemes` whose TestAction lists `BliBliMobile-SwiftTesting` (`grep -l`); if several, prefer `BlibliMobile-iOS-test`, then `BlibliMobile-iOS`; ask only if none matches;
    - test targets `BliBliMobile-SwiftTesting` (unit), `BlibliMobile_XCUITest` (UI);
    - simulator: the slot's simulator (`simulator.udid` from `ticket-slots.py acquire`, see CLAUDE.md "Slot pool"); use `-destination 'platform=iOS Simulator,id=<udid>'`. Only without a slot: the booted one, else `iPhone 17 Pro` from `xcrun simctl list devices available`.
-3. Builds are slow: run `xcodebuild` in the background (`run_in_background`) and write its log to a file. Do not poll; read the log when notified.
+3. Swift packages: run `python3 ~/.claude/hooks/ticket-slots.py packages <KEY>` before the first build. It downloads only when the package files changed (for example after a merge from base), retries once and asks nothing. Exit 4 is a blocker: show its last lines.
+4. Builds are slow: run `xcodebuild` in the background (`run_in_background`) and write its log to a file. Do not poll; read the log when notified.
 
 ## 2. Static and build checks
 1. SwiftLint on changed Swift files: `../tools/swiftlint/swiftlint lint --config .swiftlint.yml <files>` from `BlibliMobile-iOS/`.

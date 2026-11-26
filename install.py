@@ -4,6 +4,7 @@
   python3 install.py install   [--target auto|claude|codex|both] [--prefix NAME] [--dry-run] [--skip-deps]
   python3 install.py doctor    [--target ...] [--json]
   python3 install.py uninstall [--target ...] [--dry-run]
+  python3 install.py deps      --only name,name [--dry-run]   install just those plugins from deps.json
 
 Skills are copied once into ~/.agents/skills and symlinked into ~/.claude/skills and ~/.codex/skills.
 Everything it changes is recorded in ~/.claude/adit-workflow/install-manifest.json and backed up under
@@ -265,11 +266,15 @@ def run_cli(c, args):
     return r.returncode == 0
 
 
-def install_deps(c):
+def install_deps(c, only=None):
+    """Install missing plugins from deps.json. `only` is a set of plugin names; None means all of them."""
     deps = load("deps.json")
     versions, markets = claude_state(c)
-    missing_m = [(n, m) for n, m in deps["marketplaces"].items() if n not in markets]
-    missing_p = [p for p in deps["plugins"] if "%s@%s" % (p["name"], p["marketplace"]) not in versions]
+    missing_p = [p for p in deps["plugins"] if "%s@%s" % (p["name"], p["marketplace"]) not in versions
+                 and (only is None or p["name"] in only)]
+    needed = {p["marketplace"] for p in missing_p}
+    missing_m = [(n, m) for n, m in deps["marketplaces"].items()
+                 if n not in markets and (only is None or n in needed)]
     if not shutil.which("claude"):
         if missing_m or missing_p:
             print("The claude CLI is not on PATH. Run these inside a Claude Code session instead:")
@@ -310,10 +315,21 @@ def cmd_install(c, a):
     if not c.dry:
         c.state.mkdir(parents=True, exist_ok=True)
         (c.state / "install-manifest.json").write_text(json.dumps(
-            {"version": (REPO / "VERSION").read_text().strip(), "targets": targets, "prefix": prefix, "skills": names}, indent=2) + "\n")
+            {"version": (REPO / "VERSION").read_text().strip(), "targets": targets, "prefix": prefix, "skills": names,
+             "repo": str(REPO)}, indent=2) + "\n")
     print("\nDone. Run `python3 install.py doctor` to verify. Restart Claude Code or Codex so it picks up the new skills.")
     for w in c.warnings:
         print("  - " + w)
+
+
+def cmd_deps(c, a):
+    """Install only the named plugins from deps.json (used by adit-workflow-setup after the user said yes)."""
+    names = {p["name"] for p in load("deps.json")["plugins"]}
+    only = {n for n in (a.only or "").split(",") if n}
+    if not only or only - names:
+        sys.exit("deps needs --only <name,name> from: %s" % ", ".join(sorted(names)))
+    install_deps(c, only)
+    print("\nPlugins load at session start. Restart Claude Code, then run `python3 install.py doctor`.")
 
 
 def cmd_uninstall(c, a):
@@ -398,18 +414,19 @@ def cmd_doctor(c, a):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("command", choices=["install", "uninstall", "doctor"])
+    ap.add_argument("command", choices=["install", "uninstall", "doctor", "deps"])
     ap.add_argument("--target", default="auto", choices=["auto", "claude", "codex", "both"])
     ap.add_argument("--prefix", help="branch prefix for ticket branches, e.g. your first name (default: from git config)")
     ap.add_argument("--dry-run", action="store_true", help="print what would change and change nothing")
     ap.add_argument("--skip-deps", action="store_true", help="do not install plugin dependencies")
+    ap.add_argument("--only", help="deps: comma-separated plugin names from deps.json")
     ap.add_argument("--json", action="store_true", help="doctor: machine-readable output")
     ap.add_argument("--home", default=str(Path.home()), help=argparse.SUPPRESS)
     a = ap.parse_args()
     c = Ctx(a.home, a.dry_run)
     if a.command == "doctor":
         sys.exit(cmd_doctor(c, a))
-    {"install": cmd_install, "uninstall": cmd_uninstall}[a.command](c, a)
+    {"install": cmd_install, "uninstall": cmd_uninstall, "deps": cmd_deps}[a.command](c, a)
 
 
 if __name__ == "__main__":

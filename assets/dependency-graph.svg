@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1546" viewBox="0 0 1000 1546" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1628" viewBox="0 0 1000 1628" role="img">
 <title>ios-orchestration dependency graph (in review)</title>
-<desc>Fifteen ios-orchestration skills, the plugin skills and tools each one calls, and the hooks that ship with them. In review as agent-plugins#595, not released.</desc>
+<desc>Sixteen ios-orchestration skills, the plugin skills and tools each one calls, and the hooks that ship with them. In review as agent-plugins#595, not released.</desc>
 <style>
   :root{--bg:#ffffff;--text:#1f2328;--muted:#59636e;--line:#c7ced6;
     --pf:#eeedfe;--ps:#534ab7;--pt:#3c3489;
@@ -30,9 +30,9 @@
   .call{stroke:var(--ps);stroke-width:1.6;fill:none}
 </style>
 <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#7f8790" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="ph" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#7f77dd" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
-<rect width="1000" height="1546" fill="var(--bg)" rx="12"/>
+<rect width="1000" height="1628" fill="var(--bg)" rx="12"/>
 <text x="40" y="46" class="title">ios-orchestration</text>
-<text x="40" y="68" class="sub">Twelve skills and plugin hooks that take a Jira ticket to a verified draft PR (in review as agent-plugins#595, not released)</text>
+<text x="40" y="68" class="sub">Sixteen skills and plugin hooks that take a Jira ticket to a verified draft PR (in review as agent-plugins#595, not released)</text>
 <circle cx="45" cy="90" r="4.5" fill="var(--co)"/>
 <text x="56" y="94" class="p">Claude Code only</text>
 <line x1="174" y1="90" x2="200" y2="90" class="call" marker-end="url(#ph)"/>
@@ -40,11 +40,11 @@
 <text x="64" y="122" class="col">Skills (ios-orchestration-*)</text>
 <text x="384" y="122" class="col">Plugin skills they call</text>
 <text x="722" y="122" class="col">Scripts and tools</text>
-<path d="M64 169 H14 V989 H62" class="call" marker-end="url(#ph)"/>
-<path d="M64 169 H23 V661 H62" class="call" marker-end="url(#ph)"/>
-<path d="M64 169 H32 V579 H62" class="call" marker-end="url(#ph)"/>
-<path d="M64 169 H41 V497 H62" class="call" marker-end="url(#ph)"/>
-<path d="M64 169 H50 V415 H62" class="call" marker-end="url(#ph)"/>
+<path d="M64 169 H14 V1071 H62" class="call" marker-end="url(#ph)"/>
+<path d="M64 169 H23 V743 H62" class="call" marker-end="url(#ph)"/>
+<path d="M64 169 H32 V661 H62" class="call" marker-end="url(#ph)"/>
+<path d="M64 169 H41 V579 H62" class="call" marker-end="url(#ph)"/>
+<path d="M64 169 H50 V497 H62" class="call" marker-end="url(#ph)"/>
 <rect x="64" y="136" width="300" height="66" rx="8" class="card-p"/>
 <text x="78" y="159" class="h tp">ios-orchestration-ticket-to-pr</text>
 <text x="78" y="177" class="s tp">Entry, owns the whole flow</text>
@@ -58,8 +58,9 @@
 <text x="398" y="180" class="s tt">mobileapps-foundation: create-pr, localization</text>
 <text x="398" y="195" class="s tt">superpowers: brainstorming</text>
 <rect x="722" y="136" width="240" height="66" rx="8" class="card-g"/>
-<text x="736" y="165" class="s tg">ticket_gate.py, ticket_slots.py</text>
-<text x="736" y="180" class="s tg">EnterPlanMode, Jira MCP, gh</text>
+<text x="736" y="157" class="s tg">ticket_gate.py, ticket_slots.py</text>
+<text x="736" y="172" class="s tg">sub-agents: implement, verify</text>
+<text x="736" y="187" class="s tg">EnterPlanMode, Jira MCP, gh</text>
 <rect x="64" y="218" width="300" height="66" rx="8" class="card-p"/>
 <text x="78" y="241" class="h tp">ios-orchestration-flow-config</text>
 <text x="78" y="259" class="s tp">Repo, branch prefix, Jira project</text>
@@ -81,61 +82,62 @@
 <rect x="384" y="300" width="322" height="66" rx="8" class="card-n"/>
 <text x="398" y="337" class="m">no plugin skills</text>
 <rect x="722" y="300" width="240" height="66" rx="8" class="card-g"/>
-<text x="736" y="329" class="s tg">repo_profile.py</text>
-<text x="736" y="344" class="s tg">gh auth, Jira MCP</text>
+<text x="736" y="329" class="s tg">repo_profile.py, doctor.py</text>
+<text x="736" y="344" class="s tg">gh auth, Jira MCP, plugin list</text>
 <rect x="64" y="382" width="300" height="66" rx="8" class="card-p"/>
-<text x="78" y="405" class="h tp">ios-orchestration-enrich-plan</text>
-<text x="78" y="423" class="s tp">DoD, test cases, reviewer pass</text>
+<text x="78" y="405" class="h tp">ios-orchestration-setup</text>
+<text x="78" y="423" class="s tp">Check and install plugins</text>
 <circle cx="82" cy="437" r="4" fill="var(--co)"/>
 <text x="92" y="441" class="p">Claude Code only</text>
 <line x1="364" y1="415" x2="381" y2="415" class="arr" marker-end="url(#ah)"/>
 <line x1="706" y1="415" x2="719" y2="415" class="arr" marker-end="url(#ah)"/>
 <rect x="384" y="382" width="322" height="66" rx="8" class="card-t"/>
-<text x="398" y="411" class="s tt">mobileapps-foundation: localization, figma-mcp</text>
-<text x="398" y="426" class="s tt">ecc: planner (reviewer pass)</text>
+<text x="398" y="411" class="s tt">mobileapps-foundation (required)</text>
+<text x="398" y="426" class="s tt">superpowers, ponytail, ecc (optional)</text>
 <rect x="722" y="382" width="240" height="66" rx="8" class="card-g"/>
-<text x="736" y="411" class="s tg">ticket_gate.py mark-active</text>
-<text x="736" y="426" class="s tg">Jira MCP, Figma MCP</text>
+<text x="736" y="411" class="s tg">doctor.py --plugins</text>
+<text x="736" y="426" class="s tg">claude plugin install, after a yes</text>
 <rect x="64" y="464" width="300" height="66" rx="8" class="card-p"/>
-<text x="78" y="487" class="h tp">ios-orchestration-audit-changes</text>
-<text x="78" y="505" class="s tp">Audit loop, then review loop</text>
+<text x="78" y="487" class="h tp">ios-orchestration-enrich-plan</text>
+<text x="78" y="505" class="s tp">DoD, test cases, reviewer pass</text>
 <circle cx="82" cy="519" r="4" fill="var(--co)"/>
 <text x="92" y="523" class="p">Claude Code only</text>
 <line x1="364" y1="497" x2="381" y2="497" class="arr" marker-end="url(#ah)"/>
 <line x1="706" y1="497" x2="719" y2="497" class="arr" marker-end="url(#ah)"/>
 <rect x="384" y="464" width="322" height="66" rx="8" class="card-t"/>
-<text x="398" y="493" class="s tt">ponytail: ponytail-audit, ponytail-review</text>
-<text x="398" y="508" class="s tt">ecc: code-reviewer (fallback)</text>
+<text x="398" y="493" class="s tt">mobileapps-foundation: localization, figma-mcp</text>
+<text x="398" y="508" class="s tt">ecc: planner (reviewer pass)</text>
 <rect x="722" y="464" width="240" height="66" rx="8" class="card-g"/>
-<text x="736" y="500" class="s tg">git</text>
+<text x="736" y="493" class="s tg">ticket_gate.py mark-active</text>
+<text x="736" y="508" class="s tg">Jira MCP, Figma MCP</text>
 <rect x="64" y="546" width="300" height="66" rx="8" class="card-p"/>
-<text x="78" y="569" class="h tp">ios-orchestration-verify-ticket</text>
-<text x="78" y="587" class="s tp">Results only, gate before PR</text>
+<text x="78" y="569" class="h tp">ios-orchestration-audit-changes</text>
+<text x="78" y="587" class="s tp">Audit loop, then review loop</text>
 <circle cx="82" cy="601" r="4" fill="var(--co)"/>
 <text x="92" y="605" class="p">Claude Code only</text>
 <line x1="364" y1="579" x2="381" y2="579" class="arr" marker-end="url(#ah)"/>
 <line x1="706" y1="579" x2="719" y2="579" class="arr" marker-end="url(#ah)"/>
 <rect x="384" y="546" width="322" height="66" rx="8" class="card-t"/>
-<text x="398" y="582" class="s tt">mobileapps-ios: run-tests</text>
+<text x="398" y="575" class="s tt">ponytail: ponytail-audit, ponytail-review</text>
+<text x="398" y="590" class="s tt">ecc: code-reviewer (fallback)</text>
 <rect x="722" y="546" width="240" height="66" rx="8" class="card-g"/>
-<text x="736" y="567" class="s tg">ticket_gate.py mark-verified</text>
-<text x="736" y="582" class="s tg">xcodebuild, swiftlint</text>
-<text x="736" y="597" class="s tg">iOS Simulator MCP (app client)</text>
+<text x="736" y="582" class="s tg">git</text>
 <rect x="64" y="628" width="300" height="66" rx="8" class="card-p"/>
-<text x="78" y="651" class="h tp">ios-orchestration-sdk-inject-test</text>
-<text x="78" y="669" class="s tp">Optional SDK test in the app</text>
+<text x="78" y="651" class="h tp">ios-orchestration-verify-ticket</text>
+<text x="78" y="669" class="s tp">Results only, gate before PR</text>
 <circle cx="82" cy="683" r="4" fill="var(--co)"/>
 <text x="92" y="687" class="p">Claude Code only</text>
 <line x1="364" y1="661" x2="381" y2="661" class="arr" marker-end="url(#ah)"/>
 <line x1="706" y1="661" x2="719" y2="661" class="arr" marker-end="url(#ah)"/>
-<rect x="384" y="628" width="322" height="66" rx="8" class="card-n"/>
-<text x="398" y="665" class="m">no plugin skills</text>
+<rect x="384" y="628" width="322" height="66" rx="8" class="card-t"/>
+<text x="398" y="664" class="s tt">mobileapps-ios: run-tests</text>
 <rect x="722" y="628" width="240" height="66" rx="8" class="card-g"/>
-<text x="736" y="657" class="s tg">ticket_slots.py (warm app slot)</text>
-<text x="736" y="672" class="s tg">never pushed, report only</text>
+<text x="736" y="649" class="s tg">ticket_gate.py mark-verified</text>
+<text x="736" y="664" class="s tg">ticket_slots.py packages (auto)</text>
+<text x="736" y="679" class="s tg">xcodebuild, swiftlint, iOS Simulator MCP</text>
 <rect x="64" y="710" width="300" height="66" rx="8" class="card-p"/>
-<text x="78" y="733" class="h tp">ios-orchestration-ticket-status</text>
-<text x="78" y="751" class="s tp">Slot and gate health, clear markers</text>
+<text x="78" y="733" class="h tp">ios-orchestration-sdk-inject-test</text>
+<text x="78" y="751" class="s tp">Optional SDK test in the app</text>
 <circle cx="82" cy="765" r="4" fill="var(--co)"/>
 <text x="92" y="769" class="p">Claude Code only</text>
 <line x1="364" y1="743" x2="381" y2="743" class="arr" marker-end="url(#ah)"/>
@@ -143,59 +145,60 @@
 <rect x="384" y="710" width="322" height="66" rx="8" class="card-n"/>
 <text x="398" y="747" class="m">no plugin skills</text>
 <rect x="722" y="710" width="240" height="66" rx="8" class="card-g"/>
-<text x="736" y="739" class="s tg">ticket_slots.py status</text>
-<text x="736" y="754" class="s tg">ticket_gate.py</text>
+<text x="736" y="739" class="s tg">ticket_slots.py (warm app slot)</text>
+<text x="736" y="754" class="s tg">never pushed, report only</text>
 <rect x="64" y="792" width="300" height="66" rx="8" class="card-p"/>
-<text x="78" y="815" class="h tp">ios-orchestration-reply-pr-comments</text>
-<text x="78" y="833" class="s tp">Answer PR review threads</text>
+<text x="78" y="815" class="h tp">ios-orchestration-ticket-status</text>
+<text x="78" y="833" class="s tp">Slot and gate health, clear markers</text>
 <circle cx="82" cy="847" r="4" fill="var(--co)"/>
 <text x="92" y="851" class="p">Claude Code only</text>
 <line x1="364" y1="825" x2="381" y2="825" class="arr" marker-end="url(#ah)"/>
 <line x1="706" y1="825" x2="719" y2="825" class="arr" marker-end="url(#ah)"/>
-<rect x="384" y="792" width="322" height="66" rx="8" class="card-t"/>
-<text x="398" y="821" class="s tt">superpowers: receiving-code-review</text>
-<text x="398" y="836" class="s tt">mobileapps-ios: swift-codegen</text>
+<rect x="384" y="792" width="322" height="66" rx="8" class="card-n"/>
+<text x="398" y="829" class="m">no plugin skills</text>
 <rect x="722" y="792" width="240" height="66" rx="8" class="card-g"/>
-<text x="736" y="821" class="s tg">pr-threads.sh</text>
-<text x="736" y="836" class="s tg">gh api, Jira MCP</text>
+<text x="736" y="821" class="s tg">ticket_slots.py status</text>
+<text x="736" y="836" class="s tg">ticket_gate.py</text>
 <rect x="64" y="874" width="300" height="66" rx="8" class="card-p"/>
-<text x="78" y="897" class="h tp">ios-orchestration-review-open-prs</text>
-<text x="78" y="915" class="s tp">Batch PR review, any repo</text>
+<text x="78" y="897" class="h tp">ios-orchestration-reply-pr-comments</text>
+<text x="78" y="915" class="s tp">Answer PR review threads</text>
 <circle cx="82" cy="929" r="4" fill="var(--co)"/>
 <text x="92" y="933" class="p">Claude Code only</text>
 <line x1="364" y1="907" x2="381" y2="907" class="arr" marker-end="url(#ah)"/>
 <line x1="706" y1="907" x2="719" y2="907" class="arr" marker-end="url(#ah)"/>
 <rect x="384" y="874" width="322" height="66" rx="8" class="card-t"/>
-<text x="398" y="903" class="s tt">mobileapps-ios: swift-review (local checkout)</text>
-<text x="398" y="918" class="s tt">ecc: swift-reviewer, security-reviewer</text>
+<text x="398" y="903" class="s tt">superpowers: receiving-code-review</text>
+<text x="398" y="918" class="s tt">mobileapps-ios: swift-codegen</text>
 <rect x="722" y="874" width="240" height="66" rx="8" class="card-g"/>
-<text x="736" y="910" class="s tg">gh api, gh pr</text>
+<text x="736" y="903" class="s tg">pr-threads.sh</text>
+<text x="736" y="918" class="s tg">gh api, Jira MCP</text>
 <rect x="64" y="956" width="300" height="66" rx="8" class="card-p"/>
-<text x="78" y="979" class="h tp">ios-orchestration-plan-from-ticket</text>
-<text x="78" y="997" class="s tp">Draft step: explore and plan</text>
+<text x="78" y="979" class="h tp">ios-orchestration-review-open-prs</text>
+<text x="78" y="997" class="s tp">Batch PR review, any repo</text>
 <circle cx="82" cy="1011" r="4" fill="var(--co)"/>
 <text x="92" y="1015" class="p">Claude Code only</text>
 <line x1="364" y1="989" x2="381" y2="989" class="arr" marker-end="url(#ah)"/>
 <line x1="706" y1="989" x2="719" y2="989" class="arr" marker-end="url(#ah)"/>
 <rect x="384" y="956" width="322" height="66" rx="8" class="card-t"/>
-<text x="398" y="992" class="s tt">mobileapps-foundation: repo-index</text>
+<text x="398" y="985" class="s tt">mobileapps-ios: swift-review (local checkout)</text>
+<text x="398" y="1000" class="s tt">ecc: swift-reviewer, security-reviewer</text>
 <rect x="722" y="956" width="240" height="66" rx="8" class="card-g"/>
-<text x="736" y="985" class="s tg">Explore subagent</text>
-<text x="736" y="1000" class="s tg">Jira MCP, gh</text>
+<text x="736" y="992" class="s tg">gh api, gh pr</text>
 <rect x="64" y="1038" width="300" height="66" rx="8" class="card-p"/>
-<text x="78" y="1061" class="h tp">ios-orchestration-rank-my-tickets</text>
-<text x="78" y="1079" class="s tp">Rank your open tickets</text>
+<text x="78" y="1061" class="h tp">ios-orchestration-plan-from-ticket</text>
+<text x="78" y="1079" class="s tp">Draft step: explore and plan</text>
 <circle cx="82" cy="1093" r="4" fill="var(--co)"/>
 <text x="92" y="1097" class="p">Claude Code only</text>
 <line x1="364" y1="1071" x2="381" y2="1071" class="arr" marker-end="url(#ah)"/>
 <line x1="706" y1="1071" x2="719" y2="1071" class="arr" marker-end="url(#ah)"/>
-<rect x="384" y="1038" width="322" height="66" rx="8" class="card-n"/>
-<text x="398" y="1075" class="m">no plugin skills</text>
+<rect x="384" y="1038" width="322" height="66" rx="8" class="card-t"/>
+<text x="398" y="1074" class="s tt">mobileapps-foundation: repo-index</text>
 <rect x="722" y="1038" width="240" height="66" rx="8" class="card-g"/>
-<text x="736" y="1074" class="s tg">Jira MCP (JQL search)</text>
+<text x="736" y="1067" class="s tg">Explore subagent</text>
+<text x="736" y="1082" class="s tg">Jira MCP, gh</text>
 <rect x="64" y="1120" width="300" height="66" rx="8" class="card-p"/>
-<text x="78" y="1143" class="h tp">ios-orchestration-pr-watch</text>
-<text x="78" y="1161" class="s tp">Background PR babysitter</text>
+<text x="78" y="1143" class="h tp">ios-orchestration-rank-my-tickets</text>
+<text x="78" y="1161" class="s tp">Rank your open tickets</text>
 <circle cx="82" cy="1175" r="4" fill="var(--co)"/>
 <text x="92" y="1179" class="p">Claude Code only</text>
 <line x1="364" y1="1153" x2="381" y2="1153" class="arr" marker-end="url(#ah)"/>
@@ -203,11 +206,10 @@
 <rect x="384" y="1120" width="322" height="66" rx="8" class="card-n"/>
 <text x="398" y="1157" class="m">no plugin skills</text>
 <rect x="722" y="1120" width="240" height="66" rx="8" class="card-g"/>
-<text x="736" y="1149" class="s tg">pr_watch.sh (gh, jq), no model cost</text>
-<text x="736" y="1164" class="s tg">calls reply-pr-comments, wrap-up</text>
+<text x="736" y="1156" class="s tg">Jira MCP (JQL search)</text>
 <rect x="64" y="1202" width="300" height="66" rx="8" class="card-p"/>
-<text x="78" y="1225" class="h tp">ios-orchestration-wrap-up</text>
-<text x="78" y="1243" class="s tp">After merge: Jira move, cleanup</text>
+<text x="78" y="1225" class="h tp">ios-orchestration-pr-watch</text>
+<text x="78" y="1243" class="s tp">Background PR babysitter</text>
 <circle cx="82" cy="1257" r="4" fill="var(--co)"/>
 <text x="92" y="1261" class="p">Claude Code only</text>
 <line x1="364" y1="1235" x2="381" y2="1235" class="arr" marker-end="url(#ah)"/>
@@ -215,31 +217,43 @@
 <rect x="384" y="1202" width="322" height="66" rx="8" class="card-n"/>
 <text x="398" y="1239" class="m">no plugin skills</text>
 <rect x="722" y="1202" width="240" height="66" rx="8" class="card-g"/>
-<text x="736" y="1231" class="s tg">ticket_slots.py release, ticket_gate.py clear</text>
-<text x="736" y="1246" class="s tg">Jira MCP, gh</text>
+<text x="736" y="1231" class="s tg">pr_watch.sh (gh, jq), no model cost</text>
+<text x="736" y="1246" class="s tg">calls reply-pr-comments, wrap-up</text>
 <rect x="64" y="1284" width="300" height="66" rx="8" class="card-p"/>
-<text x="78" y="1307" class="h tp">ios-orchestration-publish-doc</text>
-<text x="78" y="1325" class="s tp">Confluence page: context, plan, tests</text>
+<text x="78" y="1307" class="h tp">ios-orchestration-wrap-up</text>
+<text x="78" y="1325" class="s tp">After merge: Jira move, cleanup</text>
 <circle cx="82" cy="1339" r="4" fill="var(--co)"/>
 <text x="92" y="1343" class="p">Claude Code only</text>
 <line x1="364" y1="1317" x2="381" y2="1317" class="arr" marker-end="url(#ah)"/>
 <line x1="706" y1="1317" x2="719" y2="1317" class="arr" marker-end="url(#ah)"/>
-<rect x="384" y="1284" width="322" height="66" rx="8" class="card-t"/>
-<text x="398" y="1320" class="s tt">mobileapps-foundation: jira-doc-generator</text>
+<rect x="384" y="1284" width="322" height="66" rx="8" class="card-n"/>
+<text x="398" y="1321" class="m">no plugin skills</text>
 <rect x="722" y="1284" width="240" height="66" rx="8" class="card-g"/>
-<text x="736" y="1320" class="s tg">Atlassian MCP (asks before publishing)</text>
-<rect x="40" y="1394" width="920" height="128" rx="10" class="card-n"/>
-<text x="58" y="1418" class="col">Ships with the skills</text>
-<rect x="58" y="1430" width="284" height="78" rx="8" class="card-g"/>
-<text x="72" y="1454" class="h tg">ticket_gate.py</text>
-<text x="72" y="1474" class="s tg">PreToolUse hook. Blocks commit, push</text>
-<text x="72" y="1490" class="s tg">and PR creation until verified.</text>
-<rect x="358" y="1430" width="284" height="78" rx="8" class="card-g"/>
-<text x="372" y="1454" class="h tg">ticket_slots.py</text>
-<text x="372" y="1474" class="s tg">Four warm slots for BlibliIOSApp,</text>
-<text x="372" y="1490" class="s tg">one simulator and DerivedData each.</text>
-<rect x="658" y="1430" width="284" height="78" rx="8" class="card-g"/>
-<text x="672" y="1454" class="h tg">hooks.json</text>
-<text x="672" y="1474" class="s tg">Plugin hooks, passive until a</text>
-<text x="672" y="1490" class="s tg">ticket arms the gate.</text>
+<text x="736" y="1313" class="s tg">ticket_slots.py release, ticket_gate.py clear</text>
+<text x="736" y="1328" class="s tg">Jira MCP, gh</text>
+<rect x="64" y="1366" width="300" height="66" rx="8" class="card-p"/>
+<text x="78" y="1389" class="h tp">ios-orchestration-publish-doc</text>
+<text x="78" y="1407" class="s tp">Confluence page: context, plan, tests</text>
+<circle cx="82" cy="1421" r="4" fill="var(--co)"/>
+<text x="92" y="1425" class="p">Claude Code only</text>
+<line x1="364" y1="1399" x2="381" y2="1399" class="arr" marker-end="url(#ah)"/>
+<line x1="706" y1="1399" x2="719" y2="1399" class="arr" marker-end="url(#ah)"/>
+<rect x="384" y="1366" width="322" height="66" rx="8" class="card-t"/>
+<text x="398" y="1402" class="s tt">mobileapps-foundation: jira-doc-generator</text>
+<rect x="722" y="1366" width="240" height="66" rx="8" class="card-g"/>
+<text x="736" y="1402" class="s tg">Atlassian MCP (asks before publishing)</text>
+<rect x="40" y="1476" width="920" height="128" rx="10" class="card-n"/>
+<text x="58" y="1500" class="col">Ships with the skills</text>
+<rect x="58" y="1512" width="284" height="78" rx="8" class="card-g"/>
+<text x="72" y="1536" class="h tg">ticket_gate.py</text>
+<text x="72" y="1556" class="s tg">PreToolUse hook. Blocks commit, push</text>
+<text x="72" y="1572" class="s tg">and PR creation until verified.</text>
+<rect x="358" y="1512" width="284" height="78" rx="8" class="card-g"/>
+<text x="372" y="1536" class="h tg">ticket_slots.py</text>
+<text x="372" y="1556" class="s tg">Four warm slots for BlibliIOSApp, packages</text>
+<text x="372" y="1572" class="s tg">auto-downloaded when changed, retried once.</text>
+<rect x="658" y="1512" width="284" height="78" rx="8" class="card-g"/>
+<text x="672" y="1536" class="h tg">hooks.json</text>
+<text x="672" y="1556" class="s tg">Plugin hooks, passive until a</text>
+<text x="672" y="1572" class="s tg">ticket arms the gate.</text>
 </svg>

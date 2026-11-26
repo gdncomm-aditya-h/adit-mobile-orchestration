@@ -58,6 +58,13 @@
       "calls": []
     },
     {
+      "name": "adit-workflow-setup",
+      "summary": "Checks the plugins the flow needs, asks per missing plugin and installs the ones you approve.",
+      "codex": "claude-only",
+      "company": false,
+      "calls": []
+    },
+    {
       "name": "adit-workflow-graphify",
       "summary": "Builds a knowledge graph of a codebase and answers architecture questions from it.",
       "codex": "ok",
