@@ -1,0 +1,31 @@
+skills/ios-orchestration-plan-from-ticket/SKILL.md
+  s_4d3daa522584ec::t_9e806c853e6212 129,132-134,139
+skills/ios-orchestration-verify-ticket/SKILL.md
+  s_4d3daa522584ec::t_9e806c853e6212 37,49
+skills/ios-orchestration-enrich-plan/SKILL.md
+  s_4d3daa522584ec::t_9e806c853e6212 36-39,46
+docs/ticket-flow.md
+  s_4d3daa522584ec::t_9e806c853e6212 55,95
+README.md
+  s_4d3daa522584ec::t_9e806c853e6212 29
+skills/ios-orchestration-ticket-to-pr/SKILL.md
+  s_4d3daa522584ec::t_9e806c853e6212 69
+CHANGELOG.md
+  s_4d3daa522584ec::t_9a4232996dc360 3-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "faa3442fa16e69018c4f1be02c442288b05a2e43",
+  "prompts": {},
+  "sessions": {
+    "s_4d3daa522584ec": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "440c72c9-8afe-496d-9ccd-722fcb755d3b",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "aditya.h <aditya.h@gdn-commerce.com>"
+    }
+  }
+}
