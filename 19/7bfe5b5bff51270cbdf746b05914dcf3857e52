@@ -1,0 +1,29 @@
+tools/build_flow_diagram.py
+  s_4d3daa522584ec::t_f7eee9e3eb7a16 84-85
+assets/ticket-to-pr-workflow.svg
+  s_4d3daa522584ec::t_f7eee9e3eb7a16 1,36,38-54,59-75,129,132-133,137-362
+docs/ticket-flow.md
+  s_4d3daa522584ec::t_f7eee9e3eb7a16 55
+skills/ios-orchestration-ticket-to-pr/SKILL.md
+  s_4d3daa522584ec::t_f7eee9e3eb7a16 30
+README.md
+  s_4d3daa522584ec::t_f7eee9e3eb7a16 28
+CHANGELOG.md
+  s_4d3daa522584ec::t_520d309dd16c91 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "197bfe5b5bff51270cbdf746b05914dcf3857e52",
+  "prompts": {},
+  "sessions": {
+    "s_4d3daa522584ec": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "440c72c9-8afe-496d-9ccd-722fcb755d3b",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "aditya.h <aditya.h@gdn-commerce.com>"
+    }
+  }
+}
