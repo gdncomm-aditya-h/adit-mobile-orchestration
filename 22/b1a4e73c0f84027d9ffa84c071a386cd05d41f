@@ -1,0 +1,117 @@
+docs/troubleshooting.md
+  s_4d3daa522584ec::t_ddf7f5e3f3b41d 19,22
+scripts/tests/gitfixture.py
+  s_4d3daa522584ec::t_e166f5b5cd2e13 1-42
+skills/ios-orchestration-plan-from-ticket/SKILL.md
+  s_4d3daa522584ec::t_3df55ae0d4050a 1-152
+.github/ISSUE_TEMPLATE/bug_report.yml
+  s_4d3daa522584ec::t_ddf7f5e3f3b41d 27
+AGENTS.md
+  s_4d3daa522584ec::t_ddf7f5e3f3b41d 7-10
+skills/ios-orchestration-reply-pr-comments/SKILL.md
+  s_4d3daa522584ec::t_3df55ae0d4050a 1-76
+.github/workflows/ci.yml
+  s_4d3daa522584ec::t_ddf7f5e3f3b41d 17,20-21,23-27,33,37,39-41
+skills/ios-orchestration-sdk-inject-test/SKILL.md
+  s_4d3daa522584ec::t_3df55ae0d4050a 1-44
+scripts/flowconfig.py
+  s_4d3daa522584ec::t_e166f5b5cd2e13 1-113
+tests/test_mirror.py
+  s_4d3daa522584ec::t_b232209feaee63 1-11,14-47,50,52-57
+  s_4d3daa522584ec::t_ed361f71973217 12-13,48-49,51
+skills/ios-orchestration-enrich-plan/SKILL.md
+  s_4d3daa522584ec::t_3df55ae0d4050a 1-51
+scripts/ticket_gate.py
+  s_4d3daa522584ec::t_e166f5b5cd2e13 1-209
+tools/build_diagram.py
+  s_4d3daa522584ec::t_b232209feaee63 1-163
+tools/build_flow_diagram.py
+  s_4d3daa522584ec::t_b232209feaee63 1-340
+skills/ios-orchestration-reply-pr-comments/pr-threads.sh
+  s_4d3daa522584ec::t_3df55ae0d4050a 1-60
+scripts/pr_watch.sh
+  s_4d3daa522584ec::t_e166f5b5cd2e13 1-61
+scripts/tests/test_config_profile.py
+  s_4d3daa522584ec::t_e166f5b5cd2e13 1-124
+scripts/tests/test_pr_watch.py
+  s_4d3daa522584ec::t_e166f5b5cd2e13 1-97
+scripts/tests/test_gate.py
+  s_4d3daa522584ec::t_e166f5b5cd2e13 1-142
+skills/ios-orchestration-ticket-to-pr/SKILL.md
+  s_4d3daa522584ec::t_3df55ae0d4050a 1-88
+.claude-plugin/plugin.json
+  s_4d3daa522584ec::t_b232209feaee63 1-7
+scripts/doctor.py
+  s_4d3daa522584ec::t_e166f5b5cd2e13 1-222
+VERSION
+  s_4d3daa522584ec::t_ddf7f5e3f3b41d 1
+skills/ios-orchestration-audit-changes/SKILL.md
+  s_4d3daa522584ec::t_3df55ae0d4050a 1-30
+skills/ios-orchestration-rank-my-tickets/SKILL.md
+  s_4d3daa522584ec::t_3df55ae0d4050a 1-32
+hooks/hooks.json
+  s_4d3daa522584ec::t_3df55ae0d4050a 1-16
+scripts/tests/test_doctor.py
+  s_4d3daa522584ec::t_e166f5b5cd2e13 1-190
+scripts/tests/test_slots.py
+  s_4d3daa522584ec::t_e166f5b5cd2e13 1-190
+scripts/slot_health.py
+  s_4d3daa522584ec::t_e166f5b5cd2e13 1-178
+skills/ios-orchestration-flow-doctor/SKILL.md
+  s_4d3daa522584ec::t_3df55ae0d4050a 1-20
+skills/ios-orchestration-ticket-status/SKILL.md
+  s_4d3daa522584ec::t_3df55ae0d4050a 1-18
+README.md
+  s_4d3daa522584ec::t_e71d656f9b6328 3,8,10,16,18,20,22,45,49,51,159,161,164,167,169,172-173,176,181-188,191,193,195,197,199,201
+  s_4d3daa522584ec::t_ddf7f5e3f3b41d 155
+docs/DESIGN.md
+  s_4d3daa522584ec::t_a18dff47c25065 3,5,7,9-12,14,16-20,22,24
+INSTALL.md
+  s_4d3daa522584ec::t_ddf7f5e3f3b41d 3,5,10,22,25,28,30,34-35,38,42
+scripts/repo_profile.py
+  s_4d3daa522584ec::t_e166f5b5cd2e13 1-116
+skills/ios-orchestration-wrap-up/SKILL.md
+  s_4d3daa522584ec::t_3df55ae0d4050a 1-30
+skills/ios-orchestration-publish-doc/SKILL.md
+  s_4d3daa522584ec::t_3df55ae0d4050a 1-28
+skills/ios-orchestration-flow-config/SKILL.md
+  s_4d3daa522584ec::t_3df55ae0d4050a 1-25
+skills/ios-orchestration-verify-ticket/SKILL.md
+  s_4d3daa522584ec::t_3df55ae0d4050a 1-61
+skills/ios-orchestration-review-open-prs/SKILL.md
+  s_4d3daa522584ec::t_3df55ae0d4050a 1-143
+scripts/ticket_slots.py
+  s_4d3daa522584ec::t_e166f5b5cd2e13 1-370
+docs/ticket-flow.md
+  s_4d3daa522584ec::t_ddf7f5e3f3b41d 3,5
+NOTICE.md
+  s_4d3daa522584ec::t_ddf7f5e3f3b41d 5,9
+.github/PULL_REQUEST_TEMPLATE.md
+  s_4d3daa522584ec::t_ddf7f5e3f3b41d 11-13
+tools/sync_from_pr.sh
+  s_4d3daa522584ec::t_b232209feaee63 1-53
+skills/ios-orchestration-setup/SKILL.md
+  s_4d3daa522584ec::t_3df55ae0d4050a 1-24
+CHANGELOG.md
+  s_4d3daa522584ec::t_ddf7f5e3f3b41d 3-13
+CONTRIBUTING.md
+  s_4d3daa522584ec::t_ddf7f5e3f3b41d 5,7-14,17,21-22,25,27,35
+skills/ios-orchestration-pr-watch/SKILL.md
+  s_4d3daa522584ec::t_3df55ae0d4050a 1-32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.11",
+  "base_commit_sha": "22b1a4e73c0f84027d9ffa84c071a386cd05d41f",
+  "prompts": {},
+  "sessions": {
+    "s_4d3daa522584ec": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "440c72c9-8afe-496d-9ccd-722fcb755d3b",
+        "model": "claude-sonnet-5-5"
+      },
+      "human_author": "aditya.h <aditya.h@gdn-commerce.com>"
+    }
+  }
+}
