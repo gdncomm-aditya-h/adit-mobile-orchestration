@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Synced from agent-plugins#595: in the desktop app `ticket-to-pr` renames the session to `<KEY> – <ticket summary>` after it reads the ticket.
 - Synced from agent-plugins#595: click tests are always planned for app repos, changed logic gets unit tests or a stated reason, and the Jira evidence comment attaches every screenshot that shows the change instead of at most eight.
 
 ## 0.2.0
