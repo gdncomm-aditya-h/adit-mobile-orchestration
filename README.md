@@ -79,7 +79,7 @@ flowchart TD
     B2 --> B3["Enrich it with enrich-plan"]
     B3 --> C{"You approve the plan"}
     C --> D["Move ticket to In Development, or In Progress for a Bug"]
-    D --> E["Take a worktree slot for an app repo, or a plain worktree for a package repo"]
+    D --> E["App repo: take a free warm slot (slot-a to slot-d), incremental build. Package repo: plain worktree"]
     E --> F["enrich-plan saves the plan, gate hook turns on"]
     F --> G["Implement from the approved plan with the codegen skills"]
     G --> H["audit-changes, up to 2 rounds"]
@@ -96,9 +96,56 @@ flowchart TD
 
 ## Repo profiles
 
-An app repo has an application target, for example `BlibliIOSApp`. It gets a pool of long-lived worktree slots, each with its own DerivedData, Swift packages and simulator. The pool has four slots for `BlibliIOSApp` and one for any other app repo.
+An app repo has an application target, for example `BlibliIOSApp`. It gets a pool of long-lived worktree slots, each with its own DerivedData, Swift packages and simulator. The pool has four slots (`slot-a` to `slot-d`) for `BlibliIOSApp` and one for any other app repo. See [Slots, warm start and incremental builds](#slots-warm-start-and-incremental-builds).
 
 A package repo has a `Package.swift` or a library project and no application target, for example `blue-core-ios`. It gets one plain worktree per ticket and is verified by build and test only. If the layout of a repo is not recognised, the flow asks once and saves the answer.
+
+## Slots, warm start and incremental builds
+
+A full build of `BlibliIOSApp` is slow, so the flow never makes a fresh checkout for a ticket. It keeps a fixed pool of long-lived git worktrees called slots, and each ticket borrows one. This is done by `ticket_slots.py` (`hooks/ticket-slots.py` in the original version).
+
+| Part | What it means |
+|---|---|
+| Slot | One git worktree named `slot-a`, `slot-b`, `slot-c` or `slot-d`. `BlibliIOSApp` has four, so four tickets can run at the same time. Other app repos have one (`slot-a`). The size is a setting (`flow-config`). |
+| Where | `<parent of your main checkout>/worktrees/`. For `BlibliIOSApp` that folder is used as it is. Other app repos use `worktrees/<repo>/`. |
+| Warm start | A slot keeps its own `DerivedData` inside the worktree, its `SwiftPackages` and its own simulator named after the slot. Releasing a slot does not delete any of them, so the next ticket starts warm. |
+| Incremental build | Xcode finds the previous build products in the slot's `DerivedData` and recompiles only what changed since the last ticket, not the whole app. |
+| Cold start | The first ticket on a slot. Also a slot whose folder you deleted. It does a full build once and is warm after that. |
+
+How a slot is used:
+
+```mermaid
+flowchart TD
+    A["acquire KEY"] --> B{"Does a slot already hold this KEY?"}
+    B -- yes --> R["Resume that slot, keep the branch and your edits"]
+    B -- no --> C["Claim the first free slot in a, b, c, d (atomic lock)"]
+    C --> D{"Free slot found?"}
+    D -- "no, all busy" --> S["Stop and show which tickets hold the slots"]
+    D -- yes --> E{"Does the slot have uncommitted changes?"}
+    E -- yes --> F["Leave it untouched, try the next slot"]
+    F --> D
+    E -- no --> G["Fetch origin, switch to the ticket branch, cut from the base branch if it is new"]
+    R --> H
+    G --> H["Packages: hash SwiftPackageList.txt, Podfile.lock and Package.resolved"]
+    H --> I{"Hash changed since last time?"}
+    I -- no --> J["Keep SwiftPackages: unchanged"]
+    I -- yes --> K["Run SwiftPackages.sh download"]
+    J --> L["Find or create the simulator named slot-x"]
+    K --> L
+    L --> M["Implement and verify: incremental build in the slot's DerivedData"]
+    M --> N["release: archive the plan, detach HEAD if clean, free the lock"]
+    N --> O["DerivedData, packages and simulator stay, so the next ticket starts warm"]
+```
+
+What to know:
+
+- A slot is held from `acquire` until `release`. The flow releases it when the draft PR exists, and `wrap-up` releases it again if it is still held. A crashed session keeps its slot until you run `ticket_slots.py release <KEY or slot letter>`.
+- Starting the same ticket again goes back to the slot that holds it, so a resumed ticket keeps its branch and edits.
+- The helper never runs `git clean`, `git reset` or `git stash`. Do not run `git clean -fdx` in a slot yourself, because it deletes the warm build and the next ticket starts cold.
+- A slot with uncommitted changes is skipped, never reset. If every slot is busy or dirty the flow stops and shows the table. `/ios-orchestration-ticket-status` shows the same table at any time.
+- A warm slot is not always a fast one. If the base branch moved a lot, or `SwiftPackageList.txt`, `Podfile.lock` or `Package.resolved` changed, the packages are downloaded again and more of the app recompiles.
+- `sdk-inject-test` uses a warm slot too. It puts an SDK worktree into the latest `develop` on a throwaway `inject/*` branch that is always cut fresh from the base, and that branch is never pushed.
+- Package repos have no slots: one plain worktree per ticket, no simulator, removed on release when it is clean.
 
 ## Settings
 
@@ -163,7 +210,7 @@ Every skill name starts with `adit-workflow-`, so `plan-enrich` is invoked as `/
 The two hooks:
 
 - `ticket-flow-gate.py` blocks `git commit`, `git push` and PR creation for an active ticket until `verify-before-pr` has marked it verified. It also refuses `git stash`, `reset`, `rebase` and `merge` during a ticket run.
-- `ticket-slots.py` manages a pool of four long-lived worktrees. Each keeps its own DerivedData, Swift packages and simulator, so a new ticket builds incrementally.
+- `ticket-slots.py` manages a pool of four long-lived worktrees. Each keeps its own DerivedData, Swift packages and simulator, so a new ticket starts warm and builds incrementally (`slot-a` to `slot-d`, see [Slots, warm start and incremental builds](#slots-warm-start-and-incremental-builds)).
 
 ### Dependencies of the original version
 

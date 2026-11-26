@@ -63,6 +63,8 @@ The first thing after approval is moving the ticket to its in-work status. The s
 
 For an app repo Claude takes a slot with `ticket_slots.py acquire`. `BlibliIOSApp` has four slots and other app repos have one. The helper creates the branch `<prefix>/<type>/<KEY>`, where the type comes from the Jira issue type (`bugfix`, `techdebt`, `chores`, `improvement`, `story` and so on) and the prefix is your saved branch prefix. It also writes the DerivedData setting, downloads Swift packages only when the package list changed, and finds or creates the slot's simulator.
 
+The slots are named `slot-a` to `slot-d` and live on after release, with their DerivedData, packages and simulator, so the next ticket starts warm and builds incrementally. The README section [Slots, warm start and incremental builds](../README.md#slots-warm-start-and-incremental-builds) has the full lifecycle.
+
 A package repo gets one plain worktree per ticket, with no simulator. If every slot is busy, Claude stops and shows you which tickets hold them.
 
 `enrich-plan` then saves the approved plan and turns the gate on for this ticket.

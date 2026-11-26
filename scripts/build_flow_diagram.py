@@ -102,7 +102,7 @@ ITEMS = [
          note="Prints one line: moved, or not moved and why. A failed move is reported, not a stop. App client then switches to auto mode."),
     dict(id="profile", kind="branch", title="Slot or worktree by repo profile", gate="auto",
          sub="Branch <prefix>/<type>/<KEY>.",
-         boxes=[("App repo: slot pool", ["Warm worktree slot (4 for BlibliIOSApp).", "Own DerivedData, packages and simulator.", "Released when the flow ends."], "opt"),
+         boxes=[("App repo: slot pool", ["Free slot of a to d (4 for BlibliIOSApp).", "Warm start: own DerivedData, packages", "and simulator, so the build is incremental.", "Released at draft PR, state stays warm."], "opt"),
                 ("Package repo: worktree", ["One plain worktree per ticket.", "No simulator, no login, no click tests.", "Removed on release."], "opt")]),
     dict(id="arm", kind="node", title="Save plan, arm the gate",
          sub="mark-active. From here commit, push and PR create are denied until verified.",
