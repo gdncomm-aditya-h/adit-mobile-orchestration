@@ -52,7 +52,7 @@ It also detects whether it runs in the desktop app or in the terminal. The termi
 
 ### 2. Plan mode
 
-Claude enters plan mode and does read-only work. It reads the ticket, compares two or three approaches and picks one. `plan-from-ticket` then explores the code with a subagent, asks only about gaps that block the plan, and writes the draft: decisions and assumptions, a helicopter view, before and after, steps, risks and leftovers. It never implements. `enrich-plan` then adds the rest: DoD traceability, test cases, click test cases for app repos, design and copy references, and a reviewer pass. The only write allowed here is the Jira move to Initial Review for a Bug.
+Claude enters plan mode and does read-only work. It reads the ticket, compares two or three approaches and picks one. `plan-from-ticket` then explores the code with a subagent, asks only about gaps that block the plan, and writes the draft: decisions and assumptions, a helicopter view, before and after, steps, risks and leftovers. It never implements. `enrich-plan` then adds the rest: DoD traceability, test cases, click test cases, design and copy references, and a reviewer pass. App repos always get click test cases, each with the screenshots that prove the change. Changed logic gets unit tests, or one row saying why none is possible. The only write allowed here is the Jira move to Initial Review for a Bug.
 
 The planned stops are three one-click confirmations: the repo, the version and the plan approval. After you approve, the desktop app switches the session to auto mode. In the terminal you press Shift+Tab.
 
@@ -92,7 +92,7 @@ For an SDK or library repo, Claude asks whether to test the change inside the la
 
 ### 8. Draft PR and release
 
-`create-pr` opens the PR as a draft. Claude then posts the PR link, the result table and the evidence as a Jira comment, clears the gate and releases the slot. It never marks the PR ready and never merges. With `--doc` it first runs `publish-doc`, which shows a draft Confluence page (context, plan and test cases) and publishes it only after you say yes.
+`create-pr` opens the PR as a draft. Claude then posts the PR link, the result table and the evidence as a Jira comment. The evidence is every screenshot that shows the change (the screen opened, the changed UI, each state the plan names) plus the screen recording, with no fixed cap. Login screens, duplicates and unrelated screens are left out. Claude then clears the gate and releases the slot. It never marks the PR ready and never merges. With `--doc` it first runs `publish-doc`, which shows a draft Confluence page (context, plan and test cases) and publishes it only after you say yes.
 
 ### 9. Watching the PR
 

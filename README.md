@@ -26,7 +26,7 @@ Start it with `/ios-orchestration-ticket-to-pr IOS-123`. It always asks which re
 | Skill | What it does |
 |---|---|
 | `ticket-to-pr` | The whole flow: repo and version questions, plan mode with one approval, worktree, implement in a sub-agent with the codegen skills, audit, verify in a sub-agent, optional SDK test, draft PR, Jira evidence comment, release, then the PR watcher. |
-| `enrich-plan` | Adds DoD traceability, test cases, click tests, design and wording references and a reviewer pass to a draft plan, then saves it and arms the gate. |
+| `enrich-plan` | Adds DoD traceability, test cases, click tests, design and wording references and a reviewer pass to a draft plan, then saves it and arms the gate. App repos always get click tests, and changed logic gets unit tests or a stated reason why not. |
 | `verify-ticket` | App repos get lint, build, unit and UI tests, simulator click tests, design and wording checks. Package repos get build and test on the package scheme. It arms the verified marker. |
 | `audit-changes` | Runs an audit loop and then a review loop over the current changes and fixes the must-fix and should-fix findings. |
 | `sdk-inject-test` | Optional. Tests an SDK change inside the latest `develop` of `BlibliIOSApp`, either by injecting it and building with a warm slot or by printing the steps. It reports compile errors only. |

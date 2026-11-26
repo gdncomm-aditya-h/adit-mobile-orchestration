@@ -34,6 +34,7 @@ Fail: fix with the team codegen skills (`swift-codegen`, `swiftui-code-gen`), re
 3. Every plan 5.2 row ends as pass, fail or not run. Fail: fix and re-run, same 2-round limit.
 
 ## 4. Click tests, design, wording (app repos, `app` mode only)
+An app repo plan with no section 5.3 is incomplete: run `ios-orchestration-enrich-plan <KEY>` first, so click tests are never skipped for lack of a plan.
 Needs `mcp__Claude_Code_iOS_Simulator__control`. Without it (CLI), record every plan 5.3 and 5.4 case as `needs manual run: no simulator tool in this client` and go to step 5.
 Call `attach` first with the slot's `device`, then `launch` the built `.app`, then take a screenshot.
 - Login screen shown: log in per "Login". A failure is a blocker.
@@ -45,7 +46,7 @@ Shared team test account for the lower environment `uatb`, used only in a debug 
 Screen recording: after login and before the first case, start `xcrun simctl io <udid> recordVideo --codec=h264 ~/.claude/ios-ticket-flow/evidence/<KEY>/click-tests.mp4` in the background. After the last case, stop it with SIGINT (`pkill -INT -f "simctl io <udid> recordVideo"`), then confirm the file exists and is not empty. If recording fails, record `no screen recording`.
 
 For each plan 5.3 and 5.4 case:
-1. Drive the steps, screenshot to `~/.claude/ios-ticket-flow/evidence/<KEY>/<case-id>.png`.
+1. Drive the steps. Take a screenshot at every point the plan's Evidence column names, and at least one that shows the screen opened and one that shows the changed element, saved as `~/.claude/ios-ticket-flow/evidence/<KEY>/<case-id>-<n>.png`. Do not skip a screenshot to keep the count low: the Jira comment attaches all that show the change.
 2. **Design** is advisory. Read the reference image and the screenshot and compare layout, element order, icons, colors, spacing and copy position. Report match or mismatch per element. This is a visual comparison, not a pixel diff: say so, and do not claim exact spacing or font weight. A design mismatch alone does not fail the gate; a clear functional or wording failure does.
 3. **Wording**: compare every on-screen string with the plan's wording table (sheet wins over design), for each locale in the sheet. A design-versus-sheet difference already in the plan is noted, not failed.
 4. A state that cannot be reached (server error, rare flag) is `needs manual run`: record it, never a pass, not a blocker.

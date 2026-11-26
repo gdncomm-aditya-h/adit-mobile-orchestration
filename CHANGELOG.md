@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Synced from agent-plugins#595: click tests are always planned for app repos, changed logic gets unit tests or a stated reason, and the Jira evidence comment attaches every screenshot that shows the change instead of at most eight.
+
 ## 0.2.0
 
 Breaking: this repo is now a mirror of agent-plugins#595. The installer version is removed and stays in the git history.

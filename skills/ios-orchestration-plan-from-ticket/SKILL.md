@@ -126,17 +126,17 @@ Consider: breaking callers, backward compatibility (old app versions, API consum
 ## 6. Test cases (automated)                   (on its own only)
 | ID | Type (unit/integration/UI/snapshot) | Scenario | Expected | File |
 |----|------|----------|----------|------|
-Include happy path, edge cases, error/empty states, regression of existing behavior.
+Include happy path, edge cases, error/empty states, regression of existing behavior. Always add unit tests for changed logic that can be unit tested. Where nothing can be unit tested, write one row `no unit test: <reason>` instead of leaving it out.
 
 ## 7. Click test cases (manual QA)             (on its own only)
-| ID | Preconditions | Steps (click by click) | Expected result |
-|----|---------------|------------------------|-----------------|
-Cover devices/platforms, logged-in/out, locales, flag on/off where relevant.
+| ID | Preconditions | Steps (click by click) | Expected result | Evidence (screenshots that show the change) |
+|----|---------------|------------------------|-----------------|------|
+Always include click tests for an app repo, covering every DoD item that changes what the user sees or does, and devices/platforms, logged-in/out, locales, flag on/off where relevant. A change with nothing visible still gets one smoke case that opens the affected screen.
 
 ## 8. How we test it                           (on its own only)
 - Commands to run (exact): build, lint, unit tests, UI tests.
 - Environment / test data / flags needed.
-- What evidence to collect (screenshots, logs, network traces).
+- What evidence to collect: every screenshot that shows the change (the screen opened, the changed element, each state), plus logs and network traces where relevant.
 
 ## 9. Rollback plan                            (on its own only)
 How to disable or revert (feature flag, config, revert commit).
