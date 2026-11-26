@@ -14,27 +14,31 @@ jobs:
         with:
           python-version: "3.9"
 
-      - name: Installer tests
+      - name: Mirror script tests
         run: python3 -m unittest discover -s tests -v
 
-      - name: check-slot tests
-        run: python3 -m unittest discover -s skills/adit-workflow-check-slot-bliblimobileios -v
+      - name: Script tests (mirrored from agent-plugins#595)
+        run: python3 -m unittest discover -s scripts/tests -v
 
-      - name: Hooks compile
-        run: python3 -m py_compile hooks/*.py install.py scripts/*.py
+      - name: Scripts compile
+        run: |
+          python3 -m py_compile scripts/*.py tools/*.py
+          sh -n scripts/pr_watch.sh
+          sh -n tools/sync_from_pr.sh
 
       - name: JSON files parse
         run: |
           python3 - <<'PY'
           import json
-          for f in ("deps.json", "skills.json"):
+          for f in (".claude-plugin/plugin.json", "hooks/hooks.json"):
               json.load(open(f))
           PY
 
-      - name: Diagram is up to date
+      - name: Diagrams are up to date
         run: |
-          python3 scripts/build_diagram.py
-          git diff --exit-code assets/dependency-graph.svg
+          python3 tools/build_diagram.py
+          python3 tools/build_flow_diagram.py
+          git diff --exit-code assets/dependency-graph.svg assets/ticket-to-pr-workflow.svg
 
       - name: No secrets or personal IDs
         run: |

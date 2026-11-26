@@ -1,6 +1,16 @@
 # Changelog
 
-## Unreleased
+## 0.2.0
+
+Breaking: this repo is now a mirror of agent-plugins#595. The installer version is removed and stays in the git history.
+
+- `skills/ios-orchestration-*`, `scripts/` and `hooks/hooks.json` are byte-identical copies of the PR. `tools/sync_from_pr.sh` copies them in and `--check` proves they match.
+- Removed: the nine `adit-workflow-*` skills (including `graphify`, which was not moved), `install.py`, `deps.json`, `skills.json`, the old hooks, the `CLAUDE.md` rules block, the installer tests and the Codex notes.
+- Added `.claude-plugin/plugin.json` so the repo can be loaded with `claude --plugin-dir`, and `tests/test_mirror.py`.
+- The diagram builders moved to `tools/`. Docs, diagrams and CI describe the mirror.
+- The flow gained, in the PR: Swift packages checked and downloaded automatically with one retry, implementation and verification in sub-agents, and `ios-orchestration-setup`, which installs missing plugins after a yes.
+
+## Unreleased (before 0.2.0, kept for history)
 
 - Swift packages need no manual step. `ticket-slots.py` retries a failed download once and has a new `packages <KEY>` command that re-checks the slot. A download that still fails is a blocker.
 - The ticket flow rules and `verify-before-pr` run implementation and verification in sub-agents that return short reports and never ask the user.

@@ -2,25 +2,29 @@
 
 Pull requests are welcome from anyone with access. Keep them small and say what changed for a person using the skills.
 
-## Add or change a skill
+## Change a skill, a script or the hook
 
-1. Put the skill in `skills/adit-workflow-<name>/SKILL.md`. Bundled scripts and references go in the same folder.
-2. Add or update its entry in `skills.json`: the summary, whether it works on Codex, whether it names Blibli-specific things, and which other skills it calls.
-3. Add or update its row in `scripts/build_diagram.py`, then run `python3 scripts/build_diagram.py`. CI fails if the committed SVG is out of date.
-4. Add the skill to the table in `README.md` and, if it needs a new plugin, to `deps.json`.
-5. Run the tests.
+These files are mirrored from agent-plugins#595 and must stay byte-identical to it: `skills/ios-orchestration-*`, `scripts/` and `hooks/hooks.json`.
+
+1. Make the change in the PR branch of `gdncomm/agent-plugins` (folder `plugins/mobileapps/ios/`), with its tests, and push it there.
+2. Run `tools/sync_from_pr.sh` here to copy it in. Set `SRC_DIR` to a local checkout to skip the clone.
+3. Run `tools/sync_from_pr.sh --check`. It must print `identical`.
+4. If a skill was added, renamed or removed, or its dependencies changed, update its row in `tools/build_diagram.py`, then run `python3 tools/build_diagram.py` and `python3 tools/build_flow_diagram.py`. CI fails if the committed SVGs are out of date. The PNG of the flow diagram is rendered from the SVG with a headless browser.
+5. Update the README table and `docs/` if the behavior changed.
+6. Run the tests.
 
 ```bash
+python3 -m unittest discover -s scripts/tests
 python3 -m unittest discover -s tests
-python3 -m unittest discover -s skills/adit-workflow-check-slot-bliblimobileios
 ```
+
+After agent-plugins#595 merges, set `SRC_BRANCH=main` (or change the default in `tools/sync_from_pr.sh`).
 
 ## Rules for what goes in the repo
 
-- No credentials, tokens, passwords or personal account IDs. Anything personal belongs in `~/.claude/adit-workflow/` on the user's machine. CI scans for the usual patterns.
+- No credentials, tokens, passwords or personal account IDs. Anything personal belongs in `~/.claude/ios-ticket-flow/` on the user's machine. CI scans for the usual patterns.
 - Skills should read the current user from the tool, for example `currentUser()` in JQL, and never hard-code a name.
-- Changes to `claude-md/ticket-flow.md` change what the agent does on every ticket. Test one real ticket before merging.
-- If a skill needs a new plugin, say so in `deps.json` and the README table.
+- Changes to the entry skill change what the agent does on every ticket. Test one real ticket before the PR merges.
 
 ## Writing
 
@@ -28,4 +32,4 @@ Docs are plain prose. Use sentence-case headings and short paragraphs. Skip em d
 
 ## Commits and releases
 
-Commit messages follow Conventional Commits, for example `feat(skills): add low-hanging-fruit`. Bump `VERSION` and add a line to `CHANGELOG.md` for anything users will notice.
+Commit messages follow Conventional Commits, for example `docs: explain the mirror`. Bump `VERSION` and `.claude-plugin/plugin.json` and add a line to `CHANGELOG.md` for anything users will notice.

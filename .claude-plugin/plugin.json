@@ -1,0 +1,7 @@
+{
+  "name": "adit-mobile-orchestration",
+  "version": "0.2.0",
+  "description": "Ticket-to-PR flow for the Blibli iOS team: the ios-orchestration skills and gate hook, mirrored from agent-plugins#595 (mobileapps-ios). Use this repo as a plugin directory only until that PR is released, and do not enable it next to mobileapps-ios 1.11.0 or newer.",
+  "author": { "name": "gdncomm" },
+  "skills": "./skills/"
+}

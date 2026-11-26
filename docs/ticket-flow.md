@@ -1,8 +1,8 @@
 # The ticket flow
 
-This page follows one ticket from start to draft PR in the team version, which is in review as [agent-plugins#595](https://github.com/gdncomm/agent-plugins/pull/595). The rules live in the entry skill `ios-orchestration-ticket-to-pr`, not in your `CLAUDE.md`, so nothing needs to be written into your global files.
+This page follows one ticket from start to draft PR. The flow is in review as [agent-plugins#595](https://github.com/gdncomm/agent-plugins/pull/595). The rules live in the entry skill `ios-orchestration-ticket-to-pr`, not in your `CLAUDE.md`, so nothing needs to be written into your global files.
 
-The original version of the flow, described by [claude-md/ticket-flow.md](../claude-md/ticket-flow.md), calls `jira-implement`, `jira-plan` and `jira-develop`. Those skills were removed from `mobileapps-ios`, so that flow can no longer run end to end.
+The earlier installer version of this flow called `jira-implement`, `jira-plan` and `jira-develop`, which were removed from `mobileapps-ios`. It was removed from this repo in 0.2.0.
 
 ## Who does what
 

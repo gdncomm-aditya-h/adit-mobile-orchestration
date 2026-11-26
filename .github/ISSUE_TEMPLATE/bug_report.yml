@@ -24,5 +24,5 @@ body:
   - type: textarea
     id: doctor
     attributes:
-      label: Output of `python3 install.py doctor`
+      label: Output of `/ios-orchestration-flow-doctor`
       render: text

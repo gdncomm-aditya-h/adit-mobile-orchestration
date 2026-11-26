@@ -1,57 +1,27 @@
 # Design notes
 
-These notes record why the repo looks the way it does, so the next person can change it without guessing. The first part covers the original installer version. The last part covers the move to the `mobileapps-ios` plugin, which supersedes some of those decisions.
+These notes record why the repo looks the way it does, so the next person can change it without guessing.
 
-## Why this exists
+## Why this repo is a mirror
 
-Aditya's ticket workflow was spread across nine skills in `~/.claude/skills`, two hooks, an edited `settings.json` and a long block in the global `CLAUDE.md`. None of it could be shared without copying files by hand. The goal is that a teammate can point their agent at this repo and get the same setup.
+The flow is being reviewed and will ship inside `mobileapps-ios` (agent-plugins#595). Keeping a second, different copy here meant two versions that drifted apart. In 0.2.0 the repo was made to mirror the PR, and the PR is the source of truth.
 
-## Goals
+- Mirrored, byte for byte: `skills/ios-orchestration-*`, `scripts/` (with their tests) and `hooks/hooks.json`. Only these, because the plugin folder also holds unrelated skills (`swift-codegen`, `run-tests` and others) that do not belong in this repo.
+- `tools/sync_from_pr.sh` copies them in and `--check` fails on any difference. The check needs read access to the private repo, so CI does not run it and the contributor does.
+- Owned by this repo: the README, the docs, both diagrams and their builders in `tools/`, `.claude-plugin/plugin.json`, the CI workflow and `tests/test_mirror.py`.
+- `.claude-plugin/plugin.json` is the one addition that is not in the PR. It lets `claude --plugin-dir` load the mirror before the plugin is released. It must not be enabled next to `mobileapps-ios` 1.11.0 or newer.
 
-- One command, or one sentence to an agent, installs everything.
-- The installer is safe to run twice and easy to reverse.
-- The people who install it can see the whole workflow in one picture.
-- It works for Claude Code now and leaves room for Codex.
-- It can be widened beyond the team later without a rewrite.
+### Calls made without asking
 
-## Non-goals
+- The installer, `deps.json`, `skills.json`, the rules block, the old hooks and the nine `adit-workflow-*` skills were deleted, as asked. `graphify` went with them: it was not moved to the plugin, and it is a renamed upstream skill, so it was not carried over. It is in the git history.
+- The earlier parity edits to the installer version (retry, `packages` command, sub-agent rules, `adit-workflow-setup`) were not kept, as asked. The same behavior now comes from the PR.
+- The diagram builders moved from `scripts/` to `tools/`, so `scripts/` can be an exact copy of the PR's folder.
+- The plugin README of `mobileapps-ios` is not mirrored. It also documents the plugin's other skills. This repo's README covers the flow.
+- The version went from 0.1.0 to 0.2.0 because removing the installer breaks anyone who used it.
 
-- A full Codex port of the plan-mode and hook-gate parts.
-- Packaging as a Claude Code plugin. This was a non-goal for the installer version, because a plugin cannot edit the global `CLAUDE.md` and plugin skills get a namespace prefix. The team version later solved both, see "Moving to the plugin" below.
-- Vendoring the plugins this repo depends on.
+## The flow as a plugin
 
-## Approaches considered
-
-1. Installer script. Chosen. It keeps bare skill names, can edit `settings.json` and the rules file, and works the same whether a person or an agent runs it.
-2. Plugin marketplace. Clean updates and removal, but the namespace and `CLAUDE.md` problems above remain, so a manual step would still be needed.
-3. Plugin plus a setup command. Has both problems and two install paths to maintain.
-
-## Decisions
-
-- One real copy of each skill in `~/.agents/skills`, linked into each agent's folder. This matches how the author's machine was already laid out.
-- Standard-library Python for the installer. The hooks already need `python3`, so no new requirement.
-- A marked block in `CLAUDE.md`, replaced on each install, so the user's own text is never touched.
-- The branch prefix is a parameter. The original rules hard-coded the author's prefix.
-- `deps.json` pins tested versions and `doctor` only warns on drift. A hard pin would break installs every time a plugin updates.
-- `INSTALL.md` is written for an agent, with explicit steps, a dry run first and a list of things not to do.
-
-## Calls made without asking
-
-- The shared test-account login was removed from `verify-before-pr` and moved to a local file outside the repo. A password does not belong in git history even for a private repo, and it would leak the day the repo is widened.
-- The author's Jira account ID in `low-hanging-fruit` became `currentUser()`, so it works for anyone.
-- A colleague's email address in a skill was dropped with the login.
-- The repo was switched from public to private before the first push.
-
-## Open items
-
-- The repo lives under a personal account. Teammates need to be added as collaborators, or the repo should move into the organization.
-- No licence yet. `graphify` is a renamed copy of an upstream skill and its licence has not been checked. See [NOTICE.md](../NOTICE.md).
-- Several original skills name `gdncomm/BlibliIOSApp` and the IOS Jira project. The team version pulls those into settings, the original skills keep them.
-- Codex support has never been run end to end.
-
-## Moving to the plugin
-
-The installer version only worked for one person's machine layout, and its flow started from prose in `CLAUDE.md`. In October `jira-implement` was removed from `mobileapps-ios` in agent-plugins#493, and `jira-plan` and `jira-develop` are no longer in the marketplace either, so the original ticket flow stopped running end to end. The team asked for the harness to become a plugin, and the work is in review as agent-plugins#595.
+The first version of this repo was an installer (nine `adit-workflow-*` skills, two hooks, a rules block in `CLAUDE.md` and `install.py`). It only worked for one person's machine layout, and its flow started from prose in `CLAUDE.md`. In October `jira-implement` was removed from `mobileapps-ios` in agent-plugins#493, and `jira-plan` and `jira-develop` are no longer in the marketplace either, so the original ticket flow stopped running end to end. The team asked for the harness to become a plugin, and the work is in review as agent-plugins#595.
 
 ### What changed from the installer design
 
@@ -93,4 +63,3 @@ The installer version only worked for one person's machine layout, and its flow 
 - The team version has not been run in the terminal, and its gate has not been smoke-tested there.
 - Of the first run's gaps, the unsigned simulator build and the missing screenshots in the Jira comment are still open.
 - `pr-watch`, `wrap-up` and `publish-doc` have not run on a real ticket. The watcher has unit tests against a fake `gh`.
-- This repo keeps the original skills and installer unchanged. Decide whether to archive them once the plugin is released.
